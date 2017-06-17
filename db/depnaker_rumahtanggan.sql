@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50620
 File Encoding         : 65001
 
-Date: 2017-06-17 00:21:34
+Date: 2017-06-18 00:54:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -187,7 +187,9 @@ CREATE TABLE `notifs` (
   `notif_status` varchar(1) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `notif_type_id` (`notif_type_id`),
+  CONSTRAINT `notifs_ibfk_1` FOREIGN KEY (`notif_type_id`) REFERENCES `notif_types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
@@ -396,7 +398,9 @@ CREATE TABLE `users` (
   `create_by` char(36) DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   `modi_by` char(36) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `user_category_id` (`user_category_id`),
+  CONSTRAINT `users_ibfk_1` FOREIGN KEY (`user_category_id`) REFERENCES `user_categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
@@ -427,6 +431,7 @@ CREATE TABLE `user_categories` (
 DROP TABLE IF EXISTS `user_priviledges`;
 CREATE TABLE `user_priviledges` (
   `id` char(36) NOT NULL DEFAULT '',
+  `module_id` char(36) DEFAULT NULL,
   `user_category_id` char(36) DEFAULT NULL,
   `is_view` varchar(1) DEFAULT NULL,
   `is_insert` varchar(1) DEFAULT NULL,
@@ -434,7 +439,9 @@ CREATE TABLE `user_priviledges` (
   `is_delete` varchar(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_category_id` (`user_category_id`),
-  CONSTRAINT `user_priviledges_ibfk_1` FOREIGN KEY (`user_category_id`) REFERENCES `user_categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `user_priviledges_ibfk_2` (`module_id`),
+  CONSTRAINT `user_priviledges_ibfk_1` FOREIGN KEY (`user_category_id`) REFERENCES `user_categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `user_priviledges_ibfk_2` FOREIGN KEY (`module_id`) REFERENCES `modules` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------

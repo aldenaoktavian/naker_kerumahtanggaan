@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-if ( ! function_exists('get_user_details')){
+/*if ( ! function_exists('get_user_details')){
    function get_user_details($user_id,$modul){
       $ci =& get_instance();
      //load databse library
@@ -25,3 +25,4 @@ if ( ! function_exists('get_user_details')){
       }
    }
 }
+*/

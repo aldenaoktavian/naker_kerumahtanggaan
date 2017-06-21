@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50620
 File Encoding         : 65001
 
-Date: 2017-06-18 00:54:47
+Date: 2017-06-22 00:24:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,9 +20,9 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `booking_ruangans`;
 CREATE TABLE `booking_ruangans` (
-  `id` char(36) NOT NULL DEFAULT '',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `kode_booking` varchar(50) DEFAULT NULL,
-  `ruangan_id` char(36) DEFAULT NULL,
+  `ruangan_id` int(11) DEFAULT NULL,
   `direktorat` varchar(10) DEFAULT NULL,
   `nama_pemesan` varchar(100) DEFAULT NULL,
   `tgl_book` datetime DEFAULT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE `booking_ruangans` (
 -- ----------------------------
 DROP TABLE IF EXISTS `jadwal_tugas`;
 CREATE TABLE `jadwal_tugas` (
-  `id` char(36) NOT NULL DEFAULT '',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `kode_jadwal` varchar(50) DEFAULT NULL,
   `bulan_tugas` varchar(2) DEFAULT NULL,
   `tahun_tugas` varchar(4) DEFAULT NULL,
@@ -70,19 +70,19 @@ CREATE TABLE `jadwal_tugas` (
 -- ----------------------------
 DROP TABLE IF EXISTS `jadwal_tugas_details`;
 CREATE TABLE `jadwal_tugas_details` (
-  `id` char(36) NOT NULL DEFAULT '',
-  `jadwal_tugas_id` char(36) DEFAULT NULL,
-  `petugas_id` char(36) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `jadwal_tugas_id` int(11) DEFAULT NULL,
+  `petugas_id` int(11) DEFAULT NULL,
   `lokasi` varchar(150) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `create_by` char(36) DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   `modi_by` char(36) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `jadwal_tugas_id` (`jadwal_tugas_id`),
   KEY `petugas_id` (`petugas_id`),
-  CONSTRAINT `jadwal_tugas_details_ibfk_1` FOREIGN KEY (`jadwal_tugas_id`) REFERENCES `jadwal_tugas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `jadwal_tugas_details_ibfk_2` FOREIGN KEY (`petugas_id`) REFERENCES `petugas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `jadwal_tugas_id` (`jadwal_tugas_id`),
+  CONSTRAINT `jadwal_tugas_details_ibfk_1` FOREIGN KEY (`petugas_id`) REFERENCES `petugas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `jadwal_tugas_details_ibfk_2` FOREIGN KEY (`jadwal_tugas_id`) REFERENCES `jadwal_tugas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
@@ -94,7 +94,7 @@ CREATE TABLE `jadwal_tugas_details` (
 -- ----------------------------
 DROP TABLE IF EXISTS `jenis_barangs`;
 CREATE TABLE `jenis_barangs` (
-  `id` char(36) NOT NULL DEFAULT '',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `kode_jenis` varchar(50) DEFAULT NULL,
   `nama_jenis` varchar(50) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
@@ -113,7 +113,7 @@ CREATE TABLE `jenis_barangs` (
 -- ----------------------------
 DROP TABLE IF EXISTS `jenis_kendaraans`;
 CREATE TABLE `jenis_kendaraans` (
-  `id` char(36) NOT NULL DEFAULT '',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `kode_jenis` varchar(50) DEFAULT NULL,
   `nama_jenis` varchar(100) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
@@ -132,9 +132,9 @@ CREATE TABLE `jenis_kendaraans` (
 -- ----------------------------
 DROP TABLE IF EXISTS `kendaraans`;
 CREATE TABLE `kendaraans` (
-  `id` char(36) NOT NULL DEFAULT '',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `kode_kendaraan` varchar(50) DEFAULT NULL,
-  `jns_kendaraan_id` char(36) DEFAULT NULL,
+  `jns_kendaraan_id` int(11) DEFAULT NULL,
   `merk` varchar(100) DEFAULT NULL,
   `tahun` varchar(5) DEFAULT NULL,
   `nup` varchar(50) DEFAULT NULL,
@@ -150,7 +150,7 @@ CREATE TABLE `kendaraans` (
   `modified` datetime DEFAULT NULL,
   `modi_by` char(36) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `jns_kendaraan_id` (`jns_kendaraan_id`),
+  KEY `kendaraans_ibfk_1` (`jns_kendaraan_id`),
   CONSTRAINT `kendaraans_ibfk_1` FOREIGN KEY (`jns_kendaraan_id`) REFERENCES `jenis_kendaraans` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -163,32 +163,34 @@ CREATE TABLE `kendaraans` (
 -- ----------------------------
 DROP TABLE IF EXISTS `modules`;
 CREATE TABLE `modules` (
-  `id` char(36) NOT NULL DEFAULT '',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_parent` int(11) DEFAULT NULL,
   `module_name` varchar(50) DEFAULT NULL,
   `module_alias` varchar(50) DEFAULT NULL,
   `module_url` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of modules
 -- ----------------------------
+INSERT INTO `modules` VALUES ('2', null, 'barangs', 'brg', 'brg');
 
 -- ----------------------------
 -- Table structure for `notifs`
 -- ----------------------------
 DROP TABLE IF EXISTS `notifs`;
 CREATE TABLE `notifs` (
-  `id` char(36) NOT NULL DEFAULT '',
-  `user_id` char(36) DEFAULT NULL,
-  `notif_type_id` char(36) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `notif_type_id` int(11) DEFAULT NULL,
   `notif_desc` text,
   `notif_url` varchar(150) DEFAULT NULL,
   `notif_status` varchar(1) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `notif_type_id` (`notif_type_id`),
+  KEY `notifs_ibfk_1` (`notif_type_id`),
   CONSTRAINT `notifs_ibfk_1` FOREIGN KEY (`notif_type_id`) REFERENCES `notif_types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -201,7 +203,7 @@ CREATE TABLE `notifs` (
 -- ----------------------------
 DROP TABLE IF EXISTS `notif_types`;
 CREATE TABLE `notif_types` (
-  `id` char(36) NOT NULL DEFAULT '',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `type_name` varchar(50) DEFAULT NULL,
   `type_desc` text,
   `created` datetime DEFAULT NULL,
@@ -218,9 +220,9 @@ CREATE TABLE `notif_types` (
 -- ----------------------------
 DROP TABLE IF EXISTS `penerimaan_barangs`;
 CREATE TABLE `penerimaan_barangs` (
-  `id` char(36) NOT NULL DEFAULT '',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `kode_penerimaan` varchar(50) DEFAULT NULL,
-  `pengadaan_barang_id` char(36) DEFAULT NULL,
+  `pengadaan_barang_id` int(11) DEFAULT NULL,
   `tgl_terima` datetime DEFAULT NULL,
   `keterangan` text,
   `bukti_foto` varchar(150) DEFAULT NULL,
@@ -242,10 +244,10 @@ CREATE TABLE `penerimaan_barangs` (
 -- ----------------------------
 DROP TABLE IF EXISTS `pengadaan_barangs`;
 CREATE TABLE `pengadaan_barangs` (
-  `id` char(36) NOT NULL DEFAULT '',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `kode_pengadaan` varchar(50) DEFAULT NULL,
   `tgl_pengadaan` datetime DEFAULT NULL,
-  `jenis_barang_id` char(36) DEFAULT NULL,
+  `jenis_barang_id` int(11) DEFAULT NULL,
   `nama_barang` varchar(100) DEFAULT NULL,
   `merk` varchar(100) DEFAULT NULL,
   `qty` int(11) DEFAULT NULL,
@@ -273,10 +275,10 @@ CREATE TABLE `pengadaan_barangs` (
 -- ----------------------------
 DROP TABLE IF EXISTS `perawatan_barangs`;
 CREATE TABLE `perawatan_barangs` (
-  `id` char(36) NOT NULL DEFAULT '',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `kode_perawatan` varchar(50) DEFAULT NULL,
   `tgl_perawatan` datetime DEFAULT NULL,
-  `jenis_barang_id` char(36) DEFAULT NULL,
+  `jenis_barang_id` int(11) DEFAULT NULL,
   `nama_pemesan` varchar(100) DEFAULT NULL,
   `direktorat` varchar(100) DEFAULT NULL,
   `alasan_perawatan` text,
@@ -301,8 +303,8 @@ CREATE TABLE `perawatan_barangs` (
 -- ----------------------------
 DROP TABLE IF EXISTS `perpanjangan_stnks`;
 CREATE TABLE `perpanjangan_stnks` (
-  `id` char(36) NOT NULL DEFAULT '',
-  `kendaraan_id` char(36) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `kendaraan_id` int(36) DEFAULT NULL,
   `masa_akhir_perpanjangan` datetime DEFAULT NULL,
   `tgl_perpanjangan` datetime DEFAULT NULL,
   `status` varchar(1) DEFAULT NULL,
@@ -311,7 +313,7 @@ CREATE TABLE `perpanjangan_stnks` (
   `modified` datetime DEFAULT NULL,
   `modi_by` char(36) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `kendaraan_id` (`kendaraan_id`),
+  KEY `perpanjangan_stnks_ibfk_1` (`kendaraan_id`),
   CONSTRAINT `perpanjangan_stnks_ibfk_1` FOREIGN KEY (`kendaraan_id`) REFERENCES `kendaraans` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -324,8 +326,8 @@ CREATE TABLE `perpanjangan_stnks` (
 -- ----------------------------
 DROP TABLE IF EXISTS `petugas`;
 CREATE TABLE `petugas` (
-  `id` char(36) NOT NULL DEFAULT '',
-  `petugas_tipe_id` char(36) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `petugas_tipe_id` int(11) DEFAULT NULL,
   `kode_petugas` varchar(50) DEFAULT NULL,
   `nama_petugas` varchar(100) DEFAULT NULL,
   `jns_kelamin` varchar(1) DEFAULT NULL,
@@ -349,7 +351,7 @@ CREATE TABLE `petugas` (
 -- ----------------------------
 DROP TABLE IF EXISTS `ruangans`;
 CREATE TABLE `ruangans` (
-  `id` char(36) NOT NULL DEFAULT '',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `kode_ruangan` varchar(50) DEFAULT NULL,
   `nama_ruangan` varchar(50) DEFAULT NULL,
   `status_aktif` varchar(1) DEFAULT NULL,
@@ -370,7 +372,7 @@ CREATE TABLE `ruangans` (
 -- ----------------------------
 DROP TABLE IF EXISTS `tipe_petugas`;
 CREATE TABLE `tipe_petugas` (
-  `id` char(36) NOT NULL DEFAULT '',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `kode_tipe` varchar(50) DEFAULT NULL,
   `tipe_petugas` varchar(100) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
@@ -389,8 +391,8 @@ CREATE TABLE `tipe_petugas` (
 -- ----------------------------
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
-  `id` char(36) NOT NULL DEFAULT '',
-  `user_category_id` char(36) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_category_id` int(11) DEFAULT NULL,
   `username` varchar(50) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `password` varchar(50) DEFAULT NULL,
@@ -412,38 +414,40 @@ CREATE TABLE `users` (
 -- ----------------------------
 DROP TABLE IF EXISTS `user_categories`;
 CREATE TABLE `user_categories` (
-  `id` char(36) NOT NULL DEFAULT '',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `category_name` varchar(50) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `create_by` char(36) DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   `modi_by` char(36) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of user_categories
 -- ----------------------------
+INSERT INTO `user_categories` VALUES ('1', 'admin', null, null, null, null);
 
 -- ----------------------------
--- Table structure for `user_priviledges`
+-- Table structure for `user_privileges`
 -- ----------------------------
-DROP TABLE IF EXISTS `user_priviledges`;
-CREATE TABLE `user_priviledges` (
-  `id` char(36) NOT NULL DEFAULT '',
-  `module_id` char(36) DEFAULT NULL,
-  `user_category_id` char(36) DEFAULT NULL,
+DROP TABLE IF EXISTS `user_privileges`;
+CREATE TABLE `user_privileges` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `module_id` int(11) DEFAULT NULL,
+  `user_category_id` int(11) DEFAULT NULL,
   `is_view` varchar(1) DEFAULT NULL,
   `is_insert` varchar(1) DEFAULT NULL,
   `is_update` varchar(1) DEFAULT NULL,
   `is_delete` varchar(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
+  KEY `module_id` (`module_id`),
   KEY `user_category_id` (`user_category_id`),
-  KEY `user_priviledges_ibfk_2` (`module_id`),
-  CONSTRAINT `user_priviledges_ibfk_1` FOREIGN KEY (`user_category_id`) REFERENCES `user_categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `user_priviledges_ibfk_2` FOREIGN KEY (`module_id`) REFERENCES `modules` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `user_privileges_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `modules` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `user_privileges_ibfk_2` FOREIGN KEY (`user_category_id`) REFERENCES `user_categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
--- Records of user_priviledges
+-- Records of user_privileges
 -- ----------------------------
+INSERT INTO `user_privileges` VALUES ('1', '2', '1', '1', '1', '0', '0');

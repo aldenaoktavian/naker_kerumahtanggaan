@@ -81,47 +81,47 @@ class Jenis_barang extends CI_Controller {
 
 	public function edit($id)
 	{
-		$data['title'] = "Ruangan";
-		$data['menu_title'] = "Nama Ruangan - Edit Ruangan";
+		$data['title'] = "Jenis Barang";
+		$data['menu_title'] = "Nama Jenis Barang - Edit Jenis Barang";
 
 		$data['id'] = $id;
 
 		$post = $this->input->post();
 		if($post){
-			$data_ruangan = array(
-					'nama_ruangan'	=> $post['nama_ruangan'],
+			$data_barang = array(
+					'nama_jenis'	=> $post['nama_jenis'],
 					'modified'		=> date('Y-m-d H:i:s'),
 					'modi_by'		=> $_SESSION['login']['id_user']
 				);
-			$update_ruangan = $this->ruangan_model->update_ruangan($id, $data_ruangan);
-			if($update_ruangan == TRUE){
-				$_SESSION['ruangan']['message_color'] = "green";
-				$_SESSION['ruangan']['message'] = "Berhasil edit data ruangan";
-				redirect('ruangan');
+			$update_barang = $this->Jenis_barang_model->update_barang($id, $data_barang);
+			if($update_barang == TRUE){
+				$_SESSION['jenis_barang']['message_color'] = "green";
+				$_SESSION['jenis_barang']['message'] = "Berhasil edit data jenis barang";
+				redirect('jenis_barang');
 			} else{
-				$_SESSION['ruangan']['message_color'] = "red";
-				$_SESSION['ruangan']['message'] = "Gagal edit data ruangan. Silahkan coba kembali nanti.";
-				redirect('ruangan');
+				$_SESSION['jenis_barang']['message_color'] = "red";
+				$_SESSION['jenis_barang']['message'] = "Gagal edit data jenis barang. Silahkan coba kembali nanti.";
+				redirect('jenis_barang');
 			}
 		} else{
-			$data['detail_ruangan'] = $this->ruangan_model->detail_ruangan($id);
+			$data['detail_barang'] = $this->Jenis_barang_model->detail_barang($id);
 		}
 
-		$this->load->view('ruangan/edit', $data);
+		$this->load->view('jenis_barang/edit', $data);
 	}
 
 	public function delete($id)
 	{
-		$delete_ruangan = $this->ruangan_model->delete_ruangan($id);
+		$delete_barang = $this->Jenis_barang_model->delete_barang($id);
 
-		if($delete_ruangan == TRUE){
-			$_SESSION['ruangan']['message_color'] = "green";
-			$_SESSION['ruangan']['message'] = "Berhasil hapus data ruangan";
-			redirect('ruangan');
+		if($delete_barang == TRUE){
+			$_SESSION['jenis_barang']['message_color'] = "green";
+			$_SESSION['jenis_barang']['message'] = "Berhasil hapus data jenis barang";
+			redirect('jenis_barang');
 		} else{
-			$_SESSION['ruangan']['message_color'] = "red";
-			$_SESSION['ruangan']['message'] = "Gagal hapus data ruangan. Silahkan coba kembali nanti.";
-			redirect('ruangan');
+			$_SESSION['jenis_barang']['message_color'] = "red";
+			$_SESSION['jenis_barang']['message'] = "Gagal hapus data jenis barang. Silahkan coba kembali nanti.";
+			redirect('jenis_barang');
 		}
 	}
 }

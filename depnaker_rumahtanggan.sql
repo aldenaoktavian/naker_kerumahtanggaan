@@ -1,20 +1,20 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.5
--- http://www.phpmyadmin.net
+-- version 4.6.5.2
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jun 23, 2017 at 02:39 PM
--- Server version: 5.5.16
--- PHP Version: 5.3.8
+-- Host: 127.0.0.1
+-- Generation Time: Jun 22, 2017 at 09:55 AM
+-- Server version: 10.1.21-MariaDB
+-- PHP Version: 5.6.30
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `depnaker_rumahtanggan`
@@ -26,33 +26,24 @@ SET time_zone = "+00:00";
 -- Table structure for table `booking_ruangans`
 --
 
-CREATE TABLE IF NOT EXISTS `booking_ruangans` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_user` int(11) NOT NULL,
+CREATE TABLE `booking_ruangans` (
+  `id` int(11) NOT NULL,
   `kode_booking` varchar(50) DEFAULT NULL,
   `ruangan_id` int(11) DEFAULT NULL,
   `direktorat` varchar(10) DEFAULT NULL,
   `nama_pemesan` varchar(100) DEFAULT NULL,
   `tgl_book` datetime DEFAULT NULL,
-  `jam_book` time DEFAULT NULL,
+  `jam_book` varchar(5) DEFAULT NULL,
   `durasi` int(11) DEFAULT NULL,
   `jml_peserta` int(11) DEFAULT NULL,
   `agenda_meeting` text,
-  `status` int(1) NOT NULL,
+  `status` varchar(1) DEFAULT NULL,
   `keterangan` varchar(150) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
+  `create_by` char(36) DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
-  `modi_by` char(36) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `ruangan_id` (`ruangan_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `booking_ruangans`
---
-
-INSERT INTO `booking_ruangans` (`id`, `id_user`, `kode_booking`, `ruangan_id`, `direktorat`, `nama_pemesan`, `tgl_book`, `jam_book`, `durasi`, `jml_peserta`, `agenda_meeting`, `status`, `keterangan`, `created`, `modified`, `modi_by`) VALUES
-(1, 1, 'BOOK1', 1, 'gdfhfg', 'ggdf', '2017-06-26 00:00:00', '01:00:00', 1, 3, 'gfdgdf', 0, NULL, '2017-06-23 10:31:16', NULL, NULL);
+  `modi_by` char(36) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -60,17 +51,16 @@ INSERT INTO `booking_ruangans` (`id`, `id_user`, `kode_booking`, `ruangan_id`, `
 -- Table structure for table `jadwal_tugas`
 --
 
-CREATE TABLE IF NOT EXISTS `jadwal_tugas` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `jadwal_tugas` (
+  `id` int(11) NOT NULL,
   `kode_jadwal` varchar(50) DEFAULT NULL,
   `bulan_tugas` varchar(2) DEFAULT NULL,
   `tahun_tugas` varchar(4) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `create_by` char(36) DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
-  `modi_by` char(36) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `modi_by` char(36) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -78,19 +68,16 @@ CREATE TABLE IF NOT EXISTS `jadwal_tugas` (
 -- Table structure for table `jadwal_tugas_details`
 --
 
-CREATE TABLE IF NOT EXISTS `jadwal_tugas_details` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `jadwal_tugas_details` (
+  `id` int(11) NOT NULL,
   `jadwal_tugas_id` int(11) DEFAULT NULL,
   `petugas_id` int(11) DEFAULT NULL,
   `lokasi` varchar(150) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `create_by` char(36) DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
-  `modi_by` char(36) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `petugas_id` (`petugas_id`),
-  KEY `jadwal_tugas_id` (`jadwal_tugas_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `modi_by` char(36) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -98,16 +85,15 @@ CREATE TABLE IF NOT EXISTS `jadwal_tugas_details` (
 -- Table structure for table `jenis_barangs`
 --
 
-CREATE TABLE IF NOT EXISTS `jenis_barangs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `jenis_barangs` (
+  `id` int(11) NOT NULL,
   `kode_jenis` varchar(50) DEFAULT NULL,
   `nama_jenis` varchar(50) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `create_by` char(36) DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
-  `modi_by` char(36) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `modi_by` char(36) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -115,16 +101,15 @@ CREATE TABLE IF NOT EXISTS `jenis_barangs` (
 -- Table structure for table `jenis_kendaraans`
 --
 
-CREATE TABLE IF NOT EXISTS `jenis_kendaraans` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `jenis_kendaraans` (
+  `id` int(11) NOT NULL,
   `kode_jenis` varchar(50) DEFAULT NULL,
   `nama_jenis` varchar(100) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `create_by` char(36) DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
-  `modi_by` char(36) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `modi_by` char(36) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -132,8 +117,8 @@ CREATE TABLE IF NOT EXISTS `jenis_kendaraans` (
 -- Table structure for table `kendaraans`
 --
 
-CREATE TABLE IF NOT EXISTS `kendaraans` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `kendaraans` (
+  `id` int(11) NOT NULL,
   `kode_kendaraan` varchar(50) DEFAULT NULL,
   `jns_kendaraan_id` int(11) DEFAULT NULL,
   `merk` varchar(100) DEFAULT NULL,
@@ -149,10 +134,8 @@ CREATE TABLE IF NOT EXISTS `kendaraans` (
   `created` datetime DEFAULT NULL,
   `create_by` char(36) DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
-  `modi_by` char(36) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `kendaraans_ibfk_1` (`jns_kendaraan_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `modi_by` char(36) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -160,15 +143,14 @@ CREATE TABLE IF NOT EXISTS `kendaraans` (
 -- Table structure for table `modules`
 --
 
-CREATE TABLE IF NOT EXISTS `modules` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `modules` (
+  `id` int(11) NOT NULL,
   `id_parent` int(11) DEFAULT NULL,
   `module_name` varchar(50) DEFAULT NULL,
   `module_alias` varchar(50) DEFAULT NULL,
   `module_url` varchar(50) DEFAULT NULL,
-  `no_urut` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT AUTO_INCREMENT=10 ;
+  `no_urut` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `modules`
@@ -176,14 +158,11 @@ CREATE TABLE IF NOT EXISTS `modules` (
 
 INSERT INTO `modules` (`id`, `id_parent`, `module_name`, `module_alias`, `module_url`, `no_urut`) VALUES
 (1, NULL, 'master', 'Master', NULL, 2),
-(2, 1, 'ruangan', 'Nama Ruangan', 'ruangan', 1),
+(2, 1, 'ruangan', 'Nama Ruangan', 'master_ruangan', 1),
 (3, 1, 'petugas_cleaning', 'Petugas Cleaning', 'petugas_cleaning', 2),
 (4, 1, 'petugas_security', 'Petugas Security', 'petugas_security', 3),
 (5, 0, 'dashboard', 'Dashboard', 'dashboard', 1),
-(6, NULL, 'pengadaan_barang', 'Pengadaaan Barang', 'pengadaan_barang', 3),
-(7, NULL, 'booking_ruangan_meeting', 'Booking Ruangan Meeting', NULL, 4),
-(8, 7, 'booking_ruangan', 'Booking Ruangan', 'booking_ruangan', 1),
-(9, 7, 'booking_ruangan_history', 'Histori Booking Ruangan', 'booking_ruangan_history', 2);
+(6, NULL, 'pengadaan_barang', 'Pengadaaan Barang', 'pengadaan_barang', 3);
 
 -- --------------------------------------------------------
 
@@ -191,18 +170,16 @@ INSERT INTO `modules` (`id`, `id_parent`, `module_name`, `module_alias`, `module
 -- Table structure for table `notifs`
 --
 
-CREATE TABLE IF NOT EXISTS `notifs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `notifs` (
+  `id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `notif_type_id` int(11) DEFAULT NULL,
   `notif_desc` text,
   `notif_url` varchar(150) DEFAULT NULL,
   `notif_status` varchar(1) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
-  `modified` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `notifs_ibfk_1` (`notif_type_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `modified` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -210,14 +187,13 @@ CREATE TABLE IF NOT EXISTS `notifs` (
 -- Table structure for table `notif_types`
 --
 
-CREATE TABLE IF NOT EXISTS `notif_types` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `notif_types` (
+  `id` int(11) NOT NULL,
   `type_name` varchar(50) DEFAULT NULL,
   `type_desc` text,
   `created` datetime DEFAULT NULL,
-  `modified` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `modified` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -225,8 +201,8 @@ CREATE TABLE IF NOT EXISTS `notif_types` (
 -- Table structure for table `penerimaan_barangs`
 --
 
-CREATE TABLE IF NOT EXISTS `penerimaan_barangs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `penerimaan_barangs` (
+  `id` int(11) NOT NULL,
   `kode_penerimaan` varchar(50) DEFAULT NULL,
   `pengadaan_barang_id` int(11) DEFAULT NULL,
   `tgl_terima` datetime DEFAULT NULL,
@@ -235,10 +211,8 @@ CREATE TABLE IF NOT EXISTS `penerimaan_barangs` (
   `created` datetime DEFAULT NULL,
   `create_by` char(36) DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
-  `modi_by` char(36) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `pengadaan_barang_id` (`pengadaan_barang_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `modi_by` char(36) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -246,8 +220,8 @@ CREATE TABLE IF NOT EXISTS `penerimaan_barangs` (
 -- Table structure for table `pengadaan_barangs`
 --
 
-CREATE TABLE IF NOT EXISTS `pengadaan_barangs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `pengadaan_barangs` (
+  `id` int(11) NOT NULL,
   `kode_pengadaan` varchar(50) DEFAULT NULL,
   `tgl_pengadaan` datetime DEFAULT NULL,
   `jenis_barang_id` int(11) DEFAULT NULL,
@@ -263,10 +237,8 @@ CREATE TABLE IF NOT EXISTS `pengadaan_barangs` (
   `created` datetime DEFAULT NULL,
   `create_by` char(36) DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
-  `modi_by` char(36) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `jenis_barang_id` (`jenis_barang_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `modi_by` char(36) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -274,8 +246,8 @@ CREATE TABLE IF NOT EXISTS `pengadaan_barangs` (
 -- Table structure for table `perawatan_barangs`
 --
 
-CREATE TABLE IF NOT EXISTS `perawatan_barangs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `perawatan_barangs` (
+  `id` int(11) NOT NULL,
   `kode_perawatan` varchar(50) DEFAULT NULL,
   `tgl_perawatan` datetime DEFAULT NULL,
   `jenis_barang_id` int(11) DEFAULT NULL,
@@ -288,10 +260,8 @@ CREATE TABLE IF NOT EXISTS `perawatan_barangs` (
   `created` datetime DEFAULT NULL,
   `create_by` char(36) DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
-  `modi_by` char(36) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `jenis_barang_id` (`jenis_barang_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `modi_by` char(36) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -299,8 +269,8 @@ CREATE TABLE IF NOT EXISTS `perawatan_barangs` (
 -- Table structure for table `perpanjangan_stnks`
 --
 
-CREATE TABLE IF NOT EXISTS `perpanjangan_stnks` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `perpanjangan_stnks` (
+  `id` int(11) NOT NULL,
   `kendaraan_id` int(36) DEFAULT NULL,
   `masa_akhir_perpanjangan` datetime DEFAULT NULL,
   `tgl_perpanjangan` datetime DEFAULT NULL,
@@ -308,10 +278,8 @@ CREATE TABLE IF NOT EXISTS `perpanjangan_stnks` (
   `created` datetime DEFAULT NULL,
   `create_by` char(36) DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
-  `modi_by` char(36) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `perpanjangan_stnks_ibfk_1` (`kendaraan_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `modi_by` char(36) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -319,8 +287,8 @@ CREATE TABLE IF NOT EXISTS `perpanjangan_stnks` (
 -- Table structure for table `petugas`
 --
 
-CREATE TABLE IF NOT EXISTS `petugas` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `petugas` (
+  `id` int(11) NOT NULL,
   `petugas_tipe_id` int(11) DEFAULT NULL,
   `kode_petugas` varchar(50) DEFAULT NULL,
   `nama_petugas` varchar(100) DEFAULT NULL,
@@ -330,18 +298,8 @@ CREATE TABLE IF NOT EXISTS `petugas` (
   `created` datetime DEFAULT NULL,
   `create_by` char(36) DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
-  `modi_by` char(36) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `petugas_tipe_id` (`petugas_tipe_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
-
---
--- Dumping data for table `petugas`
---
-
-INSERT INTO `petugas` (`id`, `petugas_tipe_id`, `kode_petugas`, `nama_petugas`, `jns_kelamin`, `no_telp`, `alamat`, `created`, `create_by`, `modified`, `modi_by`) VALUES
-(1, 1, 'PTGS1', 'coba yaaw', 'L', '87567576567', 'jakarta', '2017-06-23 08:29:22', '1', '2017-06-23 08:35:49', '1'),
-(4, 2, 'PTGS4', 'fdgdfgzzz aop', 'L', '444', 'fff', '2017-06-23 08:53:24', '1', '2017-06-23 08:54:49', '1');
+  `modi_by` char(36) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -349,25 +307,17 @@ INSERT INTO `petugas` (`id`, `petugas_tipe_id`, `kode_petugas`, `nama_petugas`, 
 -- Table structure for table `ruangans`
 --
 
-CREATE TABLE IF NOT EXISTS `ruangans` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ruangans` (
+  `id` int(11) NOT NULL,
   `kode_ruangan` varchar(50) DEFAULT NULL,
   `nama_ruangan` varchar(50) DEFAULT NULL,
+  `status_aktif` varchar(1) DEFAULT NULL,
+  `status_book` varchar(1) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `create_by` char(36) DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
-  `modi_by` char(36) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
-
---
--- Dumping data for table `ruangans`
---
-
-INSERT INTO `ruangans` (`id`, `kode_ruangan`, `nama_ruangan`, `created`, `create_by`, `modified`, `modi_by`) VALUES
-(1, 'RUANG1', 'Ruang Meetings 1', '2017-06-23 06:08:37', '1', '2017-06-23 06:27:36', '1'),
-(2, 'RUANG2', 'Ruang Meeting 2', '2017-06-23 06:14:28', '1', NULL, NULL),
-(4, 'RUANG3', 'wohooo', '2017-06-23 06:35:38', '1', NULL, NULL);
+  `modi_by` char(36) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -375,23 +325,15 @@ INSERT INTO `ruangans` (`id`, `kode_ruangan`, `nama_ruangan`, `created`, `create
 -- Table structure for table `tipe_petugas`
 --
 
-CREATE TABLE IF NOT EXISTS `tipe_petugas` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tipe_petugas` (
+  `id` int(11) NOT NULL,
+  `kode_tipe` varchar(50) DEFAULT NULL,
   `tipe_petugas` varchar(100) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `create_by` char(36) DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
-  `modi_by` char(36) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
-
---
--- Dumping data for table `tipe_petugas`
---
-
-INSERT INTO `tipe_petugas` (`id`, `tipe_petugas`, `created`, `create_by`, `modified`, `modi_by`) VALUES
-(1, 'Petugas Cleaning', NULL, NULL, NULL, NULL),
-(2, 'Petugas Security', NULL, NULL, NULL, NULL);
+  `modi_by` char(36) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -399,8 +341,8 @@ INSERT INTO `tipe_petugas` (`id`, `tipe_petugas`, `created`, `create_by`, `modif
 -- Table structure for table `users`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
   `user_category_id` int(11) DEFAULT NULL,
   `fullname` varchar(150) NOT NULL,
   `username` varchar(50) DEFAULT NULL,
@@ -409,10 +351,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created` datetime DEFAULT NULL,
   `create_by` char(36) DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
-  `modi_by` char(36) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `user_category_id` (`user_category_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  `modi_by` char(36) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
@@ -427,15 +367,14 @@ INSERT INTO `users` (`id`, `user_category_id`, `fullname`, `username`, `email`, 
 -- Table structure for table `user_categories`
 --
 
-CREATE TABLE IF NOT EXISTS `user_categories` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `user_categories` (
+  `id` int(11) NOT NULL,
   `category_name` varchar(50) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `create_by` char(36) DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
-  `modi_by` char(36) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT AUTO_INCREMENT=2 ;
+  `modi_by` char(36) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `user_categories`
@@ -450,32 +389,256 @@ INSERT INTO `user_categories` (`id`, `category_name`, `created`, `create_by`, `m
 -- Table structure for table `user_privileges`
 --
 
-CREATE TABLE IF NOT EXISTS `user_privileges` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `user_privileges` (
+  `id` int(11) NOT NULL,
   `module_id` int(11) DEFAULT NULL,
   `user_category_id` int(11) DEFAULT NULL,
-  `is_view` int(1) DEFAULT NULL,
-  `is_insert` int(1) DEFAULT NULL,
-  `is_update` int(1) DEFAULT NULL,
-  `is_delete` int(1) DEFAULT NULL,
-  `is_approve` int(1) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `module_id` (`module_id`),
-  KEY `user_category_id` (`user_category_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT AUTO_INCREMENT=7 ;
+  `is_view` varchar(1) DEFAULT NULL,
+  `is_insert` varchar(1) DEFAULT NULL,
+  `is_update` varchar(1) DEFAULT NULL,
+  `is_delete` varchar(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `user_privileges`
 --
 
-INSERT INTO `user_privileges` (`id`, `module_id`, `user_category_id`, `is_view`, `is_insert`, `is_update`, `is_delete`, `is_approve`) VALUES
-(1, 2, 1, 1, 1, 1, 1, 1),
-(2, 3, 1, 1, 1, 1, 1, 1),
-(3, 4, 1, 1, 1, 1, 1, 1),
-(4, 5, 1, 1, 1, 1, 1, 1),
-(5, 8, 1, 1, 1, 1, 1, 1),
-(6, 9, 1, 1, 1, 1, 1, 1);
+INSERT INTO `user_privileges` (`id`, `module_id`, `user_category_id`, `is_view`, `is_insert`, `is_update`, `is_delete`) VALUES
+(1, 2, 1, '1', '1', '1', '1'),
+(2, 3, 1, '1', '1', '1', '1'),
+(3, 4, 1, '1', '1', '1', '1'),
+(4, 5, 1, '1', '1', '1', '1');
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `booking_ruangans`
+--
+ALTER TABLE `booking_ruangans`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `ruangan_id` (`ruangan_id`);
+
+--
+-- Indexes for table `jadwal_tugas`
+--
+ALTER TABLE `jadwal_tugas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `jadwal_tugas_details`
+--
+ALTER TABLE `jadwal_tugas_details`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `petugas_id` (`petugas_id`),
+  ADD KEY `jadwal_tugas_id` (`jadwal_tugas_id`);
+
+--
+-- Indexes for table `jenis_barangs`
+--
+ALTER TABLE `jenis_barangs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `jenis_kendaraans`
+--
+ALTER TABLE `jenis_kendaraans`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `kendaraans`
+--
+ALTER TABLE `kendaraans`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `kendaraans_ibfk_1` (`jns_kendaraan_id`);
+
+--
+-- Indexes for table `modules`
+--
+ALTER TABLE `modules`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `notifs`
+--
+ALTER TABLE `notifs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `notifs_ibfk_1` (`notif_type_id`);
+
+--
+-- Indexes for table `notif_types`
+--
+ALTER TABLE `notif_types`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `penerimaan_barangs`
+--
+ALTER TABLE `penerimaan_barangs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `pengadaan_barang_id` (`pengadaan_barang_id`);
+
+--
+-- Indexes for table `pengadaan_barangs`
+--
+ALTER TABLE `pengadaan_barangs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `jenis_barang_id` (`jenis_barang_id`);
+
+--
+-- Indexes for table `perawatan_barangs`
+--
+ALTER TABLE `perawatan_barangs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `jenis_barang_id` (`jenis_barang_id`);
+
+--
+-- Indexes for table `perpanjangan_stnks`
+--
+ALTER TABLE `perpanjangan_stnks`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `perpanjangan_stnks_ibfk_1` (`kendaraan_id`);
+
+--
+-- Indexes for table `petugas`
+--
+ALTER TABLE `petugas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `petugas_tipe_id` (`petugas_tipe_id`);
+
+--
+-- Indexes for table `ruangans`
+--
+ALTER TABLE `ruangans`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tipe_petugas`
+--
+ALTER TABLE `tipe_petugas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_category_id` (`user_category_id`);
+
+--
+-- Indexes for table `user_categories`
+--
+ALTER TABLE `user_categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `user_privileges`
+--
+ALTER TABLE `user_privileges`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `module_id` (`module_id`),
+  ADD KEY `user_category_id` (`user_category_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `booking_ruangans`
+--
+ALTER TABLE `booking_ruangans`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `jadwal_tugas`
+--
+ALTER TABLE `jadwal_tugas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `jadwal_tugas_details`
+--
+ALTER TABLE `jadwal_tugas_details`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `jenis_barangs`
+--
+ALTER TABLE `jenis_barangs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `jenis_kendaraans`
+--
+ALTER TABLE `jenis_kendaraans`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `kendaraans`
+--
+ALTER TABLE `kendaraans`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `modules`
+--
+ALTER TABLE `modules`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `notifs`
+--
+ALTER TABLE `notifs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `notif_types`
+--
+ALTER TABLE `notif_types`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `penerimaan_barangs`
+--
+ALTER TABLE `penerimaan_barangs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `pengadaan_barangs`
+--
+ALTER TABLE `pengadaan_barangs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `perawatan_barangs`
+--
+ALTER TABLE `perawatan_barangs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `perpanjangan_stnks`
+--
+ALTER TABLE `perpanjangan_stnks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `petugas`
+--
+ALTER TABLE `petugas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `ruangans`
+--
+ALTER TABLE `ruangans`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tipe_petugas`
+--
+ALTER TABLE `tipe_petugas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `user_categories`
+--
+ALTER TABLE `user_categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `user_privileges`
+--
+ALTER TABLE `user_privileges`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- Constraints for dumped tables
 --

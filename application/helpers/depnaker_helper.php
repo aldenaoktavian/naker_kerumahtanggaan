@@ -25,3 +25,16 @@ function getKodePetugas()
 
 	return $kode;
 }
+
+function getKodeBookingRuangan()
+{
+	$CI = get_instance();
+
+	$last_id = $CI->db->select('max(id) AS id')->get_where('booking_ruangans')->row_array();
+
+	$new_number = (int)$last_id['id'] + 1;
+
+	$kode = "BOOK".$new_number;
+
+	return $kode;
+}

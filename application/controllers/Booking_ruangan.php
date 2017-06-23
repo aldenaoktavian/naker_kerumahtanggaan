@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Ruangan extends CI_Controller {
+class Booking_ruangan extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
@@ -14,17 +14,17 @@ class Ruangan extends CI_Controller {
 
 	public function index()
 	{
-		$data['title'] = "Ruangan";
-		$data['menu_title'] = "Nama Ruangan - List Data";
+		$data['title'] = "Booking Ruangan";
+		$data['menu_title'] = "Booking Ruangan - List Data";
 
-		$this->load->view('ruangan/data', $data);
+		$this->load->view('booking-ruangan/data', $data);
 	}
 
 	public function data_search($page=0, $search='')
 	{
 		$search = urldecode($search);
 
-		$offset = 10;
+		$offset = 2;
 
 		if($page != 0){
 			$limit = 0 + (($page - 1) * $offset);
@@ -33,53 +33,53 @@ class Ruangan extends CI_Controller {
 		}
 
 		if($search != ''){
-			$data['all_ruangan'] = $this->ruangan_model->data_ruangan($limit, $offset, $search);
-			$all_pages = $this->ruangan_model->count_all_ruangan($search);
+			$data['all_booking_ruangan'] = $this->ruangan_model->data_booking_ruangan($_SESSION['login']['id_user'], $limit, $offset, $search);
+			$all_pages = $this->ruangan_model->count_all_booking_ruangan($_SESSION['login']['id_user'], $search);
 		} else{
-			$data['all_ruangan'] = $this->ruangan_model->data_ruangan($limit, $offset);
-			$all_pages = $this->ruangan_model->count_all_ruangan();
+			$data['all_booking_ruangan'] = $this->ruangan_model->data_booking_ruangan($_SESSION['login']['id_user'], $limit, $offset);
+			$all_pages = $this->ruangan_model->count_all_booking_ruangan($_SESSION['login']['id_user']);
 		}
 
 		$pages = ($all_pages % $offset == 0 ? $all_pages / $offset : ($all_pages / $offset)+1 );
 		$data['pages'] = (int)$pages;
 		$data['currentPage'] = $page;
 
-		$this->load->view('ruangan/data-search', $data);
+		$this->load->view('booking-ruangan/data-search', $data);
 	}
 
 	public function add()
 	{
-		$data['title'] = "Ruangan";
-		$data['menu_title'] = "Nama Ruangan - Add Ruangan";
+		$data['title'] = "Booking Ruangan";
+		$data['menu_title'] = "Booking Ruangan - Add Booking Ruangan";
 
-		$data['getKodeRuangan'] = getKodeRuangan();
+		$data['getKodeBookingRuangan'] = getKodeBookingRuangan();
 
 		$post = $this->input->post();
 		if($post){
-			$data_ruangan = array(
-					'kode_ruangan'	=> $post['kode_ruangan'],
-					'nama_ruangan'	=> $post['nama_ruangan'],
-					'created'		=> date('Y-m-d H:i:s'),
-					'create_by'		=> $_SESSION['login']['id_user']
+			$data_booking = array(
+					'id_user'		=> $_SESSION['login']['id_user'],
+					'created'		=> date('Y-m-d H:i:s')
 				);
-			$add_ruangan = $this->ruangan_model->add_ruangan($data_ruangan);
-			if($add_ruangan != 0){
-				$_SESSION['ruangan']['message_color'] = "green";
-				$_SESSION['ruangan']['message'] = "Berhasil menambahkan ruangan";
-				redirect('ruangan');
+			$add_booking_ruangan = $this->ruangan_model->add_booking_ruangan(array_merge($post, $data_booking));
+			if($add_booking_ruangan != 0){
+				$_SESSION['booking_ruangan']['message_color'] = "green";
+				$_SESSION['booking_ruangan']['message'] = "Berhasil menambahkan booking ruangan";
+				redirect('booking_ruangan');
 			} else{
-				$_SESSION['ruangan']['message_color'] = "red";
-				$_SESSION['ruangan']['message'] = "Gagal menambahkan ruangan. Silahkan coba kembali nanti.";
-				redirect('ruangan');
+				$_SESSION['booking_ruangan']['message_color'] = "red";
+				$_SESSION['booking_ruangan']['message'] = "Gagal menambahkan booking ruangan. Silahkan coba kembali nanti.";
+				redirect('booking_ruangan');
 			}
+		} else{
+			$data['data_ruangan'] = $this->ruangan_model->all_ruangan();
 		}
 
-		$this->load->view('ruangan/add', $data);
+		$this->load->view('booking-ruangan/add', $data);
 	}
 
 	public function edit($id)
 	{
-		$data['title'] = "Ruangan";
+		$data['title'] = "Booking Ruangan";
 		$data['menu_title'] = "Nama Ruangan - Edit Ruangan";
 
 		$data['id'] = $id;

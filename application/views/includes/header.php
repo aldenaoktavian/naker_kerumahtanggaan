@@ -118,9 +118,7 @@ $(function () {
 		              <a href="#" class="dropdown-toggle dropdown-at" data-toggle="dropdown"><span class=" name-caret"><?php echo $_SESSION['login']['nama_user']; ?><i class="caret"></i></span></a>
 		              <ul class="dropdown-menu " role="menu">
 		                <li><a href="profile.html"><i class="fa fa-user"></i>Edit Profile</a></li>
-		                <li><a href="inbox.html"><i class="fa fa-envelope"></i>Inbox</a></li>
-		                <li><a href="calendar.html"><i class="fa fa-calendar"></i>Calender</a></li>
-		                <li><a href="inbox.html"><i class="fa fa-clipboard"></i>Tasks</a></li>
+		                <li><a href="<?php echo base_url().'login/logout'; ?>"><i class="fa fa-danger"></i>Logout</a></li>
 		              </ul>
 		            </li>
 		        </ul>

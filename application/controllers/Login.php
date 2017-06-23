@@ -41,6 +41,12 @@ class Login extends CI_Controller {
 
 		$this->load->view('login', $data);
 	}
+
+	public function logout()
+	{
+		session_destroy();
+		redirect('dashboard');
+	}
 }
 
 ?>

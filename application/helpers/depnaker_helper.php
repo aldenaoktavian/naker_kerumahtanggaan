@@ -38,3 +38,16 @@ function getKodeBookingRuangan()
 
 	return $kode;
 }
+
+function getKodeBarang()
+{
+	$CI = get_instance();
+
+	$last_id = $CI->db->select('max(id) AS id')->get_where('jenis_barangs')->row_array();
+
+	$new_number = (int)$last_id['id'] + 1;
+
+	$kode = "BR".$new_number;
+
+	return $kode;
+}

@@ -9,7 +9,7 @@ class User_model extends CI_Model {
 	function data_user($id_user)
 	{
 		$this->db->where('id', $id_user);
-		return $this->db->get('users');
+		return $this->db->get('users')->row_array();
 	}
 }
 ?>

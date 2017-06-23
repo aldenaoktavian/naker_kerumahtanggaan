@@ -8,6 +8,7 @@ class Dashboard extends CI_Controller {
         if ( !isset($_SESSION['login']) ) {
 			redirect('login'); 
 		}
+		$this->load->vars(left_menu());
     }
 
 	public function index()

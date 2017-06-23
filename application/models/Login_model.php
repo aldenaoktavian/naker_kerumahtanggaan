@@ -6,7 +6,8 @@ class Login_model extends CI_Model {
 		parent::__construct();
 	}
 	
-	function cek_user_login($username, $password){
+	function cek_user_login($username, $password)
+	{
 		$query = $this
 			->db
 			->where('username', $username)

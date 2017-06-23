@@ -4,9 +4,6 @@ $(function() {
 
 });
 
-//Loads the correct sidebar on window load,
-//collapses the sidebar on window resize.
-// Sets the min-height of #page-wrapper to window size
 $(function() {
     $(window).bind("load resize", function() {
         topOffset = 50;
@@ -34,3 +31,14 @@ $(function() {
         element.addClass('active');
     }
 });
+
+function deleteData(delete_url){
+    var answer = confirm("Apakah Anda yakin ingin menghapus data ini ?");
+    
+    if (answer!=0) { 
+        window.parent.location = delete_url;
+        $(this).closest('li').hide("slow"); 
+    } 
+    
+    return false;
+};

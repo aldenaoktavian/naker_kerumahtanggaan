@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 23, 2017 at 07:21 AM
+-- Generation Time: Jun 23, 2017 at 08:55 AM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -323,7 +323,15 @@ CREATE TABLE IF NOT EXISTS `petugas` (
   `modi_by` char(36) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `petugas_tipe_id` (`petugas_tipe_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `petugas`
+--
+
+INSERT INTO `petugas` (`id`, `petugas_tipe_id`, `kode_petugas`, `nama_petugas`, `jns_kelamin`, `no_telp`, `alamat`, `created`, `create_by`, `modified`, `modi_by`) VALUES
+(1, 1, 'PTGS1', 'coba yaaw', 'L', '87567576567', 'jakarta', '2017-06-23 08:29:22', '1', '2017-06-23 08:35:49', '1'),
+(4, 2, 'PTGS4', 'fdgdfgzzz aop', 'L', '444', 'fff', '2017-06-23 08:53:24', '1', '2017-06-23 08:54:49', '1');
 
 -- --------------------------------------------------------
 
@@ -340,7 +348,7 @@ CREATE TABLE IF NOT EXISTS `ruangans` (
   `modified` datetime DEFAULT NULL,
   `modi_by` char(36) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `ruangans`
@@ -349,7 +357,8 @@ CREATE TABLE IF NOT EXISTS `ruangans` (
 INSERT INTO `ruangans` (`id`, `kode_ruangan`, `nama_ruangan`, `created`, `create_by`, `modified`, `modi_by`) VALUES
 (1, 'RUANG1', 'Ruang Meetings 1', '2017-06-23 06:08:37', '1', '2017-06-23 06:27:36', '1'),
 (2, 'RUANG2', 'Ruang Meeting 2', '2017-06-23 06:14:28', '1', NULL, NULL),
-(4, 'RUANG3', 'wohooo', '2017-06-23 06:35:38', '1', NULL, NULL);
+(4, 'RUANG3', 'wohooo', '2017-06-23 06:35:38', '1', NULL, NULL),
+(5, NULL, NULL, '2017-06-23 08:28:52', '1', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -359,14 +368,21 @@ INSERT INTO `ruangans` (`id`, `kode_ruangan`, `nama_ruangan`, `created`, `create
 
 CREATE TABLE IF NOT EXISTS `tipe_petugas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `kode_tipe` varchar(50) DEFAULT NULL,
   `tipe_petugas` varchar(100) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `create_by` char(36) DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   `modi_by` char(36) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `tipe_petugas`
+--
+
+INSERT INTO `tipe_petugas` (`id`, `tipe_petugas`, `created`, `create_by`, `modified`, `modi_by`) VALUES
+(1, 'Petugas Cleaning', NULL, NULL, NULL, NULL),
+(2, 'Petugas Security', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 

@@ -87,7 +87,6 @@ class Ruangan extends CI_Controller {
 		$post = $this->input->post();
 		if($post){
 			$data_ruangan = array(
-					'kode_ruangan'	=> $post['kode_ruangan'],
 					'nama_ruangan'	=> $post['nama_ruangan'],
 					'modified'		=> date('Y-m-d H:i:s'),
 					'modi_by'		=> $_SESSION['login']['id_user']

@@ -9,7 +9,7 @@ class Ruangan_model extends CI_Model {
 	function data_ruangan($limit, $offset, $search='')
 	{
 		if($search != ''){
-			$query = $this->db->query("SELECT * FROM ruangans WHERE nama_ruangan LIKE '%".$search."%' LIMIT ".$limit.",".$offset);
+			$query = $this->db->query("SELECT * FROM ruangans WHERE ( kode_ruangan LIKE '%".$search."%' OR nama_ruangan LIKE '%".$search."%' ) LIMIT ".$limit.",".$offset);
 		} else{
 			$query = $this->db->query("SELECT * FROM ruangans LIMIT ".$limit.",".$offset);
 		}
@@ -20,7 +20,7 @@ class Ruangan_model extends CI_Model {
 	function count_all_ruangan($search='')
 	{
 		if($search != ''){
-			$query = $this->db->query("SELECT count(*) AS jml FROM ruangans WHERE nama_ruangan LIKE '%".$search."%'")->row_array();
+			$query = $this->db->query("SELECT count(*) AS jml FROM ruangans WHERE ( kode_ruangan LIKE '%".$search."%' OR nama_ruangan LIKE '%".$search."%' )")->row_array();
 		} else{
 			$query = $this->db->select("count(*) AS jml")->get("ruangans")->row_array();
 		}

@@ -12,3 +12,16 @@ function getKodeRuangan()
 
 	return $kode;
 }
+
+function getKodePetugas()
+{
+	$CI = get_instance();
+
+	$last_id = $CI->db->select('max(id) AS id')->get_where('petugas')->row_array();
+
+	$new_number = (int)$last_id['id'] + 1;
+
+	$kode = "PTGS".$new_number;
+
+	return $kode;
+}

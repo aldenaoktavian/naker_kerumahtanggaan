@@ -51,3 +51,16 @@ function getKodeBarang()
 
 	return $kode;
 }
+
+function getKodePengadaanBarang()
+{
+	$CI = get_instance();
+
+	$last_id = $CI->db->select('max(id) AS id')->get_where('pengadaan_barangs')->row_array();
+
+	$new_number = (int)$last_id['id'] + 1;
+
+	$kode = "REQ".$new_number;
+
+	return $kode;
+}

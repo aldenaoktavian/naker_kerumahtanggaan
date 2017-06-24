@@ -61,40 +61,44 @@ class Jenis_barang_model extends CI_Model {
 
 	// /* start about booking ruangan */
 
-	// function data_booking_ruangan($id_user, $limit, $offset, $search='')
-	// {
-	// 	if($search != ''){
-	// 		$query = $this->db->query("SELECT a.id AS id, nama_ruangan, tgl_book, jam_book, direktorat, status FROM booking_ruangans a INNER JOIN ruangans b ON a.ruangan_id = b.id WHERE id_user = ".$id_user." AND (
-	// 				b.nama_ruangan LIKE '%".$search."%' OR 
-	// 				a.tgl_book LIKE '%".$search."%' OR 
-	// 				a.jam_book LIKE '%".$search."%' OR 
-	// 				a.direktorat LIKE '%".$search."%' 
-	// 			) LIMIT ".$limit.",".$offset);
-	// 	} else{
-	// 		$query = $this->db->query("SELECT a.id AS id, nama_ruangan, tgl_book, jam_book, direktorat, status FROM booking_ruangans a INNER JOIN ruangans b ON a.ruangan_id = b.id WHERE id_user = ".$id_user." LIMIT ".$limit.",".$offset);
-	// 	}
-
-	// 	return $query->result_array();
-	// }
-
-	// function count_all_booking_ruangan($id_user, $search='')
-	// {
-	// 	if($search != ''){
-	// 		$query = $this->db->query("SELECT count(*) AS jml FROM booking_ruangans a INNER JOIN ruangans b ON a.ruangan_id = b.id WHERE (
-	// 				b.nama_ruangan LIKE '%".$search."%' OR 
-	// 				a.tgl_book LIKE '%".$search."%' OR 
-	// 				a.jam_book LIKE '%".$search."%' OR 
-	// 				a.direktorat LIKE '%".$search."%' 
-	// 			)")->row_array();
-	// 	} else{
-	// 		$query = $this->db->query("SELECT count(*) AS jml FROM booking_ruangans a INNER JOIN ruangans b ON a.ruangan_id = b.id WHERE id_user = ".$id_user)->row_array();
-	// 	}
-	// 	return $query['jml'];
-	// }
-
-	function add_booking_ruangan($data)
+	function data_pengadaan_barang($id_user, $limit, $offset, $search='')
 	{
-		$this->db->insert('booking_ruangans', $data);
+		if($search != ''){
+			$query = $this->db->query("SELECT a.*, b.kode_jenis, b.nama_jenis FROM pengadaan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE a.create_by = ".$id_user." AND (
+					b.nama_jenis LIKE '%".$search."%' OR
+					a.kode_pengadaan LIKE '%".$search."%' OR 
+					a.tgl_pengadaan LIKE '%".$search."%' OR 
+					a.nama_barang LIKE '%".$search."%' OR 
+					a.direktorat LIKE '%".$search."%' OR
+					a.nma_pemesan LIKE '%".$search."%' 
+				) LIMIT ".$limit.",".$offset);
+		} else{
+			$query = $this->db->query("SELECT a.*, b.kode_jenis, b.nama_jenis FROM pengadaan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE a.create_by = ".$id_user." LIMIT ".$limit.",".$offset);
+		}
+
+		return $query->result_array();
+	}
+
+	function count_all_pengadaan_barang($id_user, $search='')
+	{
+		if($search != ''){
+			$query = $this->db->query("SELECT count(*) AS jml FROM pengadaan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE (
+					b.nama_jenis LIKE '%".$search."%' OR
+					a.kode_pengadaan LIKE '%".$search."%' OR 
+					a.tgl_pengadaan LIKE '%".$search."%' OR 
+					a.nama_barang LIKE '%".$search."%' OR 
+					a.direktorat LIKE '%".$search."%' OR
+					a.nma_pemesan LIKE '%".$search."%' 
+				)")->row_array();
+		} else{
+			$query = $this->db->query("SELECT count(*) AS jml FROM pengadaan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE create_by = ".$id_user)->row_array();
+		}
+		return $query['jml'];
+	}
+
+	function add_pengadaan_barang($data)
+	{
+		$this->db->insert('pengadaan_barangs', $data);
 		return $this->db->insert_id();
 	}
 

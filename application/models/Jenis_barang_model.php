@@ -91,7 +91,7 @@ class Jenis_barang_model extends CI_Model {
 					a.nma_pemesan LIKE '%".$search."%' 
 				)")->row_array();
 		} else{
-			$query = $this->db->query("SELECT count(*) AS jml FROM pengadaan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE create_by = ".$id_user)->row_array();
+			$query = $this->db->query("SELECT count(*) AS jml FROM pengadaan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE a.create_by = ".$id_user)->row_array();
 		}
 		return $query['jml'];
 	}
@@ -102,6 +102,19 @@ class Jenis_barang_model extends CI_Model {
 		return $this->db->insert_id();
 	}
 
+	function update_pengadaan_barang($id, $data)
+	{
+		$this->db->where('md5(id)', $id);
+		$update = $this->db->update('pengadaan_barangs', $data);
+		return $update;
+	}
+
+	function detail_pengadaan_barang($id,$id_user)
+	{
+		$query = $this->db->query("SELECT a.*, b.kode_jenis, b.nama_jenis FROM pengadaan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE a.create_by = ".$id_user." LIMIT ".$limit.",".$offset);
+
+		return $query->result_array();
+	}
 	/* end about booking ruangan */
 }
 ?>

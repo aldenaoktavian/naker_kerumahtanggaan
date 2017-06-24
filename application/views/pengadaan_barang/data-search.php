@@ -20,15 +20,15 @@
                     <tr>
                         <td><?php echo $nourut; ?></td>
                         <td><?php echo $data_pengadaan['kode_pengadaan']; ?></td>
-                        <td><?php echo date("d M Y", strtotime($data_pengadaan['tgl_pengadaan'])); ?></td>
+                        <td><?php echo $data_pengadaan['nama_jenis']; ?></td>
                         <td><?php echo $data_pengadaan['nama_barang']; ?></td>
                         <td><?php echo $data_pengadaan['merk']; ?></td>
                         <td><?php echo $data_pengadaan['direktorat']; ?></td>
                         <td><?php echo $data_pengadaan['nama_pemesan']; ?></td>
                         <td><?php echo ($data_pengadaan['status'] == 0 ? "Terbooking" : ""); ?></td>
                         <td>
-                            <a href="<?php echo base_url().'jenis_barang/edit/'.md5($data_pengadaan['id']); ?>"><button type="button" class="btn btn-default">Edit</button></a>
-                            <a href="#" onclick="deleteData('<?php echo base_url().'jenis_barang/delete/'.md5($data_pengadaan['id']); ?>')"><button type="button" class="btn btn-danger">Delete</button></a>
+                            <a href="<?php echo base_url().'pengadaan_barang/edit/'.md5($data_pengadaan['id']); ?>"><button type="button" class="btn btn-default">Edit</button></a>
+                            <a href="#" onclick="deleteData('<?php echo base_url().'pengadaan_barang/delete/'.md5($data_pengadaan['id']); ?>')"><button type="button" class="btn btn-danger">Delete</button></a>
                         </td>
                     </tr>
                 <?php $nourut++; } ?>

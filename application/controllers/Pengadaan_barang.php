@@ -13,7 +13,7 @@ class Pengadaan_barang extends CI_Controller {
     }
 
 	public function index()
-	{
+	{	
 		$data['title'] = "Request Barang";
 		$data['menu_title'] = "Request Barang - List Data";
 
@@ -60,11 +60,14 @@ class Pengadaan_barang extends CI_Controller {
 		$post = $this->input->post();
 		if($post){
 			$data_pengadaan_barang = array(
-					'id_user'		=> $_SESSION['login']['id_user'],
-					'created'		=> date('Y-m-d H:i:s')
+					'status' 		=> 'E',
+					'create_by'		=> $_SESSION['login']['id_user'],
+					'created'		=> date('Y-m-d H:i:s'),
+					'modi_by'		=> $_SESSION['login']['id_user'],
+					'modified'		=> date('Y-m-d H:i:s')
 				);
 			$add_pengadaan_barang = $this->Jenis_barang_model->add_pengadaan_barang(array_merge($post, $data_pengadaan_barang));
-			if($add_booking_ruangan != 0){
+			if($add_pengadaan_barang != 0){
 				$_SESSION['pengadaan_barang']['message_color'] = "green";
 				$_SESSION['pengadaan_barang']['message'] = "Berhasil menambahkan request barang";
 				redirect('pengadaan_barang');
@@ -82,33 +85,44 @@ class Pengadaan_barang extends CI_Controller {
 
 	public function edit($id)
 	{
-		$data['title'] = "Booking Ruangan";
-		$data['menu_title'] = "Nama Ruangan - Edit Ruangan";
+		$data['title'] = "Request Barang";
+		$data['menu_title'] = "Request Barang - Edit Ruangan";
 
 		$data['id'] = $id;
 
 		$post = $this->input->post();
 		if($post){
-			$data_ruangan = array(
-					'nama_ruangan'	=> $post['nama_ruangan'],
-					'modified'		=> date('Y-m-d H:i:s'),
-					'modi_by'		=> $_SESSION['login']['id_user']
+			$data_request = array(
+					'tgl_pengadaan'		=> $post['tgl_pengadaan'],
+					'jenis_barang_id' 	=> $post['jenis_barang_id'],
+					'nama_barang'		=> $post['nama_barang'],
+					'merk'				=> $post['merk'],
+					'qty'				=> $post['qty'],
+					'direktorat'		=> $post['direktorat'],
+					'nama_pemesan'		=> $post['nama_pemesan'],
+					'alasan_pengadaan'	=> $post['alasan_pengadaan'],
+					'spesifikasi'		=> $post['spesifikasi'],
+					'status'			=> $post['status'],
+					'remark'			=> $post['remark'],
+					'modified'			=> date('Y-m-d H:i:s'),
+					'modi_by'			=> $_SESSION['login']['id_user']
 				);
-			$update_ruangan = $this->ruangan_model->update_ruangan($id, $data_ruangan);
-			if($update_ruangan == TRUE){
-				$_SESSION['ruangan']['message_color'] = "green";
-				$_SESSION['ruangan']['message'] = "Berhasil edit data ruangan";
-				redirect('ruangan');
+			$update_req_barang = $this->Jenis_barang_model->update_pengadaan_barang($id, $data_request);
+			if($update_req_barang == TRUE){
+				$_SESSION['pengadaan_barang']['message_color'] = "green";
+				$_SESSION['pengadaan_barang']['message'] = "Berhasil edit data request barang";
+				redirect('pengadaan_barang');
 			} else{
-				$_SESSION['ruangan']['message_color'] = "red";
-				$_SESSION['ruangan']['message'] = "Gagal edit data ruangan. Silahkan coba kembali nanti.";
-				redirect('ruangan');
+				$_SESSION['pengadaan_barang']['message_color'] = "red";
+				$_SESSION['pengadaan_barang']['message'] = "Gagal edit data request barang. Silahkan coba kembali nanti.";
+				redirect('pengadaan_barang');
 			}
 		} else{
-			$data['detail_ruangan'] = $this->ruangan_model->detail_ruangan($id);
+			$data['data_pengadaan_barang'] = $this->Jenis_barang_model->all_barang();
+			$data['detail_request'] = $this->Jenis_barang_model->detail_pengadaan_barang($id,$_SESSION['login']['id_user']);
 		}
 
-		$this->load->view('ruangan/edit', $data);
+		$this->load->view('pengadaan_barang/edit', $data);
 	}
 
 	public function delete($id)

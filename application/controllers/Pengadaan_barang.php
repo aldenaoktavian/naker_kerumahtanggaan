@@ -91,7 +91,9 @@ class Pengadaan_barang extends CI_Controller {
 		$data['id'] = $id;
 
 		$post = $this->input->post();
+		// echo "<pre>";print_r($post);echo "</pre>";e\\xit;
 		if($post){
+			// echo "<pre>";print_r($post);echo "</pre>";exit;
 			$data_request = array(
 					'tgl_pengadaan'		=> $post['tgl_pengadaan'],
 					'jenis_barang_id' 	=> $post['jenis_barang_id'],
@@ -102,8 +104,6 @@ class Pengadaan_barang extends CI_Controller {
 					'nama_pemesan'		=> $post['nama_pemesan'],
 					'alasan_pengadaan'	=> $post['alasan_pengadaan'],
 					'spesifikasi'		=> $post['spesifikasi'],
-					'status'			=> $post['status'],
-					'remark'			=> $post['remark'],
 					'modified'			=> date('Y-m-d H:i:s'),
 					'modi_by'			=> $_SESSION['login']['id_user']
 				);
@@ -120,6 +120,8 @@ class Pengadaan_barang extends CI_Controller {
 		} else{
 			$data['data_pengadaan_barang'] = $this->Jenis_barang_model->all_barang();
 			$data['detail_request'] = $this->Jenis_barang_model->detail_pengadaan_barang($id,$_SESSION['login']['id_user']);
+
+			// echo "<pre>";print_r($data['detail_request']);echo "</pre>";exit;
 		}
 
 		$this->load->view('pengadaan_barang/edit', $data);

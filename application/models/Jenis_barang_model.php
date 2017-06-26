@@ -111,7 +111,7 @@ class Jenis_barang_model extends CI_Model {
 
 	function detail_pengadaan_barang($id,$id_user)
 	{
-		$query = $this->db->query("SELECT a.*, b.kode_jenis, b.nama_jenis FROM pengadaan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE a.create_by = ".$id_user." LIMIT ".$limit.",".$offset);
+		$query = $this->db->query("SELECT a.*, b.kode_jenis, b.nama_jenis FROM pengadaan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE md5(a.id) = '".$id."' ");
 
 		return $query->result_array();
 	}

@@ -25,7 +25,7 @@
                         <td><?php echo $data_pengadaan['merk']; ?></td>
                         <td><?php echo $data_pengadaan['direktorat']; ?></td>
                         <td><?php echo $data_pengadaan['nama_pemesan']; ?></td>
-                        <td><?php echo ($data_pengadaan['status'] == 0 ? "Terbooking" : ""); ?></td>
+                        <td><?php echo $data_pengadaan['status']; ?></td>
                         <td>
                             <a href="<?php echo base_url().'pengadaan_barang/edit/'.md5($data_pengadaan['id']); ?>"><button type="button" class="btn btn-default">Edit</button></a>
                             <a href="#" onclick="deleteData('<?php echo base_url().'pengadaan_barang/delete/'.md5($data_pengadaan['id']); ?>')"><button type="button" class="btn btn-danger">Delete</button></a>

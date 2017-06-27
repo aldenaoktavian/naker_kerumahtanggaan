@@ -8,7 +8,7 @@ class Petugas_security extends CI_Controller {
         if ( !isset($_SESSION['login']) ) {
 			redirect('login'); 
 		}
-		$this->load->vars(left_menu());
+		$this->load->vars(load_default());
 		$this->load->model('petugas_model');
     }
 

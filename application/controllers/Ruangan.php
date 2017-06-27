@@ -8,12 +8,15 @@ class Ruangan extends CI_Controller {
         if ( !isset($_SESSION['login']) ) {
 			redirect('login'); 
 		}
-		$this->load->vars(left_menu());
+		$this->load->vars(load_default());
 		$this->load->model('ruangan_model');
     }
 
 	public function index()
 	{
+		if(check_privilege('ruangan', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$data['title'] = "Ruangan";
 		$data['menu_title'] = "Nama Ruangan - List Data";
 
@@ -22,6 +25,10 @@ class Ruangan extends CI_Controller {
 
 	public function data_search($page=0, $search='')
 	{
+		if(check_privilege('ruangan', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
+
 		$search = urldecode($search);
 
 		$offset = 10;
@@ -49,6 +56,10 @@ class Ruangan extends CI_Controller {
 
 	public function add()
 	{
+		if(check_privilege('ruangan', 'is_insert') != TRUE){
+			redirect('gate/unauthorized');
+		}
+
 		$data['title'] = "Ruangan";
 		$data['menu_title'] = "Nama Ruangan - Add Ruangan";
 
@@ -79,6 +90,10 @@ class Ruangan extends CI_Controller {
 
 	public function edit($id)
 	{
+		if(check_privilege('ruangan', 'is_update') != TRUE){
+			redirect('gate/unauthorized');
+		}
+
 		$data['title'] = "Ruangan";
 		$data['menu_title'] = "Nama Ruangan - Edit Ruangan";
 
@@ -110,6 +125,10 @@ class Ruangan extends CI_Controller {
 
 	public function delete($id)
 	{
+		if(check_privilege('ruangan', 'is_delete') != TRUE){
+			redirect('gate/unauthorized');
+		}
+
 		$delete_ruangan = $this->ruangan_model->delete_ruangan($id);
 
 		if($delete_ruangan == TRUE){

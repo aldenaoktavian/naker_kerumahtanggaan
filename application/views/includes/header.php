@@ -19,6 +19,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href="<?php echo base_url(); ?>assets/css/custom.css" rel="stylesheet">
 <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/screenfull.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+
+<script src="<?php echo base_url(); ?>node_modules/socket.io/node_modules/socket.io-client/socket.io.js"></script>
 <script>
 $(function () {
 	$('#supported').text('Supported/allowed: ' + !!screenfull.enabled);
@@ -29,6 +34,8 @@ $(function () {
 		screenfull.toggle($('#container')[0]);
 	});	
 });
+
+base_url = '<?php echo base_url(); ?>';
 </script>
 </head>
 <body>
@@ -53,66 +60,24 @@ $(function () {
 		        <ul class=" nav_1">
 		           
 		    		<li class="dropdown at-drop">
-		              <a href="#" class="dropdown-toggle dropdown-at " data-toggle="dropdown"><i class="fa fa-globe"></i> <span class="number">5</span></a>
-		              <ul class="dropdown-menu menu1 " role="menu">
-		                <li><a href="#">
-		               
-		                	<div class="user-new">
-		                	<p>New user registered</p>
-		                	<span>40 seconds ago</span>
-		                	</div>
-		                	<div class="user-new-left">
-		                
-		                	<i class="fa fa-user-plus"></i>
-		                	</div>
-		                	<div class="clearfix"> </div>
-		                	</a></li>
-		                <li><a href="#">
-		                	<div class="user-new">
-		                	<p>Someone special liked this</p>
-		                	<span>3 minutes ago</span>
-		                	</div>
-		                	<div class="user-new-left">
-		                
-		                	<i class="fa fa-heart"></i>
-		                	</div>
-		                	<div class="clearfix"> </div>
-		                </a></li>
-		                <li><a href="#">
-		                	<div class="user-new">
-		                	<p>John cancelled the event</p>
-		                	<span>4 hours ago</span>
-		                	</div>
-		                	<div class="user-new-left">
-		                
-		                	<i class="fa fa-times"></i>
-		                	</div>
-		                	<div class="clearfix"> </div>
-		                </a></li>
-		                <li><a href="#">
-		                	<div class="user-new">
-		                	<p>The server is status is stable</p>
-		                	<span>yesterday at 08:30am</span>
-		                	</div>
-		                	<div class="user-new-left">
-		                
-		                	<i class="fa fa-info"></i>
-		                	</div>
-		                	<div class="clearfix"> </div>
-		                </a></li>
-		                <li><a href="#">
-		                	<div class="user-new">
-		                	<p>New comments waiting approval</p>
-		                	<span>Last Week</span>
-		                	</div>
-		                	<div class="user-new-left">
-		                
-		                	<i class="fa fa-rss"></i>
-		                	</div>
-		                	<div class="clearfix"> </div>
-		                </a></li>
-		                <li><a href="#" class="view">View all messages</a></li>
-		              </ul>
+						<a href="#" class="dropdown-toggle dropdown-at " data-toggle="dropdown"><i class="fa fa-globe"></i> <span class="number" id="count_unread_message"><?php echo $unread_notif_count; ?></span></a>
+							<ul class="dropdown-menu menu1 " id="dropdown-notif" role="menu">
+							<?php foreach($notif_updates as $notif){ ?>
+								<li>
+	                                <a href="<?php echo $notif['notif_url'].($notif['notif_status'] == 0 ? '/'.md5($notif['id']) : ''); ?>">
+	                                    <div class="user-new" style="width:100px;">
+	                                        <p><?php echo $notif['notif_desc']; ?>...</p>
+	                                        <span><?php echo $notif['notif_time']; ?></span>
+	                                    </div>
+	                                    <div class="user-new-left">
+	                                        <?php echo $notif['notif_icon']; ?>
+	                                    </div>
+	                                    <div class="clearfix"> </div>
+	                                </a>
+	                            </li>
+							<?php } ?>
+								<li><a href="<?php echo base_url().'notifikasi/all'; ?>" class="view">Lihat semua notifikasi</a></li>
+							</ul>
 		            </li>
 					<li class="dropdown">
 		              <a href="#" class="dropdown-toggle dropdown-at" data-toggle="dropdown"><span class=" name-caret"><?php echo $_SESSION['login']['nama_user']; ?><i class="caret"></i></span></a>

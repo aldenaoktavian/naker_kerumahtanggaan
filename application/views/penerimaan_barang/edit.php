@@ -7,7 +7,7 @@
     <div class="blank-page">
         <h4><?php echo $menu_title; ?></h4>
         <div style="margin-top:50px;">
-            <?php echo form_open_multipart('penerimaan_barang/edit/'.$this->uri->segment(3));?>
+            <?php echo form_open_multipart('penerimaan_barang/edit/'.$id);?>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         Jenis Barang

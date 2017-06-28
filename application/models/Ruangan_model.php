@@ -63,15 +63,21 @@ class Ruangan_model extends CI_Model {
 
 	function data_booking_ruangan($id_user, $limit, $offset, $search='')
 	{
+		if($id_user != 0){
+			$sort_user = "id_user = ".$id_user;
+		} else{
+			$sort_user = "1=1";
+		}
+
 		if($search != ''){
-			$query = $this->db->query("SELECT a.id AS id, nama_ruangan, tgl_book, jam_book, direktorat, status FROM booking_ruangans a INNER JOIN ruangans b ON a.ruangan_id = b.id WHERE id_user = ".$id_user." AND (
+			$query = $this->db->query("SELECT a.id AS id, nama_ruangan, tgl_book, jam_book, direktorat, status FROM booking_ruangans a INNER JOIN ruangans b ON a.ruangan_id = b.id WHERE ".$sort_user." AND (
 					b.nama_ruangan LIKE '%".$search."%' OR 
 					a.tgl_book LIKE '%".$search."%' OR 
 					a.jam_book LIKE '%".$search."%' OR 
 					a.direktorat LIKE '%".$search."%' 
 				) LIMIT ".$limit.",".$offset);
 		} else{
-			$query = $this->db->query("SELECT a.id AS id, nama_ruangan, tgl_book, jam_book, direktorat, status FROM booking_ruangans a INNER JOIN ruangans b ON a.ruangan_id = b.id WHERE id_user = ".$id_user." LIMIT ".$limit.",".$offset);
+			$query = $this->db->query("SELECT a.id AS id, nama_ruangan, tgl_book, jam_book, direktorat, status FROM booking_ruangans a INNER JOIN ruangans b ON a.ruangan_id = b.id WHERE ".$sort_user." LIMIT ".$limit.",".$offset);
 		}
 
 		return $query->result_array();
@@ -79,15 +85,21 @@ class Ruangan_model extends CI_Model {
 
 	function count_all_booking_ruangan($id_user, $search='')
 	{
+		if($id_user != 0){
+			$sort_user = "id_user = ".$id_user;
+		} else{
+			$sort_user = "1=1";
+		}
+		
 		if($search != ''){
-			$query = $this->db->query("SELECT count(*) AS jml FROM booking_ruangans a INNER JOIN ruangans b ON a.ruangan_id = b.id WHERE (
+			$query = $this->db->query("SELECT count(*) AS jml FROM booking_ruangans a INNER JOIN ruangans b ON a.ruangan_id = b.id WHERE ".$sort_user." AND (
 					b.nama_ruangan LIKE '%".$search."%' OR 
 					a.tgl_book LIKE '%".$search."%' OR 
 					a.jam_book LIKE '%".$search."%' OR 
 					a.direktorat LIKE '%".$search."%' 
 				)")->row_array();
 		} else{
-			$query = $this->db->query("SELECT count(*) AS jml FROM booking_ruangans a INNER JOIN ruangans b ON a.ruangan_id = b.id WHERE id_user = ".$id_user)->row_array();
+			$query = $this->db->query("SELECT count(*) AS jml FROM booking_ruangans a INNER JOIN ruangans b ON a.ruangan_id = b.id WHERE ".$sort_user)->row_array();
 		}
 		return $query['jml'];
 	}

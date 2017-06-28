@@ -8,12 +8,17 @@ class Booking_ruangan extends CI_Controller {
         if ( !isset($_SESSION['login']) ) {
 			redirect('login'); 
 		}
-		$this->load->vars(left_menu());
+		$this->load->vars(load_default());
 		$this->load->model('ruangan_model');
+		$this->load->model('notif_model');
     }
 
 	public function index()
 	{
+		if(check_privilege('booking_ruangan', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
+
 		$data['title'] = "Booking Ruangan";
 		$data['menu_title'] = "Booking Ruangan - List Data";
 
@@ -22,9 +27,13 @@ class Booking_ruangan extends CI_Controller {
 
 	public function data_search($page=0, $search='')
 	{
+		if(check_privilege('booking_ruangan', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
+
 		$search = urldecode($search);
 
-		$offset = 2;
+		$offset = 10;
 
 		if($page != 0){
 			$limit = 0 + (($page - 1) * $offset);
@@ -32,12 +41,18 @@ class Booking_ruangan extends CI_Controller {
 			$limit = 0;
 		}
 
-		if($search != ''){
-			$data['all_booking_ruangan'] = $this->ruangan_model->data_booking_ruangan($_SESSION['login']['id_user'], $limit, $offset, $search);
-			$all_pages = $this->ruangan_model->count_all_booking_ruangan($_SESSION['login']['id_user'], $search);
+		if(check_privilege('booking_ruangan', 'is_approve') == TRUE){
+			$id_user = 0;
 		} else{
-			$data['all_booking_ruangan'] = $this->ruangan_model->data_booking_ruangan($_SESSION['login']['id_user'], $limit, $offset);
-			$all_pages = $this->ruangan_model->count_all_booking_ruangan($_SESSION['login']['id_user']);
+			$id_user = $_SESSION['login']['id_user'];
+		}
+
+		if($search != ''){
+			$data['all_booking_ruangan'] = $this->ruangan_model->data_booking_ruangan($id_user, $limit, $offset, $search);
+			$all_pages = $this->ruangan_model->count_all_booking_ruangan($id_user, $search);
+		} else{
+			$data['all_booking_ruangan'] = $this->ruangan_model->data_booking_ruangan($id_user, $limit, $offset);
+			$all_pages = $this->ruangan_model->count_all_booking_ruangan($id_user);
 		}
 
 		$pages = ($all_pages % $offset == 0 ? $all_pages / $offset : ($all_pages / $offset)+1 );
@@ -49,6 +64,10 @@ class Booking_ruangan extends CI_Controller {
 
 	public function add()
 	{
+		if(check_privilege('booking_ruangan', 'is_insert') != TRUE){
+			redirect('gate/unauthorized');
+		}
+
 		$data['title'] = "Booking Ruangan";
 		$data['menu_title'] = "Booking Ruangan - Add Booking Ruangan";
 
@@ -62,6 +81,13 @@ class Booking_ruangan extends CI_Controller {
 				);
 			$add_booking_ruangan = $this->ruangan_model->add_booking_ruangan(array_merge($post, $data_booking));
 			if($add_booking_ruangan != 0){
+				$notif_receiver = $this->notif_model->get_email_by_module('booking_ruangan');
+				$notif_data = array(
+						'notif_type_id'	=> 9,
+						'notif_url'		=> base_url().'booking_ruangan/view/'.md5($add_booking_ruangan)
+					);
+				saveNotif($notif_data, $notif_receiver);
+
 				$_SESSION['booking_ruangan']['message_color'] = "green";
 				$_SESSION['booking_ruangan']['message'] = "Berhasil menambahkan booking ruangan";
 				redirect('booking_ruangan');
@@ -79,6 +105,10 @@ class Booking_ruangan extends CI_Controller {
 
 	public function edit($id)
 	{
+		if(check_privilege('booking_ruangan', 'is_update') != TRUE){
+			redirect('gate/unauthorized');
+		}
+
 		$data['title'] = "Booking Ruangan";
 		$data['menu_title'] = "Nama Ruangan - Edit Ruangan";
 
@@ -110,6 +140,10 @@ class Booking_ruangan extends CI_Controller {
 
 	public function delete($id)
 	{
+		if(check_privilege('booking_ruangan', 'is_delete') != TRUE){
+			redirect('gate/unauthorized');
+		}
+
 		$delete_ruangan = $this->ruangan_model->delete_ruangan($id);
 
 		if($delete_ruangan == TRUE){

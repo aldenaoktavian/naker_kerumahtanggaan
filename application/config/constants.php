@@ -83,3 +83,10 @@ defined('EXIT_USER_INPUT')     OR define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+define('SMTP_HOST', 'mail.permata-media.com');
+define('SMTP_SECURE', 'tls');
+define('SMTP_PORT', '587');
+
+define('MAIL_SENDER_NOTIF', 'mailer@permata-media.com');
+define('PASS_MAIL_SENDER_NOTIF', 'mailer@p3rm4t4');
+define('MAIL_SENDER_NOTIF_ALIAS', 'mailer@permata-media.com');

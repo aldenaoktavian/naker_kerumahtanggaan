@@ -1,14 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-  function db_get_one_data($field, $table, $where)
-  {
-    $CI = get_instance();
-    $CI->db->select($field);
-    $data = $CI->db->get_where($table, $where)->row_array();
-    return $data[$field];
-  }
-
-  function check_privillege($modul, $type)
+  function check_privilege($modul, $type)
   {
     $CI =& get_instance();
 
@@ -35,15 +27,15 @@
     foreach($master_menu as $mastermenu){
       if($mastermenu['id_parent'] != NULL){
         $all_menu .= '<li>
-                          <a href="'.base_url().$mastermenu['module_url'].'" class=" hvr-bounce-to-right"><i class="fa fa-list nav_icon"></i><span class="nav-label">'.$mastermenu['module_alias'].'</span></a>
+                          <a href="'.base_url().$mastermenu['module_url'].'" class=" hvr-bounce-to-right"><span class="nav-label">'.$mastermenu['module_alias'].'</span></a>
                       </li>';
       } else{
         $sub_menu = $CI->db->query("SELECT b.* FROM user_privileges a RIGHT JOIN modules b ON a.module_id = b.id WHERE a.user_category_id = ".$_SESSION['login']['user_category']." AND b.id_parent = ".$mastermenu['id']." ORDER BY no_urut ASC")->result_array();
         $all_menu .= '<li>
-                        <a href="#" class=" hvr-bounce-to-right"><i class="fa fa-list nav_icon"></i> <span class="nav-label">'.$mastermenu['module_alias'].'</span><span class="fa arrow"></span></a>
+                        <a href="#" class=" hvr-bounce-to-right"><span class="nav-label">'.$mastermenu['module_alias'].'</span><span class="fa arrow"></span></a>
                           <ul class="nav nav-second-level">';
         foreach($sub_menu as $submenu){
-          $all_menu .= '<li><a href="'.base_url().$submenu['module_url'].'" class=" hvr-bounce-to-right"> <i class="fa fa-list nav_icon"></i>'.$submenu['module_alias'].'</a></li>';
+          $all_menu .= '<li><a href="'.base_url().$submenu['module_url'].'" class=" hvr-bounce-to-right hvr-submenu">'.$submenu['module_alias'].'</a></li>';
         }
         $all_menu .= '</ul>
                   </li>';

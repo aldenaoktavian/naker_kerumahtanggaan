@@ -39,6 +39,12 @@ class Jenis_barang_model extends CI_Model {
 		return $this->db->get('jenis_barangs')->row_array();
 	}
 
+	function detail_barang2($id)
+	{
+		$this->db->where('id', $id);
+		return $this->db->get('jenis_barangs')->row_array();
+	}
+
 	function add_barang($data)
 	{
 		$this->db->insert('jenis_barangs', $data);
@@ -71,9 +77,9 @@ class Jenis_barang_model extends CI_Model {
 					a.nama_barang LIKE '%".$search."%' OR 
 					a.direktorat LIKE '%".$search."%' OR
 					a.nma_pemesan LIKE '%".$search."%' 
-				) LIMIT ".$limit.",".$offset);
+				) AND status='E' LIMIT ".$limit.",".$offset);
 		} else{
-			$query = $this->db->query("SELECT a.*, b.kode_jenis, b.nama_jenis FROM pengadaan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE a.create_by = ".$id_user." LIMIT ".$limit.",".$offset);
+			$query = $this->db->query("SELECT a.*, b.kode_jenis, b.nama_jenis FROM pengadaan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE a.create_by = ".$id_user." AND status='E' LIMIT ".$limit.",".$offset);
 		}
 
 		return $query->result_array();
@@ -89,9 +95,9 @@ class Jenis_barang_model extends CI_Model {
 					a.nama_barang LIKE '%".$search."%' OR 
 					a.direktorat LIKE '%".$search."%' OR
 					a.nma_pemesan LIKE '%".$search."%' 
-				)")->row_array();
+				) AND status='E' ")->row_array();
 		} else{
-			$query = $this->db->query("SELECT count(*) AS jml FROM pengadaan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE a.create_by = ".$id_user)->row_array();
+			$query = $this->db->query("SELECT count(*) AS jml FROM pengadaan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE status='E' AND a.create_by = ".$id_user)->row_array();
 		}
 		return $query['jml'];
 	}
@@ -115,6 +121,55 @@ class Jenis_barang_model extends CI_Model {
 
 		return $query->result_array();
 	}
+
+	function update_penerimaan($id,$type,$data=null){
+		if($type == 'A'){
+			$this->db->where('id', $id);
+			$update = $this->db->update('pengadaan_barangs', array('status'=>'A','modified'=>date('Y-m-d H:i:s'),'modi_by'=>$_SESSION['login']['id_user']));
+			return $update;
+		}else{
+			$this->db->where('md5(id)', $id);
+			$update = $this->db->update('pengadaan_barangs', $data);
+			return $update;
+		}
+		
+	}
 	/* end about booking ruangan */
+	/* start penerimaan barang */
+	function data_penerimaan_barang($id_user, $limit, $offset, $search='')
+	{
+		if($search != ''){
+			$query = $this->db->query("SELECT a.*, b.kode_jenis, b.nama_jenis FROM pengadaan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE a.create_by = ".$id_user." AND (
+					b.nama_jenis LIKE '%".$search."%' OR
+					a.kode_pengadaan LIKE '%".$search."%' OR 
+					a.tgl_pengadaan LIKE '%".$search."%' OR 
+					a.nama_barang LIKE '%".$search."%' OR 
+					a.direktorat LIKE '%".$search."%' OR
+					a.nma_pemesan LIKE '%".$search."%' 
+				) AND status='A' LIMIT ".$limit.",".$offset);
+		} else{
+			$query = $this->db->query("SELECT a.*, b.kode_jenis, b.nama_jenis FROM pengadaan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE a.create_by = ".$id_user." AND status='A' LIMIT ".$limit.",".$offset);
+		}
+
+		return $query->result_array();
+	}
+
+	function count_all_penerimaan_barang($id_user, $search='')
+	{
+		if($search != ''){
+			$query = $this->db->query("SELECT count(*) AS jml FROM pengadaan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE (
+					b.nama_jenis LIKE '%".$search."%' OR
+					a.kode_pengadaan LIKE '%".$search."%' OR 
+					a.tgl_pengadaan LIKE '%".$search."%' OR 
+					a.nama_barang LIKE '%".$search."%' OR 
+					a.direktorat LIKE '%".$search."%' OR
+					a.nma_pemesan LIKE '%".$search."%' 
+				) AND status='A' ")->row_array();
+		} else{
+			$query = $this->db->query("SELECT count(*) AS jml FROM pengadaan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE status='A' AND a.create_by = ".$id_user)->row_array();
+		}
+		return $query['jml'];
+	}
+	/* end penerimaan barang */
 }
 ?>

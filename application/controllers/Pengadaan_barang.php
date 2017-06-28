@@ -91,9 +91,7 @@ class Pengadaan_barang extends CI_Controller {
 		$data['id'] = $id;
 
 		$post = $this->input->post();
-		// echo "<pre>";print_r($post);echo "</pre>";e\\xit;
 		if($post){
-			// echo "<pre>";print_r($post);echo "</pre>";exit;
 			$data_request = array(
 					'tgl_pengadaan'		=> $post['tgl_pengadaan'],
 					'jenis_barang_id' 	=> $post['jenis_barang_id'],
@@ -120,25 +118,63 @@ class Pengadaan_barang extends CI_Controller {
 		} else{
 			$data['data_pengadaan_barang'] = $this->Jenis_barang_model->all_barang();
 			$data['detail_request'] = $this->Jenis_barang_model->detail_pengadaan_barang($id,$_SESSION['login']['id_user']);
-
-			// echo "<pre>";print_r($data['detail_request']);echo "</pre>";exit;
+			$data['jns_brg'] = $this->Jenis_barang_model->detail_barang2($data['detail_request'][0]['jenis_barang_id']);
+			// echo "<pre>";print_r($data['jns_brg']['nama_jenis']);echo "</pre>";exit;
 		}
 
 		$this->load->view('pengadaan_barang/edit', $data);
 	}
 
-	public function delete($id)
-	{
-		$delete_ruangan = $this->ruangan_model->delete_ruangan($id);
+	// public function delete($id)
+	// {
+	// 	$delete_req = $this->Jenis_barang_model->delete_ruangan($id);
 
-		if($delete_ruangan == TRUE){
-			$_SESSION['ruangan']['message_color'] = "green";
-			$_SESSION['ruangan']['message'] = "Berhasil hapus data ruangan";
-			redirect('ruangan');
+	// 	if($delete_ruangan == TRUE){
+	// 		$_SESSION['ruangan']['message_color'] = "green";
+	// 		$_SESSION['ruangan']['message'] = "Berhasil hapus data ruangan";
+	// 		redirect('ruangan');
+	// 	} else{
+	// 		$_SESSION['ruangan']['message_color'] = "red";
+	// 		$_SESSION['ruangan']['message'] = "Gagal hapus data ruangan. Silahkan coba kembali nanti.";
+	// 		redirect('ruangan');
+	// 	}
+	// }
+
+	public function edit_admin($id)
+	{
+		$data['id'] = $id;
+
+		$post = $this->input->post();
+		if($post){
+			$data_request = array(
+					'status'			=> 'R',
+					'remark'			=> $post['alasan_reject'],
+					'modified'			=> date('Y-m-d H:i:s'),
+					'modi_by'			=> $_SESSION['login']['id_user']
+				);
+			$update_penerimaan = $this->Jenis_barang_model->update_penerimaan($id, 'R', $data_request);
+			if($update_penerimaan == TRUE){
+				$_SESSION['pengadaan_barang']['message_color'] = "green";
+				$_SESSION['pengadaan_barang']['message'] = "Berhasil reject request barang";
+				redirect('pengadaan_barang');
+			} else{
+				$_SESSION['pengadaan_barang']['message_color'] = "red";
+				$_SESSION['pengadaan_barang']['message'] = "Gagal reject request barang. Silahkan coba kembali nanti.";
+				redirect('pengadaan_barang');
+			}
+		} 
+	}
+
+	public function update_terima($id){
+		$update_penerimaan = $this->Jenis_barang_model->update_penerimaan($id, 'A');
+		if($update_penerimaan == TRUE){
+			$_SESSION['pengadaan_barang']['message_color'] = "green";
+			$_SESSION['pengadaan_barang']['message'] = "Berhasil dilakukan Penerimaan Barang";
+			redirect('pengadaan_barang');
 		} else{
-			$_SESSION['ruangan']['message_color'] = "red";
-			$_SESSION['ruangan']['message'] = "Gagal hapus data ruangan. Silahkan coba kembali nanti.";
-			redirect('ruangan');
+			$_SESSION['pengadaan_barang']['message_color'] = "red";
+			$_SESSION['pengadaan_barang']['message'] = "Gagal Penerimaan Barang. Silahkan coba kembali nanti.";
+			redirect('pengadaan_barang');
 		}
 	}
 }

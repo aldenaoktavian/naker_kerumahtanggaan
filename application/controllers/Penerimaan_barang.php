@@ -68,15 +68,14 @@ class Penerimaan_barang extends CI_Controller {
              $this->load->library('upload', $config);
              if ( ! $this->upload->do_upload('bukti_foto'))
              {
-                     $error = array('error' => $this->upload->display_errors());
-                     print_r($error);
+                    $message = $this->member_image_upload->display_errors();
              }
              else
              {
-                     $data = array('upload_data' => $this->upload->data());
-                     $this->load->view('upload_success', $data);
+                     $data_image = $this->member_image_upload->data();
              }
-             die;
+
+             //untuk save ke db nya save aja nama file nya, ini contohnya: $data_image["raw_name"].$data_image["file_ext"]
 
 			$data_request = array(
 					'tgl_terima'		=> date('Y-m-d H:i:s'),

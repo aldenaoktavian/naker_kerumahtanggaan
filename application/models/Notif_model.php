@@ -41,10 +41,14 @@ class Notif_model extends CI_Model {
 		return $this->db->get('notifs')->row_array();
 	}
 
-	function update_ruangan($id, $data)
+	function read_notif($id)
 	{
+		$data = array(
+				'notif_status'	=> 1,
+
+			);
 		$this->db->where('md5(id)', $id);
-		$update = $this->db->update('ruangans', $data);
+		$update = $this->db->update('notifs', $data);
 		return $update;
 	}
 

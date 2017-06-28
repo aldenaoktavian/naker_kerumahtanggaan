@@ -14,17 +14,31 @@
                 <?php 
                     $nourut = 1;
                     foreach($all_booking_ruangan as $data_ruangan){ 
+                        switch ($data_ruangan['status']) {
+                            case 'F':
+                                $status_booking = "Selesai";
+                                break;
+
+                            case 'C':
+                                $status_booking = "Dibatalkan";
+                                break;
+                            
+                            default:
+                                $status_booking = "Terbooking";
+                                break;
+                        };
                 ?>
                     <tr>
                         <td><?php echo $nourut; ?></td>
                         <td><?php echo $data_ruangan['nama_ruangan']; ?></td>
                         <td><?php echo date("d M Y", strtotime($data_ruangan['tgl_book'])); ?></td>
-                        <td><?php echo $data_ruangan['jam_book']; ?></td>
+                        <td><?php echo date("H:i", strtotime($data_ruangan['start_time'])); ?></td>
                         <td><?php echo $data_ruangan['direktorat']; ?></td>
-                        <td><?php echo ($data_ruangan['status'] == 0 ? "Terbooking" : ""); ?></td>
+                        <td><?php echo $status_booking; ?></td>
                         <td>
-                            <a href="<?php echo base_url().'booking_ruangan/edit/'.md5($data_ruangan['id']); ?>"><button type="button" class="btn btn-default">Edit</button></a>
-                            <a href="#" onclick="deleteData('<?php echo base_url().'booking_ruangan/delete/'.md5($data_ruangan['id']); ?>')"><button type="button" class="btn btn-danger">Delete</button></a>
+                            <a href="<?php echo base_url().'booking_ruangan/edit/'.md5($data_ruangan['id']); ?>"><button type="button" class="btn btn-default <?php echo $is_update; ?>">Edit</button></a>
+                            <a href="<?php echo base_url().'booking_ruangan/edit/'.md5($data_ruangan['id']); ?>"><button type="button" class="btn btn-primary <?php echo $is_approve; ?>">Edit Status</button></a>
+                            <a href="#" onclick="deleteData('<?php echo base_url().'booking_ruangan/delete/'.md5($data_ruangan['id']); ?>')"><button type="button" class="btn btn-danger <?php echo $is_delete; ?>">Delete</button></a>
                         </td>
                     </tr>
                 <?php $nourut++; } ?>

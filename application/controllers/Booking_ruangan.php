@@ -59,7 +59,55 @@ class Booking_ruangan extends CI_Controller {
 		$data['pages'] = (int)$pages;
 		$data['currentPage'] = $page;
 
+		$data['is_update'] = (check_privilege('booking_ruangan', 'is_update') != TRUE ? 'hidden' : '');
+		$data['is_delete'] = (check_privilege('booking_ruangan', 'is_delete') != TRUE ? 'hidden' : '');
+		$data['is_approve'] = (check_privilege('booking_ruangan', 'is_approve') != TRUE ? 'hidden' : '');
+
 		$this->load->view('booking-ruangan/data-search', $data);
+	}
+
+	public function view($id, $notif_id='')
+	{
+		if(check_privilege('booking_ruangan', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
+
+		if($notif_id != ''){
+			$this->notif_model->read_notif($notif_id);
+			$_SESSION['new_unread_notif_count'] = json_encode($this->notif_model->unread_notif_count($_SESSION['login']['id_user']));
+		}
+
+		$data['title'] = "Booking Ruangan";
+		$data['menu_title'] = "Detail - Booking Ruangan";
+
+		$post = $this->input->post();
+		if($post){
+			$data_update = array(
+					'status'		=> $post['status'],
+					'keterangan'	=> $post['keterangan']
+				);
+			$update_booking_ruangan = $this->ruangan_model->update_booking_ruangan($id, $data_update);
+			if($update_booking_ruangan == TRUE){
+				$_SESSION['booking_ruangan']['message_color'] = "green";
+				$_SESSION['booking_ruangan']['message'] = "Berhasil update status booking ruangan";
+				redirect('booking_ruangan');
+			} else{
+				$_SESSION['booking_ruangan']['message_color'] = "red";
+				$_SESSION['booking_ruangan']['message'] = "Gagal update status booking ruangan. Silahkan coba kembali nanti.";
+				redirect('booking_ruangan');
+			}
+		} else{
+			$detail_booking_ruangan = $this->ruangan_model->detail_booking_ruangan($id);
+			$start_hour = new DateTime($detail_booking_ruangan['start_time']);
+			$end_hour = new DateTime($detail_booking_ruangan['end_time']);
+			$durasi = date_diff($start_hour, $end_hour);
+			$detail_booking_ruangan['durasi'] = $durasi->h;
+			$data['detail_booking_ruangan'] = $detail_booking_ruangan;
+
+			$data['is_approve'] = (check_privilege('booking_ruangan', 'is_approve') != TRUE || $detail_booking_ruangan['status'] != 'B' ? 'hidden' : '');
+		}
+
+		$this->load->view('booking-ruangan/view', $data);
 	}
 
 	public function add()
@@ -69,16 +117,22 @@ class Booking_ruangan extends CI_Controller {
 		}
 
 		$data['title'] = "Booking Ruangan";
-		$data['menu_title'] = "Booking Ruangan - Add Booking Ruangan";
+		$data['menu_title'] = "Add - Booking Ruangan";
 
 		$data['getKodeBookingRuangan'] = getKodeBookingRuangan();
 
 		$post = $this->input->post();
 		if($post){
+			$start_hour = date('H:i:s', strtotime($post['jam_book']));
+			$end_hour = date_format(date_add(date_create($start_hour), date_interval_create_from_date_string('+'.$post['durasi'].' hours')), 'H:i:s');
 			$data_booking = array(
+					'start_time'	=> $start_hour,
+					'end_time'		=> $end_hour,
 					'id_user'		=> $_SESSION['login']['id_user'],
 					'created'		=> date('Y-m-d H:i:s')
 				);
+			unset($post['jam_book']);
+			unset($post['durasi']);
 			$add_booking_ruangan = $this->ruangan_model->add_booking_ruangan(array_merge($post, $data_booking));
 			if($add_booking_ruangan != 0){
 				$notif_receiver = $this->notif_model->get_email_by_module('booking_ruangan');
@@ -110,7 +164,7 @@ class Booking_ruangan extends CI_Controller {
 		}
 
 		$data['title'] = "Booking Ruangan";
-		$data['menu_title'] = "Nama Ruangan - Edit Ruangan";
+		$data['menu_title'] = "Booking Ruangan - Edit Ruangan";
 
 		$data['id'] = $id;
 
@@ -132,10 +186,16 @@ class Booking_ruangan extends CI_Controller {
 				redirect('ruangan');
 			}
 		} else{
-			$data['detail_ruangan'] = $this->ruangan_model->detail_ruangan($id);
+			$data['data_ruangan'] = $this->ruangan_model->all_ruangan();
+			$detail_booking_ruangan = $this->ruangan_model->detail_booking_ruangan($id);
+			$start_hour = new DateTime($detail_booking_ruangan['start_time']);
+			$end_hour = new DateTime($detail_booking_ruangan['end_time']);
+			$durasi = date_diff($start_hour, $end_hour);
+			$detail_booking_ruangan['durasi'] = $durasi->h;
+			$data['detail_booking_ruangan'] = $detail_booking_ruangan;
 		}
 
-		$this->load->view('ruangan/edit', $data);
+		$this->load->view('booking-ruangan/edit', $data);
 	}
 
 	public function delete($id)
@@ -155,5 +215,27 @@ class Booking_ruangan extends CI_Controller {
 			$_SESSION['ruangan']['message'] = "Gagal hapus data ruangan. Silahkan coba kembali nanti.";
 			redirect('ruangan');
 		}
+	}
+
+	function check_availability()
+	{
+		if(check_privilege('booking_ruangan', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
+
+		$post = $this->input->post();
+
+		$tgl_book = date('Y-m-d', strtotime($post['tgl_book']));
+		$start_hour = date('H:i:s', strtotime($post['jam_book']));
+		$end_hour = date_format(date_add(date_create($start_hour), date_interval_create_from_date_string('+'.$post['durasi'].' hours')), 'H:i:s');
+
+		$room_available = $this->ruangan_model->check_room_availability($tgl_book, $start_hour, $end_hour);
+
+		$list_room = '';
+		foreach($room_available as $room){
+			$list_room .= '<option value="'.$room['id'].'">'.$room['nama_ruangan'].'</option>';
+		}
+
+		echo $list_room;
 	}
 }

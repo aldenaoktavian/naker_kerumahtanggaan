@@ -21,6 +21,12 @@ io.on('connection', function (socket) {
     });
   });
 
+  socket.on( 'new_unread_notif_count', function( data ) {
+    io.sockets.emit( 'new_unread_notif_count', {
+      new_count: data.new_count
+    });
+  });
+
   socket.on('error', function (err) {
     console.log(err);
   });

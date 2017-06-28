@@ -24,6 +24,13 @@ $(document).ready(function(){
 	        });
 		}
 	}
+
+	var new_unread_notif_count = <?php echo (isset($_SESSION['new_unread_notif_count']) ? $_SESSION['new_unread_notif_count'] : '-'); ?>;
+	if(new_unread_notif_count != '-'){
+		socket.emit('new_unread_notif_count', { 
+        	new_count: new_unread_notif_count
+        });
+	}
 });
 
 var socket = io.connect( 'http://'+window.location.hostname+':3000' );
@@ -37,8 +44,16 @@ socket.on( 'new_notif', function( data ) {
 		toastr.info('<a href="' + data.new_notif_url + '" target="_blank" style="text-decoration: underline;">' + data.new_notif_desc + '</a>', '', {timeOut: 500000, positionClass : 'toast-bottom-right'});
 	}
 });
+
+socket.on( 'new_unread_notif_count', function( data ) {
+	var active_user_id = <?php echo $_SESSION['login']['id_user']; ?>;
+	
+	$( "#count_unread_message" ).html( data.new_count );
+	$( "#dropdown-notif" ).load( base_url + 'notif/load_unread_notif/' + active_user_id );
+});
 </script>
 <?php
+	unset($_SESSION['new_unread_notif_count']);
 	unset($_SESSION['data_socket']);
 ?>
 </body>

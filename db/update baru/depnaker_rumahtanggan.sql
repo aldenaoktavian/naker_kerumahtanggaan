@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50620
 File Encoding         : 65001
 
-Date: 2017-06-28 19:52:09
+Date: 2017-06-29 23:02:20
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -255,13 +255,13 @@ CREATE TABLE `pengadaan_barangs` (
   PRIMARY KEY (`id`),
   KEY `jenis_barang_id` (`jenis_barang_id`),
   CONSTRAINT `pengadaan_barangs_ibfk_1` FOREIGN KEY (`jenis_barang_id`) REFERENCES `jenis_barangs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of pengadaan_barangs
 -- ----------------------------
 INSERT INTO `pengadaan_barangs` VALUES ('1', 'REQ1', '2017-06-01 00:00:00', '1', 'buku tulis kosong', 'sinar dunia emas', '5', 'GA', 'yuvita', 'skdskdlsk', 'dskdlskdlskd', 'R', 'tdk sesuai', null, null, null, null, '2017-06-24 17:01:22', '1', '2017-06-28 11:22:37', '1');
-INSERT INTO `pengadaan_barangs` VALUES ('2', 'REQ2', '2017-06-02 00:00:00', '1', 'pensil', 'stabilo', '3', 'GA', 'vitaa', 'dksdksjdk', 'kdsjskdjksjd', 'A', null, null, null, null, null, '2017-06-24 17:03:07', '1', '2017-06-28 13:52:42', '1');
+INSERT INTO `pengadaan_barangs` VALUES ('2', 'REQ2', null, '1', 'rak mejakuu', null, null, 'IT', 'yuvita dyah', null, null, 'S', null, null, '2017-06-29 03:26:41', 'urgivnif', 'Capture.PNG', '2017-06-24 17:03:07', '1', '2017-06-29 16:10:42', '1');
 
 -- ----------------------------
 -- Table structure for `perawatan_barangs`
@@ -272,12 +272,16 @@ CREATE TABLE `perawatan_barangs` (
   `kode_perawatan` varchar(50) DEFAULT NULL,
   `tgl_perawatan` datetime DEFAULT NULL,
   `jenis_barang_id` int(11) DEFAULT NULL,
+  `nama_barang` varchar(100) DEFAULT NULL,
   `nama_pemesan` varchar(100) DEFAULT NULL,
   `direktorat` varchar(100) DEFAULT NULL,
   `alasan_perawatan` text,
   `lokasi` varchar(150) DEFAULT NULL,
-  `bukti_foto` varchar(150) DEFAULT NULL,
+  `bukti_foto_sebelum` varchar(150) DEFAULT NULL,
   `status` varchar(1) DEFAULT NULL,
+  `alasan_reject` varchar(100) DEFAULT NULL,
+  `keterangan_selesai` varchar(100) DEFAULT NULL,
+  `bukti_foto_sesudah` varchar(150) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `create_by` char(36) DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
@@ -285,11 +289,12 @@ CREATE TABLE `perawatan_barangs` (
   PRIMARY KEY (`id`),
   KEY `jenis_barang_id` (`jenis_barang_id`),
   CONSTRAINT `perawatan_barangs_ibfk_1` FOREIGN KEY (`jenis_barang_id`) REFERENCES `jenis_barangs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of perawatan_barangs
 -- ----------------------------
+INSERT INTO `perawatan_barangs` VALUES ('2', 'MNT1', '2017-06-29 00:00:00', '1', 'rak mejakuu', 'yuvita dyah', 'IT', 'karena rusak', 'lt 2', null, 'A', null, null, null, '2017-06-29 07:16:24', '1', '2017-06-29 17:16:38', '1');
 
 -- ----------------------------
 -- Table structure for `perpanjangan_stnks`

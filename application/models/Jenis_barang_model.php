@@ -320,5 +320,12 @@ class Jenis_barang_model extends CI_Model {
 		}
 		return $query['jml'];
 	} 
+
+	function detail_perawatan_selesai($id,$id_user)
+	{
+		$query = $this->db->query("SELECT a.*, b.kode_jenis, b.nama_jenis FROM perawatan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE md5(a.id) = '".$id."' ");
+
+		return $query->result_array();
+	}
 }
 ?>

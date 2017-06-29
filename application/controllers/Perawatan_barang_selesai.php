@@ -48,20 +48,20 @@ class Perawatan_barang_selesai extends CI_Controller {
 		$data['pages'] = (int)$pages;
 		$data['currentPage'] = $page;
 
-		$this->load->view('perawatan_selesai/data-search', $data);
+		$this->load->view('perawatan_barang_selesai/data-search', $data);
 	}
 
 	public function edit($id)
 	{
 		$this->load->helper(array('form', 'url'));
-		$data['title'] = "Peneriman Barang";
-		$data['menu_title'] = "Peneriman Barang - Edit Peneriman Barang";
+		$data['title'] = "Perawatan Barang Selesai";
+		$data['menu_title'] = "Perawatan Barang Selesai - Edit";
 
 		$data['id'] = $id;
 
 		$post = $this->input->post();
 		if($post){
-			 $config['upload_path']          = './uploads/penerimaan_barang/';
+			 $config['upload_path']          = './uploads/perawatan_barang/';
              $config['allowed_types']        = 'gif|jpg|png';
              $config['max_size']             = 2000;
 
@@ -77,20 +77,20 @@ class Perawatan_barang_selesai extends CI_Controller {
              }
 
 			$data_request = array(
-					'status'			=> 'S',
-					'tgl_terima'		=> date('Y-m-d H:i:s'),
-					'keterangan'	 	=> $post['keterangan'],
-					'bukti_foto'		=> $data_image['file_name'],
+					'status'				=> 'S',
+					'tgl_selesai'			=> date('Y-m-d H:i:s'),
+					'keterangan_selesai'	=> $post['keterangan_selesai'],
+					'bukti_foto_sesudah'	=> $data_image['file_name'],
 				);
-			$update_penerimaan = $this->Jenis_barang_model->update_penerimaan($id, $data_request);
-			if($update_penerimaan == TRUE){
-				$_SESSION['penerimaan_barang']['message_color'] = "green";
-				$_SESSION['penerimaan_barang']['message'] = "Berhasil melakukan penerimaan barang";
-				redirect('penerimaan_barang');
+			$update_perawatan = $this->Jenis_barang_model->update_perawatan_barang($id, $data_request);
+			if($update_perawatan == TRUE){
+				$_SESSION['update_perawatan']['message_color'] = "green";
+				$_SESSION['update_perawatan']['message'] = "Berhasil melakukan perawatan barang";
+				redirect('update_perawatan');
 			} else{
-				$_SESSION['penerimaan_barang']['message_color'] = "red";
-				$_SESSION['penerimaan_barang']['message'] = "Gagal melakukan penerimaan barang. Silahkan coba kembali nanti.";
-				redirect('penerimaan_barang');
+				$_SESSION['update_perawatan']['message_color'] = "red";
+				$_SESSION['update_perawatan']['message'] = "Gagal melakukan perawatan barang. Silahkan coba kembali nanti.";
+				redirect('update_perawatan');
 			}
 		} else{
 			$data['data_pengadaan_barang'] = $this->Jenis_barang_model->all_barang();
@@ -99,7 +99,7 @@ class Perawatan_barang_selesai extends CI_Controller {
 			// echo "<pre>";print_r($data['jns_brg']['nama_jenis']);echo "</pre>";exit;
 		}
 
-		$this->load->view('penerimaan_barang/edit', $data);
+		$this->load->view('perawatan_barang_selesai/edit', $data);
 	}
 }
 																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																	

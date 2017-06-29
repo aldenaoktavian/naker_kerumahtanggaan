@@ -7,21 +7,29 @@
     <div class="blank-page">
         <h4><?php echo $menu_title; ?></h4>
         <div style="margin-top:50px;">
-            <?php echo form_open_multipart('penerimaan_barang/edit/'.$id);?>
+            <?php echo form_open_multipart('perawatan_barang_selesai/edit/'.$id);?>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        Kode Perawatan
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <input type="text" class="form-control" name="kode_perawatan" value="<?php echo $detail_request['kode_perawatan']; ?>" readonly />
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        Tanggal Perawatan
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <input type="text" class="form-control" id="tgl_perawatan" name="tgl_perawatan" placeholder="Tanggal Perawatan" value="<?php echo $detail_request[0]['tgl_perawatan']; ?>" readonly />
+                    </div>
+                </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         Jenis Barang
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         <input type="text" class="form-control" name="jenis_barang_id" value="<?php echo $jns_brg['nama_jenis']; ?>" readonly />
-                    </div>
-                </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        Tanggal Request
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" id="tgl_pengadaan" name="tgl_pengadaan" placeholder="Tanggal Request" value="<?php echo $detail_request[0]['tgl_pengadaan']; ?>" readonly />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -34,18 +42,10 @@
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        Merk
+                        Nama Pemesan
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="merk" placeholder="Merk" value="<?php echo $detail_request[0]['merk']; ?>" readonly />
-                    </div>
-                </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        Qty
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="qty" placeholder="Qty" value="<?php echo $detail_request[0]['qty']; ?>" readonly />
+                        <input type="text" class="form-control" name="nama_pemesan" placeholder="Nama Pemesan" value="<?php echo $detail_request[0]['nama_pemesan']; ?>" readonly />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -58,26 +58,26 @@
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        Nama Pemesan
+                        Alasan Perawatan
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="nama_pemesan" placeholder="Nama Pemesan" value="<?php echo $detail_request[0]['nama_pemesan']; ?>" readonly />
+                        <input type="textarea" class="form-control" name="alasan_perawatan" placeholder="Alasan Perawatan" value="<?php echo $detail_request[0]['alasan_perawatan']; ?>" readonly />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        Alasan Pengadaan
+                        Lokasi
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="textarea" class="form-control" name="alasan_pengadaan" placeholder="Alasan Pengadaan" value="<?php echo $detail_request[0]['alasan_pengadaan']; ?>" readonly />
+                        <input type="textarea" class="form-control" name="lokasi" placeholder="Lokasi" value="<?php echo $detail_request[0]['lokasi']; ?>" readonly />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        Spesifikasi Barang
+                        Foto Bukti Barang sebelum perawatan
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="textarea" class="form-control" name="spesifikasi" placeholder="Spesifikasi" value="<?php echo $detail_request[0]['spesifikasi']; ?>" readonly />
+                        <img  src="<?php echo base_url().'uploads/perawatan_barang/'.$detail_request[0]['bukti_foto_sebelum'] ?>" />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -85,20 +85,20 @@
                         Keterangan
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="textarea" class="form-control" name="keterangan" placeholder="Keterangan" />
+                        <input type="textarea" class="form-control" name="keterangan_selesai" placeholder="Keterangan" />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        Bukti Foto Barang
+                        Bukti Foto Selesai
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="file" name="bukti_foto" placeholder="Bukti Foto Barang" />
+                        <input type="file" name="bukti_foto_sesudah" placeholder="Bukti Foto Selesai" />
                     </div>
                 </div>
                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
                     <button type="submit" class="btn btn-primary">Confirm</button>
-                    <a href="<?php echo base_url().'penerimaan_barang'; ?>"><button type="button" class="btn btn-default">Cancel</button></a>
+                    <a href="<?php echo base_url().'perawatan_barang_selesai'; ?>"><button type="button" class="btn btn-default">Cancel</button></a>
                 </div>
                 
                 <div class="clearfix"></div>

@@ -152,8 +152,8 @@ class Pengadaan_barang extends CI_Controller {
 					'modified'			=> date('Y-m-d H:i:s'),
 					'modi_by'			=> $_SESSION['login']['id_user']
 				);
-			$update_penerimaan = $this->Jenis_barang_model->update_penerimaan($id, 'R', $data_request);
-			if($update_penerimaan == TRUE){
+			$approve_penerimaan = $this->Jenis_barang_model->approve_penerimaan($id, 'R', $data_request);
+			if($approve_penerimaan == TRUE){
 				$_SESSION['pengadaan_barang']['message_color'] = "green";
 				$_SESSION['pengadaan_barang']['message'] = "Berhasil reject request barang";
 				redirect('pengadaan_barang');
@@ -166,8 +166,8 @@ class Pengadaan_barang extends CI_Controller {
 	}
 
 	public function update_terima($id){
-		$update_penerimaan = $this->Jenis_barang_model->update_penerimaan($id, 'A');
-		if($update_penerimaan == TRUE){
+		$approve_penerimaan = $this->Jenis_barang_model->approve_penerimaan($id, 'A');
+		if($approve_penerimaan == TRUE){
 			$_SESSION['pengadaan_barang']['message_color'] = "green";
 			$_SESSION['pengadaan_barang']['message'] = "Berhasil dilakukan Penerimaan Barang";
 			redirect('pengadaan_barang');

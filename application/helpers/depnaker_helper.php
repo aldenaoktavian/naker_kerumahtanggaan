@@ -117,6 +117,19 @@ function getKodePengadaanBarang()
 	return $kode;
 }
 
+function getKodePerawatanBarang()
+{
+	$CI = get_instance();
+
+	$last_id = $CI->db->select('max(id) AS id')->get_where('perawatan_barangs')->row_array();
+
+	$new_number = (int)$last_id['id'] + 1;
+
+	$kode = "MNT".$new_number;
+
+	return $kode;
+}
+
 function saveNotif($data_notif, $notif_receiver)
 {
 	$CI = get_instance();

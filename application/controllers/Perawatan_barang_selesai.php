@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Penerimaan_barang extends CI_Controller {
+class Perawatan_barang_selesai extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
@@ -15,16 +15,16 @@ class Penerimaan_barang extends CI_Controller {
 
 	public function index()
 	{	
-		$data['title'] = "Penerimaan Barang";
-		$data['menu_title'] = "Penerimaan Barang - List Data";
+		$data['title'] = "Perawatan Selesai";
+		$data['menu_title'] = "Perawatan Selesai - List Data";
 
 		// $data['all_pengadaan_barang'] = $this->Jenis_barang_model->data_pengadaan_barang($_SESSION['login']['id_user'], 20, 5);
 		// print_r($data);exit;
 
-		$this->load->view('penerimaan_barang/data', $data);
+		$this->load->view('perawatan_barang_selesai/data', $data);
 	}
 
-	public function data_search_penerimaan($page=0, $search='')
+	public function data_search_perawatan($page=0, $search='')
 	{
 		$search = urldecode($search);
 
@@ -37,18 +37,18 @@ class Penerimaan_barang extends CI_Controller {
 		}
 
 		if($search != ''){
-			$data['all_penerimaan_barang'] = $this->Jenis_barang_model->data_penerimaan_barang($_SESSION['login']['id_user'], $limit, $offset, $search);
-			$all_pages = $this->Jenis_barang_model->count_all_penerimaan_barang($_SESSION['login']['id_user'], $search);
+			$data['all_perawatan_selesai'] = $this->Jenis_barang_model->data_perawatan_selesai($_SESSION['login']['id_user'], $limit, $offset, $search);
+			$all_pages = $this->Jenis_barang_model->count_all_perawatan_selesai($_SESSION['login']['id_user'], $search);
 		} else{
-			$data['all_penerimaan_barang'] = $this->Jenis_barang_model->data_penerimaan_barang($_SESSION['login']['id_user'], $limit, $offset);
-			$all_pages = $this->Jenis_barang_model->count_all_penerimaan_barang($_SESSION['login']['id_user']);
+			$data['all_perawatan_selesai'] = $this->Jenis_barang_model->data_perawatan_selesai($_SESSION['login']['id_user'], $limit, $offset);
+			$all_pages = $this->Jenis_barang_model->count_all_perawatan_selesai($_SESSION['login']['id_user']);
 		}
 		
 		$pages = ($all_pages % $offset == 0 ? $all_pages / $offset : ($all_pages / $offset)+1 );
 		$data['pages'] = (int)$pages;
 		$data['currentPage'] = $page;
 
-		$this->load->view('penerimaan_barang/data-search', $data);
+		$this->load->view('perawatan_selesai/data-search', $data);
 	}
 
 	public function edit($id)

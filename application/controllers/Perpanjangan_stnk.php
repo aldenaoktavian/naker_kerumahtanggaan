@@ -52,7 +52,7 @@ class Perpanjangan_stnk extends CI_Controller {
 
 	public function update_konf($id){
 		$konfirmasi_stnk = $this->Kendaraan_model->konfirmasi_stnk($id);
-		if($konfirmasi_stnk == TRUE){
+		if(($konfirmasi_stnk['insert_perpanjang'] == TRUE) && ($konfirmasi_stnk['update_kendaraan'] == TRUE)){
 			$_SESSION['perpanjangan_stnk']['message_color'] = "green";
 			$_SESSION['perpanjangan_stnk']['message'] = "Berhasil dilakukan Perpanjangan STNK";
 			redirect('perpanjangan_stnk');

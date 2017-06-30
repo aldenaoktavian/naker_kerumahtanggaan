@@ -103,6 +103,7 @@ class Kendaraan_model extends CI_Model {
 					a.no_mesin LIKE '%".$search."%' OR
 					a.no_chasis LIKE '%".$search."%' OR
 					a.pemegang LIKE '%".$search."%' OR
+					a.masa_stnk LIKE '%".$search."%' OR
 					a.direktorat LIKE '%".$search."%'
 				) LIMIT ".$limit.",".$offset);
 		} else{
@@ -124,6 +125,7 @@ class Kendaraan_model extends CI_Model {
 					a.no_mesin LIKE '%".$search."%' OR
 					a.no_chasis LIKE '%".$search."%' OR
 					a.pemegang LIKE '%".$search."%' OR
+					a.masa_stnk LIKE '%".$search."%' OR
 					a.direktorat LIKE '%".$search."%'
 				)")->row_array();
 		} else{

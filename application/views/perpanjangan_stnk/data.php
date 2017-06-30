@@ -3,6 +3,9 @@
 	<div class="blank-page">
     	<h4><?php echo $menu_title; ?></h4>
         <div style="margin-top:50px;">
+            <div style="margin-bottom: 10px;">
+                <input type="text" id="search" data-url="<?php echo base_url().'perpanjangan_stnk/data_search/0/'; ?>" class="form-control" placeholder="Search" style="max-width: 250px;float: right;" />
+            </div>
             <?php if(isset($_SESSION['perpanjangan_stnk']['message'])){ ?>
                 <div style="color:<?php echo $_SESSION['perpanjangan_stnk']['message_color']; ?>;"><?php echo $_SESSION['perpanjangan_stnk']['message']; ?></div>
             <?php } ?>

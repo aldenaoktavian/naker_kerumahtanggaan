@@ -130,6 +130,32 @@ function getKodePerawatanBarang()
 	return $kode;
 }
 
+function getKodeJenisKendaraan()
+{
+	$CI = get_instance();
+
+	$last_id = $CI->db->select('max(id) AS id')->get_where('jenis_kendaraans')->row_array();
+
+	$new_number = (int)$last_id['id'] + 1;
+
+	$kode = "VCT".$new_number;
+
+	return $kode;
+}
+
+function getKodeKendaraan()
+{
+	$CI = get_instance();
+
+	$last_id = $CI->db->select('max(id) AS id')->get_where('kendaraans')->row_array();
+
+	$new_number = (int)$last_id['id'] + 1;
+
+	$kode = "VHC".$new_number;
+
+	return $kode;
+}
+
 function saveNotif($data_notif, $notif_receiver)
 {
 	$CI = get_instance();

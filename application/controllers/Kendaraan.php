@@ -14,10 +14,10 @@ class Kendaraan extends CI_Controller {
 
 	public function index()
 	{
-		$data['title'] = "Jenis Barang";
-		$data['menu_title'] = "Jenis Barang - List Data";
+		$data['title'] = "Kendaraan";
+		$data['menu_title'] = "Kendaraan - List Data";
 
-		$this->load->view('jenis_barang/data', $data);
+		$this->load->view('kendaraan/data', $data);
 	}
 
 	public function data_search($page=0, $search='')
@@ -33,95 +33,134 @@ class Kendaraan extends CI_Controller {
 		}
 
 		if($search != ''){
-			$data['all_barang'] = $this->Jenis_barang_model->data_barang($limit, $offset, $search);
-			$all_pages = $this->Jenis_barang_model->count_all_barang($search);
+			$data['all_kendaraan'] = $this->Kendaraan_model->data_kendaraan($limit, $offset, $search);
+			$all_pages = $this->Kendaraan_model->count_all_kendaraan($search);
 		} else{
-			$data['all_barang'] = $this->Jenis_barang_model->data_barang($limit, $offset);
-			$all_pages = $this->Jenis_barang_model->count_all_barang();
+			$data['all_kendaraan'] = $this->Kendaraan_model->data_kendaraan($limit, $offset);
+			$all_pages = $this->Kendaraan_model->count_all_kendaraan();
 		}
 
 		$pages = ($all_pages % $offset == 0 ? $all_pages / $offset : ($all_pages / $offset)+1 );
 		$data['pages'] = (int)$pages;
 		$data['currentPage'] = $page;
 
-		$this->load->view('jenis_barang/data-search', $data);
+		$this->load->view('kendaraan/data-search', $data);
 	}
 
 	public function add()
 	{
-		$data['title'] = "Jenis Barang";
-		$data['menu_title'] = "Nama Jenis Barang - Add Jenis Barang";
+		$data['title'] = "Kendaraan";
+		$data['menu_title'] = "Kendaraan - Add";
 
-		$data['getKodeBarang'] = getKodeBarang();
+		$data['getKodeKendaraan'] = getKodeKendaraan();
 
 		$post = $this->input->post();
 		if($post){
-			$data_barang = array(
-					'kode_jenis'	=> $post['kode_jenis'],
-					'nama_jenis'	=> $post['nama_jenis'],
-					'created'		=> date('Y-m-d H:i:s'),
-					'create_by'		=> $_SESSION['login']['id_user'],
-					'modified'		=> date('Y-m-d H:i:s'),
-					'modi_by'		=> $_SESSION['login']['id_user']
+			$data_kendaraan = array(
+					'kode_kendaraan'	=> $post['kode_kendaraan'],
+					'jns_kendaraan_id'	=> $post['jns_kendaraan_id'],
+					'merk'				=> $post['merk'],
+					'tahun'				=> $post['tahun'],
+					'nup'				=> $post['nup'],
+					'no_pol'			=> $post['no_pol'],
+					'no_mesin'			=> $post['no_mesin'],
+					'no_chasis'			=> $post['no_chasis'],
+					'kondisi'			=> $post['kondisi'],
+					'pemegang'			=> $post['pemegang'],
+					'direktorat'		=> $post['direktorat'],
+					'masa_stnk'			=> $post['masa_stnk'],
+					'created'			=> date('Y-m-d H:i:s'),
+					'create_by'			=> $_SESSION['login']['id_user'],
+					'modified'			=> date('Y-m-d H:i:s'),
+					'modi_by'			=> $_SESSION['login']['id_user']
 				);
-			$add_barang = $this->Jenis_barang_model->add_barang($data_barang);
-			if($add_barang != 0){
-				$_SESSION['jenis_barang']['message_color'] = "green";
-				$_SESSION['jenis_barang']['message'] = "Berhasil menambahkan jenis barang";
-				redirect('jenis_barang');
+			$add_kendaraan = $this->Kendaraan_model->add_kendaraan($data_kendaraan);
+			if($add_kendaraan != 0){
+				$_SESSION['kendaraan']['message_color'] = "green";
+				$_SESSION['kendaraan']['message'] = "Berhasil menambahkan jenis barang";
+				redirect('kendaraan');
 			} else{
-				$_SESSION['jenis_barang']['message_color'] = "red";
-				$_SESSION['jenis_barang']['message'] = "Gagal menambahkan jenis barang. Silahkan coba kembali nanti.";
-				redirect('jenis_barang');
+				$_SESSION['kendaraan']['message_color'] = "red";
+				$_SESSION['kendaraan']['message'] = "Gagal menambahkan jenis barang. Silahkan coba kembali nanti.";
+				redirect('kendaraan');
 			}
+		}else{
+			$this->load->model('Jenis_kendaraan_model');
+			$data['data_jenis_kendaraan'] = $this->Jenis_kendaraan_model->all_jenis_kendaraan();
 		}
 
-		$this->load->view('jenis_barang/add', $data);
+		$this->load->view('kendaraan/add', $data);
 	}
 
 	public function edit($id)
 	{
-		$data['title'] = "Jenis Barang";
-		$data['menu_title'] = "Nama Jenis Barang - Edit Jenis Barang";
+		$data['title'] = "Kendaraan";
+		$data['menu_title'] = "Kendaraan - Edit";
 
 		$data['id'] = $id;
 
 		$post = $this->input->post();
 		if($post){
-			$data_barang = array(
-					'nama_jenis'	=> $post['nama_jenis'],
-					'modified'		=> date('Y-m-d H:i:s'),
-					'modi_by'		=> $_SESSION['login']['id_user']
+			$data_kendaraan = array(
+					'kode_kendaraan'	=> $post['kode_kendaraan'],
+					'jns_kendaraan_id'	=> $post['jns_kendaraan_id'],
+					'merk'				=> $post['merk'],
+					'tahun'				=> $post['tahun'],
+					'nup'				=> $post['nup'],
+					'no_pol'			=> $post['no_pol'],
+					'no_mesin'			=> $post['no_mesin'],
+					'no_chasis'			=> $post['no_chasis'],
+					'kondisi'			=> $post['kondisi'],
+					'pemegang'			=> $post['pemegang'],
+					'direktorat'		=> $post['direktorat'],
+					'masa_stnk'			=> $post['masa_stnk'],
+					'modified'			=> date('Y-m-d H:i:s'),
+					'modi_by'			=> $_SESSION['login']['id_user']
 				);
-			$update_barang = $this->Jenis_barang_model->update_barang($id, $data_barang);
-			if($update_barang == TRUE){
-				$_SESSION['jenis_barang']['message_color'] = "green";
-				$_SESSION['jenis_barang']['message'] = "Berhasil edit data jenis barang";
-				redirect('jenis_barang');
+			$update_kendaraan = $this->Kendaraan_model->update_kendaraan($id, $data_kendaraan);
+			if($update_kendaraan == TRUE){
+				$_SESSION['kendaraan']['message_color'] = "green";
+				$_SESSION['kendaraan']['message'] = "Berhasil edit data jenis barang";
+				redirect('kendaraan');
 			} else{
-				$_SESSION['jenis_barang']['message_color'] = "red";
-				$_SESSION['jenis_barang']['message'] = "Gagal edit data jenis barang. Silahkan coba kembali nanti.";
-				redirect('jenis_barang');
+				$_SESSION['kendaraan']['message_color'] = "red";
+				$_SESSION['kendaraan']['message'] = "Gagal edit data jenis barang. Silahkan coba kembali nanti.";
+				redirect('kendaraan');
 			}
 		} else{
-			$data['detail_barang'] = $this->Jenis_barang_model->detail_barang($id);
+			$data['detail_kendaraan'] = $this->Kendaraan_model->detail_kendaraan($id);
+			$this->load->model('Jenis_kendaraan_model');
+			$data['data_jenis_kendaraan'] = $this->Jenis_kendaraan_model->all_jenis_kendaraan();
 		}
 
-		$this->load->view('jenis_barang/edit', $data);
+		$this->load->view('kendaraan/edit', $data);
+	}
+
+	public function view($id)
+	{
+		$data['title'] = "Data Kendaraan";
+		$data['menu_title'] = "Data Kendaraan";
+
+		$data['id'] = $id;
+
+		$data['detail_kendaraan'] = $this->Kendaraan_model->detail_kendaraan($id,$_SESSION['login']['id_user']);
+		// echo "<pre>";print_r($data['detail_kendaraan']);echo "</pre>";exit;
+
+		$this->load->view('kendaraan/view', $data);
 	}
 
 	public function delete($id)
 	{
-		$delete_barang = $this->Jenis_barang_model->delete_barang($id);
+		$delete_kendaraan = $this->Kendaraan_model->delete_kendaraan($id);
 
-		if($delete_barang == TRUE){
-			$_SESSION['jenis_barang']['message_color'] = "green";
-			$_SESSION['jenis_barang']['message'] = "Berhasil hapus data jenis barang";
-			redirect('jenis_barang');
+		if($delete_kendaraan == TRUE){
+			$_SESSION['kendaraan']['message_color'] = "green";
+			$_SESSION['kendaraan']['message'] = "Berhasil hapus data kendaraan";
+			redirect('kendaraan');
 		} else{
-			$_SESSION['jenis_barang']['message_color'] = "red";
-			$_SESSION['jenis_barang']['message'] = "Gagal hapus data jenis barang. Silahkan coba kembali nanti.";
-			redirect('jenis_barang');
+			$_SESSION['kendaraan']['message_color'] = "red";
+			$_SESSION['kendaraan']['message'] = "Gagal hapus data kendaraan. Silahkan coba kembali nanti.";
+			redirect('kendaraan');
 		}
 	}
 }

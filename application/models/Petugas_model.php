@@ -60,7 +60,6 @@ class Petugas_model extends CI_Model {
 		} else{
 			$query = $this->db->query("SELECT * FROM jadwal_tugas LIMIT ".$limit.",".$offset);
 		}
-
 		return $query->result_array();
 	}
 
@@ -82,6 +81,40 @@ class Petugas_model extends CI_Model {
 	function all_petugas_security(){
 		$data = $this->db->select('*')->get_where('petugas',array('petugas_tipe_id'=>'2'));
 		return $data->result_array();
+	}
+
+	function data_notelp_petugas($id){
+		$data = $this->db->select('no_telp')->get_where('petugas',array('id'=>$id));
+		return $data->result_array();
+	}
+
+	function add_cleaning($data){
+		$this->db->insert('jadwal_tugas', $data);
+		return $this->db->insert_id();
+	}
+
+	function add_detail_cleaning($data){
+		$this->db->insert('jadwal_tugas_details', $data);
+		return $this->db->insert_id();
+	}
+
+	function update_cleaning($id, $data)
+	{
+		$this->db->where('md5(id)', $id);
+		$update = $this->db->update('jadwal_tugas', $data);
+		return $update;
+	}
+
+	function detail_cleaning($id)
+	{
+		$this->db->where('md5(id)', $id);
+		return $this->db->get('jadwal_tugas')->row_array();
+	}
+
+	function detail_cleaning_detail($id)
+	{
+		$this->db->where('md5(jadwal_tugas_id)', $id);
+		return $this->db->get('jadwal_tugas_details')->row_array();
 	}
 	/* end */
 }

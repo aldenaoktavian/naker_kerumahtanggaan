@@ -59,14 +59,15 @@
                         </tr>
                         <tr id="tr0">
                             <td>
-                                <select id="Detail0BulanTugas" name="data[detail][0][bulan_tugas]" class="form-control">
+                                <select id="Detail0PetugasId" name="data[detail][0][petugas_id]" onchange="changePetugas(0,this.value);" class="form-control">
+                                    <option value="0">--Pilih Petugas--</option>
                                     <?php foreach($data_petugas_cleaning as $ptgs){ ?>
                                         <option value="<?php echo $ptgs['id']; ?>"><?php echo $ptgs['nama_petugas']; ?></option>
                                     <?php } ?>
                                 </select>
                             </td>
-                            <td><input type="text" class="form-control" name="data[detail][0][no_telp]" placeholder="No Telp" /></td>
-                            <td><input type="text" class="form-control" name="data[detail][0][lokasi]" placeholder="Lokasi" /></td>
+                            <td><input type="text" class="form-control" id="Detail0NoTelp" name="data[detail][0][no_telp]" placeholder="No Telp" /></td>
+                            <td><input type="text" class="form-control" id="Detail0Lokasi" name="data[detail][0][lokasi]" placeholder="Lokasi" /></td>
                             <td><a style="cursor:pointer;" onclick="$('#tr0').detach();"><span style="background:#aaa;padding:1px 8px;">-</span></a></td>
                         </tr>
                          
@@ -86,33 +87,45 @@
     </div>
 </div>
 
-<!-- Ini adalah duplikasi elemen row detail, yang akan dipakai dalam penambahan row baru melalui javascript -->
 <div style="display:none;" id="htmlDetail">
 <xzztr id="trzzz">
 <xzztd>
-    <select id="DetailzzzBulanTugas" name="data[detail][zzz][bulan_tugas]" class="form-control">
+    <select id="DetailzzzPetugasId" name="data[detail][zzz][petugas_id]" onchange="changePetugas(zzz,this.value);" class="form-control">
+        <option value="0">--Pilih Petugas--</option>
         <?php foreach($data_petugas_cleaning as $ptgs){ ?>
             <option value="<?php echo $ptgs['id']; ?>"><?php echo $ptgs['nama_petugas']; ?></option>
         <?php } ?>
     </select>
 </xzztd>
 
-<xzztd><input type="text" id="DetailzzzNoTelp" class="form-control" name="data[detail][0][no_telp]" placeholder="No Telp" /></xzztd>
-<xzztd><input type="text" id="DetailzzzNoLokasi" class="form-control" name="data[detail][0][lokasi]" placeholder="Lokasi" /></xzztd>
+<xzztd><input type="text" id="DetailzzzNoTelp" class="form-control" name="data[detail][zzz][no_telp]" placeholder="No Telp" /></xzztd>
+<xzztd><input type="text" id="DetailzzzLokasi" class="form-control" name="data[detail][zzz][lokasi]" placeholder="Lokasi" /></xzztd>
 <xzztd><a style="cursor:pointer;" onclick="$('#trzzz').detach();"><span style="background:#aaa;padding:1px 8px;">-</span></a></xzztd>
 </xzztr>
 </div>
  
-<!-- script yang dipanggil dari form detail -->
 <script type="text/javascript">
-function clickAdd(){
-html=$('#htmlDetail').html().toString();
-var nextCounter=Number($('#tr_d_counterDetail').val())+1;
-$('#tr_d_counterDetail').val(nextCounter);
-while (html != (html = html.replace("zzz", nextCounter)));
-while (html != (html = html.replace("xzz", '')));
-$('#trHiddenCounterDetail').before(html);
-}
+    function clickAdd(){
+    html=$('#htmlDetail').html().toString();
+    var nextCounter=Number($('#tr_d_counterDetail').val())+1;
+    $('#tr_d_counterDetail').val(nextCounter);
+    while (html != (html = html.replace("zzz", nextCounter)));
+    while (html != (html = html.replace("xzz", '')));
+    $('#trHiddenCounterDetail').before(html);
+    }
+
+    function changePetugas(id,val){
+        $.ajax({
+             type: "POST",
+             url: "<?php echo base_url().'tugas_cleaning/notelp_petugas/'; ?>"+val,
+             dataType:"json",
+             success: function (response) {
+                var obj = $.parseJSON(response);
+                 
+                 $('#Detail'+id+'NoTelp').val(obj);
+            }
+        });
+    }
 </script>
 
 <?php include(APPPATH."views/includes/footer.php"); ?>

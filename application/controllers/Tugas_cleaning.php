@@ -36,13 +36,14 @@ class Tugas_cleaning extends CI_Controller {
 		}
 
 		if($search != ''){
-			$data['all_tugas_cleaning'] = $this->Petugas_model->data_cleaning($_SESSION['login']['id_user'], $limit, $offset, $search);
+			$data['all_tugas_cleaning'] = $this->Petugas_model->data_cleaning($limit, $offset, $search);
 			$all_pages = $this->Petugas_model->count_all_cleaning($_SESSION['login']['id_user'], $search);
 		} else{
-			$data['all_tugas_cleaning'] = $this->Petugas_model->data_cleaning($_SESSION['login']['id_user'], $limit, $offset);
+			$data['all_tugas_cleaning'] = $this->Petugas_model->data_cleaning($limit, $offset);
 			$all_pages = $this->Petugas_model->count_all_cleaning($_SESSION['login']['id_user']);
 		}
 		
+		// print_r($data['all_tugas_cleaning']);exit;
 		$pages = ($all_pages % $offset == 0 ? $all_pages / $offset : ($all_pages / $offset)+1 );
 		$data['pages'] = (int)$pages;
 		$data['currentPage'] = $page;
@@ -60,15 +61,28 @@ class Tugas_cleaning extends CI_Controller {
 		$post = $this->input->post();
 		if($post){
 			$data_cleaning = array(
-					'tipe' 			=> 'C',
-					'bulan_tugas' 	=> $post['bulan_tugas'],
-					'tahun_tugas' 	=> $post['tahun_tugas'],
+					'tipe'			=> 'C',
+					'kode_jadwal'	=> $post['kode_jadwal'],
+					'bulan_tugas'	=> $post['bulan_tugas'],
+					'tahun_tugas'	=> $post['tahun_tugas'],
 					'create_by'		=> $_SESSION['login']['id_user'],
 					'created'		=> date('Y-m-d H:i:s'),
 					'modi_by'		=> $_SESSION['login']['id_user'],
 					'modified'		=> date('Y-m-d H:i:s')
 				);
-			$add_cleaning = $this->Petugas->add_cleaning(array_merge($post, $data_cleaning));
+			$add_cleaning = $this->Petugas_model->add_cleaning($data_cleaning);
+			foreach ($post['data']['detail'] as $a => $b) {
+				$detail_cleaning = array(
+					'jadwal_tugas_id'	=> $add_cleaning,
+					'petugas_id'		=> $b['petugas_id'],
+					'lokasi'			=> $b['lokasi'],
+					'create_by'			=> $_SESSION['login']['id_user'],
+					'created'			=> date('Y-m-d H:i:s'),
+					'modi_by'			=> $_SESSION['login']['id_user'],
+					'modified'			=> date('Y-m-d H:i:s')
+				);
+				$add_detail_cleaning = $this->Petugas_model->add_detail_cleaning($detail_cleaning);
+			}
 			if($add_cleaning != 0){
 				$_SESSION['tugas_cleaning']['message_color'] = "green";
 				$_SESSION['tugas_cleaning']['message'] = "Berhasil menambahkan jadwal tugas cleaning";
@@ -90,29 +104,41 @@ class Tugas_cleaning extends CI_Controller {
 		$this->load->view('tugas_cleaning/add', $data);
 	}
 
+	function notelp_petugas($id_petugas){
+		$data['notelp'] = $this->Petugas_model->data_notelp_petugas($id_petugas);
+		die(json_encode($data['notelp'][0]['no_telp']));
+	}
+
 	public function edit($id)
 	{
-		$data['title'] = "Request Barang";
-		$data['menu_title'] = "Request Barang - Edit Ruangan";
+		$data['title'] = "Tugas Cleaning";
+		$data['menu_title'] = "Tugas Cleaning - Edit";
 
 		$data['id'] = $id;
 
 		$post = $this->input->post();
 		if($post){
-			$data_request = array(
-					'tgl_pengadaan'		=> $post['tgl_pengadaan'],
-					'jenis_barang_id' 	=> $post['jenis_barang_id'],
-					'nama_barang'		=> $post['nama_barang'],
-					'merk'				=> $post['merk'],
-					'qty'				=> $post['qty'],
-					'direktorat'		=> $post['direktorat'],
-					'nama_pemesan'		=> $post['nama_pemesan'],
-					'alasan_pengadaan'	=> $post['alasan_pengadaan'],
-					'spesifikasi'		=> $post['spesifikasi'],
-					'modified'			=> date('Y-m-d H:i:s'),
-					'modi_by'			=> $_SESSION['login']['id_user']
+			$data_cleaning = array(
+					'tipe'			=> 'C',
+					'kode_jadwal'	=> $post['kode_jadwal'],
+					'bulan_tugas'	=> $post['bulan_tugas'],
+					'tahun_tugas'	=> $post['tahun_tugas'],
+					'modi_by'		=> $_SESSION['login']['id_user'],
+					'modified'		=> date('Y-m-d H:i:s')
 				);
-			$update_req_barang = $this->Jenis_barang_model->update_pengadaan_barang($id, $data_request);
+			$update_cleaning = $this->Petugas_model->update_cleaning($id, $data_cleaning);
+			foreach ($post['data']['detail'] as $a => $b) {
+				$detail_cleaning = array(
+					'jadwal_tugas_id'	=> $add_cleaning,
+					'petugas_id'		=> $b['petugas_id'],
+					'lokasi'			=> $b['lokasi'],
+					'create_by'			=> $_SESSION['login']['id_user'],
+					'created'			=> date('Y-m-d H:i:s'),
+					'modi_by'			=> $_SESSION['login']['id_user'],
+					'modified'			=> date('Y-m-d H:i:s')
+				);
+				$add_detail_cleaning = $this->Petugas_model->add_detail_cleaning($detail_cleaning);
+			}
 			if($update_req_barang == TRUE){
 				$_SESSION['pengadaan_barang']['message_color'] = "green";
 				$_SESSION['pengadaan_barang']['message'] = "Berhasil edit data request barang";
@@ -123,10 +149,11 @@ class Tugas_cleaning extends CI_Controller {
 				redirect('pengadaan_barang');
 			}
 		} else{
-			$data['data_pengadaan_barang'] = $this->Jenis_barang_model->all_barang();
-			$data['detail_request'] = $this->Jenis_barang_model->detail_pengadaan_barang($id,$_SESSION['login']['id_user']);
-			$data['jns_brg'] = $this->Jenis_barang_model->detail_barang2($data['detail_request'][0]['jenis_barang_id']);
-			// echo "<pre>";print_r($data['jns_brg']['nama_jenis']);echo "</pre>";exit;
+			$data['bulan'] = array(1=>'Januari',2=>'Februari',3=>'Maret',4=>'April',5=>'Mei',6=>'Juni',7=>'Juli',8=>'Agustus',9=>'September',10=>'Oktober',11=>'November',12=>'Desember');
+			$data['tahun'] = array('2015'=>'2015','2016'=>'2016','2017'=>'2017','2018'=>'2018');
+			$data['data_petugas_cleaning'] = $this->Petugas_model->all_petugas_cleaning();
+			$data['cleaning'] = $this->Petugas_model->detail_cleaning($id);
+			$data['detail_cleaning'] = $this->Petugas_model->detail_cleaning_detail($id);
 		}
 
 		$this->load->view('pengadaan_barang/edit', $data);

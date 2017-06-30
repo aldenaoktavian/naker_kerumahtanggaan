@@ -75,12 +75,12 @@ class Perawatan_barang extends CI_Controller {
              }
 
 			$data_perawatan_barang = array(
-					'status' 		=> 'E',
-					'bukti_foto'	=> $data_image['file_name'],
-					'create_by'		=> $_SESSION['login']['id_user'],
-					'created'		=> date('Y-m-d H:i:s'),
-					'modi_by'		=> $_SESSION['login']['id_user'],
-					'modified'		=> date('Y-m-d H:i:s')
+					'status' 				=> 'E',
+					'bukti_foto_sebelum'	=> $data_image['file_name'],
+					'create_by'				=> $_SESSION['login']['id_user'],
+					'created'				=> date('Y-m-d H:i:s'),
+					'modi_by'				=> $_SESSION['login']['id_user'],
+					'modified'				=> date('Y-m-d H:i:s')
 				);
 			$add_perawatan_barang = $this->Jenis_barang_model->add_perawatan_barang(array_merge($post, $data_perawatan_barang));
 			if($add_perawatan_barang != 0){

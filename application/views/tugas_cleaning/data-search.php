@@ -5,7 +5,6 @@
                         <td>Kode Jadwal</td>
                         <td>Bulan Tugas</td>
                         <td>Tahun Tugas</td>
-                        <td>Status</td>
                         <td>Action</td>
                     </tr>
                 </thead>

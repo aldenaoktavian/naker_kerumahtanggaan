@@ -75,13 +75,13 @@ class Petugas_model extends CI_Model {
 	}
 
 	function all_petugas_cleaning(){
-		$data = $this->db->select('*')->get_where('petugas',array('petugas_tipe_id'=>'1'))->row_array();
-		return $data;
+		$data = $this->db->select('*')->get_where('petugas',array('petugas_tipe_id'=>'1'));
+		return $data->result_array();
 	}
 
 	function all_petugas_security(){
-		$data = $this->db->select('*')->get_where('petugas',array('petugas_tipe_id'=>'2'))->row_array();
-		return $data;
+		$data = $this->db->select('*')->get_where('petugas',array('petugas_tipe_id'=>'2'));
+		return $data->result_array();
 	}
 	/* end */
 }

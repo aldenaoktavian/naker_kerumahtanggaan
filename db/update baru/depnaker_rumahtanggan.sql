@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50620
 File Encoding         : 65001
 
-Date: 2017-06-29 23:02:20
+Date: 2017-06-30 16:33:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -53,6 +53,7 @@ DROP TABLE IF EXISTS `jadwal_tugas`;
 CREATE TABLE `jadwal_tugas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `kode_jadwal` varchar(50) DEFAULT NULL,
+  `tipe` varchar(50) DEFAULT NULL,
   `bulan_tugas` varchar(2) DEFAULT NULL,
   `tahun_tugas` varchar(4) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
@@ -123,11 +124,13 @@ CREATE TABLE `jenis_kendaraans` (
   `modified` datetime DEFAULT NULL,
   `modi_by` char(36) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of jenis_kendaraans
 -- ----------------------------
+INSERT INTO `jenis_kendaraans` VALUES ('1', 'VCT1', 'mobil roda 4', '2017-06-30 04:53:18', '1', '2017-06-30 05:54:30', '1');
+INSERT INTO `jenis_kendaraans` VALUES ('2', 'VCT2', 'truk', '2017-06-30 04:53:29', '1', '2017-06-30 04:53:29', '1');
 
 -- ----------------------------
 -- Table structure for `kendaraans`
@@ -154,11 +157,12 @@ CREATE TABLE `kendaraans` (
   PRIMARY KEY (`id`),
   KEY `kendaraans_ibfk_1` (`jns_kendaraan_id`),
   CONSTRAINT `kendaraans_ibfk_1` FOREIGN KEY (`jns_kendaraan_id`) REFERENCES `jenis_kendaraans` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of kendaraans
 -- ----------------------------
+INSERT INTO `kendaraans` VALUES ('1', 'VHC1', '2', 'mobilio', '2016', 'ksdso3lslakslaksas', 'SJS9293', 'sjkd933933984934', 'kajd33', 'oke', 'vita', 'IT', '2018-11-30 00:00:00', '2017-06-30 05:43:46', '1', '2017-06-30 08:41:49', '1');
 
 -- ----------------------------
 -- Table structure for `modules`
@@ -280,6 +284,7 @@ CREATE TABLE `perawatan_barangs` (
   `bukti_foto_sebelum` varchar(150) DEFAULT NULL,
   `status` varchar(1) DEFAULT NULL,
   `alasan_reject` varchar(100) DEFAULT NULL,
+  `tgl_selesai` datetime DEFAULT NULL,
   `keterangan_selesai` varchar(100) DEFAULT NULL,
   `bukti_foto_sesudah` varchar(150) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
@@ -294,7 +299,7 @@ CREATE TABLE `perawatan_barangs` (
 -- ----------------------------
 -- Records of perawatan_barangs
 -- ----------------------------
-INSERT INTO `perawatan_barangs` VALUES ('2', 'MNT1', '2017-06-29 00:00:00', '1', 'rak mejakuu', 'yuvita dyah', 'IT', 'karena rusak', 'lt 2', null, 'A', null, null, null, '2017-06-29 07:16:24', '1', '2017-06-29 17:16:38', '1');
+INSERT INTO `perawatan_barangs` VALUES ('2', 'MNT1', '2017-06-29 00:00:00', '1', 'rak mejakuu', 'yuvita dyah', 'IT', 'karena rusak', 'lt 2', null, 'S', null, '2017-06-30 04:08:28', 'kldkdlakdladk', 'er2.JPG', '2017-06-29 07:16:24', '1', '2017-06-29 17:16:38', '1');
 
 -- ----------------------------
 -- Table structure for `perpanjangan_stnks`
@@ -303,6 +308,7 @@ DROP TABLE IF EXISTS `perpanjangan_stnks`;
 CREATE TABLE `perpanjangan_stnks` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `kendaraan_id` int(36) DEFAULT NULL,
+  `masa_awal_perpanjangan` datetime DEFAULT NULL,
   `masa_akhir_perpanjangan` datetime DEFAULT NULL,
   `tgl_perpanjangan` datetime DEFAULT NULL,
   `status` varchar(1) DEFAULT NULL,
@@ -313,11 +319,12 @@ CREATE TABLE `perpanjangan_stnks` (
   PRIMARY KEY (`id`),
   KEY `perpanjangan_stnks_ibfk_1` (`kendaraan_id`),
   CONSTRAINT `perpanjangan_stnks_ibfk_1` FOREIGN KEY (`kendaraan_id`) REFERENCES `kendaraans` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of perpanjangan_stnks
 -- ----------------------------
+INSERT INTO `perpanjangan_stnks` VALUES ('1', '1', '2017-11-30 11:38:10', '2018-11-30 00:00:00', '2017-06-30 08:41:49', 'C', '2017-06-30 08:41:49', '1', '2017-06-30 08:41:49', '1');
 
 -- ----------------------------
 -- Table structure for `petugas`

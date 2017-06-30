@@ -49,7 +49,7 @@
                     </div>
                 </div>
                 <!-- detail -->
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
+                <div>
                     <table>
                         <tr>
                             <th>Nama Petugas Cleaning</th>
@@ -75,7 +75,7 @@
                         </tr>
                          
                     </table>
-                </div>
+                </div> 
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
                     <button type="submit" class="btn btn-primary">Save</button>
                     <a href="<?php echo base_url().'pengadaan_barang'; ?>"><button type="button" class="btn btn-default">Cancel</button></a>

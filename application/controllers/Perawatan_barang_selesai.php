@@ -61,12 +61,12 @@ class Perawatan_barang_selesai extends CI_Controller {
 
 		$post = $this->input->post();
 		if($post){
-			 $config['upload_path']          = './uploads/perawatan_barang/';
+			 $config['upload_path']          = './uploads/perawatan_barang/perawatan_selesai/';
              $config['allowed_types']        = 'gif|jpg|png';
              $config['max_size']             = 2000;
 
              $this->load->library('upload', $config);
-             if ( ! $this->upload->do_upload('bukti_foto'))
+             if ( ! $this->upload->do_upload('bukti_foto_sesudah'))
              {
                 $message = $this->upload->display_errors();
              }
@@ -86,17 +86,17 @@ class Perawatan_barang_selesai extends CI_Controller {
 			if($update_perawatan == TRUE){
 				$_SESSION['update_perawatan']['message_color'] = "green";
 				$_SESSION['update_perawatan']['message'] = "Berhasil melakukan perawatan barang";
-				redirect('update_perawatan');
+				redirect('perawatan_barang_selesai');
 			} else{
 				$_SESSION['update_perawatan']['message_color'] = "red";
 				$_SESSION['update_perawatan']['message'] = "Gagal melakukan perawatan barang. Silahkan coba kembali nanti.";
-				redirect('update_perawatan');
+				redirect('perawatan_barang_selesai');
 			}
 		} else{
 			$data['data_pengadaan_barang'] = $this->Jenis_barang_model->all_barang();
-			$data['detail_request'] = $this->Jenis_barang_model->detail_pengadaan_barang($id,$_SESSION['login']['id_user']);
+			$data['detail_request'] = $this->Jenis_barang_model->detail_perawatan_barang($id,$_SESSION['login']['id_user']);
 			$data['jns_brg'] = $this->Jenis_barang_model->detail_barang2($data['detail_request'][0]['jenis_barang_id']);
-			// echo "<pre>";print_r($data['jns_brg']['nama_jenis']);echo "</pre>";exit;
+			// echo "<pre>";print_r($data['detail_request']);echo "</pre>";exit;
 		}
 
 		$this->load->view('perawatan_barang_selesai/edit', $data);

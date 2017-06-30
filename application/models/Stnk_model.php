@@ -1,18 +1,18 @@
 <?php	
 if (!defined('BASEPATH')) exit('No direct script access allowed'); 
-class Jenis_barang_model extends CI_Model {
+class Stnk_model extends CI_Model {
 	function __construct()
 	{
 		parent::__construct();
 	}
 
-	function all_barang()
+	function all_stnk()
 	{
-		$query = $this->db->get('jenis_barangs');
+		$query = $this->db->get('perpanjangan_stnks');
 		return $query->result_array();
 	}
 	
-	function data_barang($limit, $offset, $search='')
+	function data_perpanjangan_stnk($limit, $offset, $search='')
 	{
 		if($search != ''){
 			$query = $this->db->query("SELECT * FROM jenis_barangs WHERE ( kode_jenis LIKE '%".$search."%' OR nama_jenis LIKE '%".$search."%' ) LIMIT ".$limit.",".$offset);

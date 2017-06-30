@@ -52,5 +52,37 @@ class Petugas_model extends CI_Model {
 		$result = $this->db->delete('petugas');
 		return $result;
 	}
+	/* Tugas Cleaning */
+	function data_cleaning($limit, $offset, $search='')
+	{
+		if($search != ''){
+			$query = $this->db->query("SELECT * FROM jadwal_tugas WHERE( bulan_tugas LIKE '%".$search."%' OR tahun_tugas LIKE '%".$search."%' ) LIMIT ".$limit.",".$offset);
+		} else{
+			$query = $this->db->query("SELECT * FROM jadwal_tugas LIMIT ".$limit.",".$offset);
+		}
+
+		return $query->result_array();
+	}
+
+	function count_all_cleaning($tipe_petugas, $search='')
+	{
+		if($search != ''){
+			$query = $this->db->query("SELECT count(*) AS jml FROM jadwal_tugas WHERE( bulan_tugas LIKE '%".$search."%' OR tahun_tugas LIKE '%".$search."%' )")->row_array();
+		} else{
+			$query = $this->db->select("count(*) AS jml")->get_where("jadwal_tugas")->row_array();
+		}
+		return $query['jml'];
+	}
+
+	function all_petugas_cleaning(){
+		$data = $this->db->select('*')->get_where('petugas',array('petugas_tipe_id'=>'1'))->row_array();
+		return $data;
+	}
+
+	function all_petugas_security(){
+		$data = $this->db->select('*')->get_where('petugas',array('petugas_tipe_id'=>'2'))->row_array();
+		return $data;
+	}
+	/* end */
 }
 ?>

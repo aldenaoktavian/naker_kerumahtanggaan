@@ -156,6 +156,32 @@ function getKodeKendaraan()
 	return $kode;
 }
 
+function getKodeJadwalCleaning()
+{
+	$CI = get_instance();
+
+	$last_id = $CI->db->select('max(id) AS id')->get_where('jadwal_tugas',array('tipe'=>'C'))->row_array();
+
+	$new_number = (int)$last_id['id'] + 1;
+
+	$kode = "SCL".$new_number;
+
+	return $kode;
+}
+
+function getKodeJadwalSecurity()
+{
+	$CI = get_instance();
+
+	$last_id = $CI->db->select('max(id) AS id')->get_where('jadwal_tugas',array('tipe'=>'S'))->row_array();
+
+	$new_number = (int)$last_id['id'] + 1;
+
+	$kode = "SSC".$new_number;
+
+	return $kode;
+}
+
 function saveNotif($data_notif, $notif_receiver)
 {
 	$CI = get_instance();

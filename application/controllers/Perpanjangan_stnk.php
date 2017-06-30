@@ -9,7 +9,7 @@ class Perpanjangan_stnk extends CI_Controller {
 			redirect('login'); 
 		}
 		$this->load->vars(load_default());
-		$this->load->model('Jenis_barang_model');
+		$this->load->model('Kendaraan_model');
     }
 
 	public function index()
@@ -40,7 +40,6 @@ class Perpanjangan_stnk extends CI_Controller {
 			$all_pages = $this->Kendaraan_model->count_all_data_stnk($_SESSION['login']['id_user'], $search);
 		} else{
 			$data['all_stnk'] = $this->Kendaraan_model->data_stnk($_SESSION['login']['id_user'], $limit, $offset);
-			print_r($data['all_stnk']);exit;
 			$all_pages = $this->Kendaraan_model->count_all_data_stnk($_SESSION['login']['id_user']);
 		}
 		
@@ -49,6 +48,19 @@ class Perpanjangan_stnk extends CI_Controller {
 		$data['currentPage'] = $page;
 
 		$this->load->view('perpanjangan_stnk/data-search', $data);
+	}
+
+	public function update_konf($id){
+		$konfirmasi_stnk = $this->Kendaraan_model->konfirmasi_stnk($id);
+		if($konfirmasi_stnk == TRUE){
+			$_SESSION['perpanjangan_stnk']['message_color'] = "green";
+			$_SESSION['perpanjangan_stnk']['message'] = "Berhasil dilakukan Perpanjangan STNK";
+			redirect('perpanjangan_stnk');
+		} else{
+			$_SESSION['perpanjangan_stnk']['message_color'] = "red";
+			$_SESSION['perpanjangan_stnk']['message'] = "Gagal dilakukan perpanjangan STNK. Silahkan coba kembali nanti.";
+			redirect('perpanjangan_stnk');
+		}
 	}
 
 	// public function edit($id)

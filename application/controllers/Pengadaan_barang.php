@@ -86,7 +86,7 @@ class Pengadaan_barang extends CI_Controller {
 	public function edit($id)
 	{
 		$data['title'] = "Request Barang";
-		$data['menu_title'] = "Request Barang - Edit Ruangan";
+		$data['menu_title'] = "Request Barang - Edit";
 
 		$data['id'] = $id;
 
@@ -140,7 +140,7 @@ class Pengadaan_barang extends CI_Controller {
 	// 	}
 	// }
 
-	public function edit_admin($id)
+	public function approve($id)
 	{
 		$data['id'] = $id;
 
@@ -162,7 +162,14 @@ class Pengadaan_barang extends CI_Controller {
 				$_SESSION['pengadaan_barang']['message'] = "Gagal reject request barang. Silahkan coba kembali nanti.";
 				redirect('pengadaan_barang');
 			}
-		} 
+		} else{
+			$data['data_pengadaan_barang'] = $this->Jenis_barang_model->all_barang();
+			$data['detail_request'] = $this->Jenis_barang_model->detail_pengadaan_barang($id,$_SESSION['login']['id_user']);
+			$data['jns_brg'] = $this->Jenis_barang_model->detail_barang2($data['detail_request'][0]['jenis_barang_id']);
+			// echo "<pre>";print_r($data['jns_brg']['nama_jenis']);echo "</pre>";exit;
+		}
+
+		$this->load->view('pengadaan_barang/approve', $data);
 	}
 
 	public function update_terima($id){

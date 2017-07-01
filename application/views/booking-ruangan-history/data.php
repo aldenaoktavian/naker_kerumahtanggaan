@@ -4,7 +4,7 @@
     	<h4><?php echo $menu_title; ?></h4>
         <div style="margin-top:50px;">
             <div>
-                <input type="text" id="search" data-url="<?php echo base_url().'booking_ruangan/data_search/0/'; ?>" class="form-control" placeholder="Search" style="max-width: 250px;float: right;margin-bottom: 10px;" />
+                <input type="text" id="search" data-url="<?php echo base_url().'booking_ruangan_history/data_search/0/'; ?>" class="form-control" placeholder="Search" style="max-width: 250px;float: right;margin-bottom: 10px;" />
             </div>
             <?php if(isset($_SESSION['booking_ruangan']['message'])){ ?>
                 <div style="color:<?php echo $_SESSION['booking_ruangan']['message_color']; ?>;"><?php echo $_SESSION['booking_ruangan']['message']; ?></div>

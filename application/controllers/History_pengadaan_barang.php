@@ -14,6 +14,9 @@ class History_pengadaan_barang extends CI_Controller {
 
 	public function index()
 	{	
+		if(check_privilege('history_pengadaan_barang', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$data['title'] = "History Pengadaan Barang";
 		$data['menu_title'] = "History Pengadaan Barang - List Data";
 
@@ -25,6 +28,9 @@ class History_pengadaan_barang extends CI_Controller {
 
 	public function data_search($page=0, $search='')
 	{
+		if(check_privilege('history_pengadaan_barang', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$search = urldecode($search);
 
 		$offset = 2;
@@ -53,6 +59,9 @@ class History_pengadaan_barang extends CI_Controller {
 	
 	public function view($id)
 	{
+		if(check_privilege('history_pengadaan_barang', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$data['title'] = "History Pengadaan Barang";
 		$data['menu_title'] = "History Pengadaan Barang - View";
 

@@ -14,6 +14,9 @@ class Perawatan_barang_history extends CI_Controller {
 
 	public function index()
 	{	
+		if(check_privilege('perawatan_barang_history', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$data['title'] = "History Perawatan Barang";
 		$data['menu_title'] = "History Perawatan Barang - List Data";
 
@@ -25,6 +28,9 @@ class Perawatan_barang_history extends CI_Controller {
 
 	public function data_search($page=0, $search='')
 	{
+		if(check_privilege('perawatan_barang_history', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$search = urldecode($search);
 
 		$offset = 2;
@@ -53,6 +59,9 @@ class Perawatan_barang_history extends CI_Controller {
 	
 	public function view($id)
 	{
+		if(check_privilege('perawatan_barang_history', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$data['title'] = "History Perawatan Barang";
 		$data['menu_title'] = "History Perawatan Barang - View";
 

@@ -15,6 +15,9 @@ class Penerimaan_barang extends CI_Controller {
 
 	public function index()
 	{	
+		if(check_privilege('penerimaan_barang', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$data['title'] = "Penerimaan Barang";
 		$data['menu_title'] = "Penerimaan Barang - List Data";
 
@@ -26,6 +29,9 @@ class Penerimaan_barang extends CI_Controller {
 
 	public function data_search_penerimaan($page=0, $search='')
 	{
+		if(check_privilege('penerimaan_barang', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$search = urldecode($search);
 
 		$offset = 2;
@@ -53,6 +59,9 @@ class Penerimaan_barang extends CI_Controller {
 
 	public function edit($id)
 	{
+		if(check_privilege('penerimaan_barang', 'is_update') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$this->load->helper(array('form', 'url'));
 		$data['title'] = "Peneriman Barang";
 		$data['menu_title'] = "Peneriman Barang - Edit Peneriman Barang";

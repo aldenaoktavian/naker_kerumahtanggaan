@@ -10,10 +10,15 @@ class Petugas_cleaning extends CI_Controller {
 		}
 		$this->load->vars(load_default());
 		$this->load->model('petugas_model');
+		$this->load->model('notif_model');
     }
 
 	public function index()
 	{
+		if(check_privilege('petugas_cleaning', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
+
 		$data['title'] = "Petugas Cleaning";
 		$data['menu_title'] = "Petugas Cleaning - List Data";
 
@@ -22,6 +27,9 @@ class Petugas_cleaning extends CI_Controller {
 
 	public function data_search($page=0, $search='')
 	{
+		if(check_privilege('petugas_cleaning', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$tipe_petugas = 1;
 		$search = urldecode($search);
 
@@ -50,6 +58,9 @@ class Petugas_cleaning extends CI_Controller {
 
 	public function add()
 	{
+		if(check_privilege('petugas_cleaning', 'is_insert') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$data['title'] = "Petugas Cleaning";
 		$data['menu_title'] = "Petugas Cleaning - Add Petugas Cleaning";
 
@@ -84,6 +95,9 @@ class Petugas_cleaning extends CI_Controller {
 
 	public function edit($id)
 	{
+		if(check_privilege('petugas_cleaning', 'is_update') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$data['title'] = "Petugas Cleaning";
 		$data['menu_title'] = "Petugas Cleaning - Edit Petugas Cleaning";
 
@@ -118,6 +132,9 @@ class Petugas_cleaning extends CI_Controller {
 
 	public function delete($id)
 	{
+		if(check_privilege('petugas_cleaning', 'is_delete') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$delete_petugas = $this->petugas_model->delete_petugas($id);
 
 		if($delete_petugas == TRUE){

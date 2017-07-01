@@ -14,6 +14,9 @@ class Jenis_barang extends CI_Controller {
 
 	public function index()
 	{
+		if(check_privilege('jenis_barang', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$data['title'] = "Jenis Barang";
 		$data['menu_title'] = "Jenis Barang - List Data";
 
@@ -22,6 +25,9 @@ class Jenis_barang extends CI_Controller {
 
 	public function data_search($page=0, $search='')
 	{
+		if(check_privilege('jenis_barang', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$search = urldecode($search);
 
 		$offset = 10;
@@ -49,6 +55,9 @@ class Jenis_barang extends CI_Controller {
 
 	public function add()
 	{
+		if(check_privilege('jenis_barang', 'is_insert') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$data['title'] = "Jenis Barang";
 		$data['menu_title'] = "Nama Jenis Barang - Add Jenis Barang";
 
@@ -81,6 +90,9 @@ class Jenis_barang extends CI_Controller {
 
 	public function edit($id)
 	{
+		if(check_privilege('jenis_barang', 'is_update') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$data['title'] = "Jenis Barang";
 		$data['menu_title'] = "Nama Jenis Barang - Edit Jenis Barang";
 
@@ -112,6 +124,9 @@ class Jenis_barang extends CI_Controller {
 
 	public function delete($id)
 	{
+		if(check_privilege('jenis_barang', 'is_delete') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$delete_barang = $this->Jenis_barang_model->delete_barang($id);
 
 		if($delete_barang == TRUE){

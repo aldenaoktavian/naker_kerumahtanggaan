@@ -10,10 +10,14 @@ class Perawatan_barang extends CI_Controller {
 		}
 		$this->load->vars(load_default());
 		$this->load->model('Jenis_barang_model');
+		$this->load->model('notif_model');
     }
 
 	public function index()
 	{	
+		if(check_privilege('perawatan_barang', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$data['title'] = "Perawatan Barang";
 		$data['menu_title'] = "Perawatan Barang - List Data";
 
@@ -25,6 +29,9 @@ class Perawatan_barang extends CI_Controller {
 
 	public function data_search($page=0, $search='')
 	{
+		if(check_privilege('perawatan_barang', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$search = urldecode($search);
 
 		$offset = 2;
@@ -52,6 +59,9 @@ class Perawatan_barang extends CI_Controller {
 
 	public function add()
 	{
+		if(check_privilege('perawatan_barang', 'is_insert') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$data['title'] = "Perawatan Barang";
 		$data['menu_title'] = "Perawatan Barang - Add Perawatan Barang";
 
@@ -84,6 +94,13 @@ class Perawatan_barang extends CI_Controller {
 				);
 			$add_perawatan_barang = $this->Jenis_barang_model->add_perawatan_barang(array_merge($post, $data_perawatan_barang));
 			if($add_perawatan_barang != 0){
+				$notif_receiver = $this->notif_model->get_email_by_module('perawatan_barang');
+				$notif_data = array(
+						'notif_type_id'	=> 5,
+						'notif_url'		=> base_url().'perawatan_barang/approve/'.md5($add_perawatan_barang)
+					);
+				saveNotif($notif_data, $notif_receiver);
+
 				$_SESSION['perawatan_barang']['message_color'] = "green";
 				$_SESSION['perawatan_barang']['message'] = "Berhasil menambahkan permintaan perawatan barang";
 				redirect('perawatan_barang');
@@ -101,6 +118,9 @@ class Perawatan_barang extends CI_Controller {
 
 	public function view($id)
 	{
+		if(check_privilege('perawatan_barang', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$data['title'] = "Data Perawatan Barang";
 		$data['menu_title'] = "Data Perawatan Barang - View";
 
@@ -115,6 +135,9 @@ class Perawatan_barang extends CI_Controller {
 
 	public function edit($id)
 	{
+		if(check_privilege('perawatan_barang', 'is_update') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$data['title'] = "Perawatan Barang";
 		$data['menu_title'] = "Perawatan Barang - Edit Perawatan Barang";
 
@@ -186,6 +209,9 @@ class Perawatan_barang extends CI_Controller {
 
 	public function approve($id)
 	{
+		if(check_privilege('perawatan_barang', 'is_approve') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$data['title'] = "Perawatan Barang";
 		$data['menu_title'] = "Perawatan Barang - Approve Perawatan Barang";
 		$data['id'] = $id;
@@ -231,6 +257,10 @@ class Perawatan_barang extends CI_Controller {
 	// }
 
 	public function update_terima_rawat($id){
+		if(check_privilege('perawatan_barang', 'is_approve') != TRUE){
+			redirect('gate/unauthorized');
+		}
+
 		$approve_perawatan = $this->Jenis_barang_model->approve_perawatan($id, 'A');
 		if($approve_perawatan == TRUE){
 			$_SESSION['approve_perawatan']['message_color'] = "green";

@@ -14,6 +14,9 @@ class Tugas_security extends CI_Controller {
 
 	public function index()
 	{	
+		if(check_privilege('tugas_security', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$data['title'] = "Petugas Security";
 		$data['menu_title'] = "Petugas Security - List Data";
 
@@ -25,6 +28,9 @@ class Tugas_security extends CI_Controller {
 
 	public function data_search($page=0, $search='')
 	{
+		if(check_privilege('tugas_security', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$search = urldecode($search);
 
 		$offset = 2;
@@ -55,6 +61,9 @@ class Tugas_security extends CI_Controller {
 
 	public function add()
 	{
+		if(check_privilege('tugas_security', 'is_insert') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$data['title'] = "Tugas Security";
 		$data['menu_title'] = "Tugas Security - Add";
 
@@ -113,6 +122,9 @@ class Tugas_security extends CI_Controller {
 
 	public function edit($id)
 	{
+		if(check_privilege('tugas_security', 'is_update') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$data['title'] = "Tugas Security";
 		$data['menu_title'] = "Tugas Security - Edit";
 
@@ -169,6 +181,9 @@ class Tugas_security extends CI_Controller {
 
 	public function view($id)
 	{
+		if(check_privilege('tugas_security', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$data['title'] = "Tugas Cleaning";
 		$data['menu_title'] = "Tugas Cleaning - View";
 

@@ -14,6 +14,10 @@ class Jenis_kendaraan extends CI_Controller {
 
 	public function index()
 	{
+		if(check_privilege('jenis_kendaraan', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
+
 		$data['title'] = "Jenis Kendaraan";
 		$data['menu_title'] = "Jenis Kendaraan - List Data";
 
@@ -22,6 +26,9 @@ class Jenis_kendaraan extends CI_Controller {
 
 	public function data_search($page=0, $search='')
 	{
+		if(check_privilege('jenis_kendaraan', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$search = urldecode($search);
 
 		$offset = 10;
@@ -49,6 +56,9 @@ class Jenis_kendaraan extends CI_Controller {
 
 	public function add()
 	{
+		if(check_privilege('jenis_kendaraan', 'is_insert') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$data['title'] = "Jenis Kendaraan";
 		$data['menu_title'] = "Nama Jenis Kendaraan - Add Jenis Kendaraan";
 
@@ -81,6 +91,9 @@ class Jenis_kendaraan extends CI_Controller {
 
 	public function edit($id)
 	{
+		if(check_privilege('jenis_kendaraan', 'is_update') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$data['title'] = "Jenis Kendaraan";
 		$data['menu_title'] = "Nama Jenis Kendaraan - Edit Jenis Kendaraan";
 
@@ -112,6 +125,9 @@ class Jenis_kendaraan extends CI_Controller {
 
 	public function delete($id)
 	{
+		if(check_privilege('jenis_kendaraan', 'is_delete') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$delete_jenis_kendaraan = $this->Jenis_kendaraan_model->delete_jenis_kendaraan($id);
 
 		if($delete_jenis_kendaraan == TRUE){

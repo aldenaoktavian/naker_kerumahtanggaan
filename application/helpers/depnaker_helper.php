@@ -226,9 +226,10 @@ function saveNotif($data_notif, $notif_receiver)
 				$result['message'] = "sukses";
 				$new_unread_notif_count = $CI->notif_model->unread_notif_count($data_user['user_id']);
 				$detail_notif = $CI->notif_model->detail_notif($add_notif);
-				foreach ($detail_notif as $key => $value) {
-					$detail_notif[$key]['notif_url'] = $value['notif_url']."/".md5($value['notif_id']);
-				}
+				// echo "<pre>"; print_r($detail_notif);echo "</pre>";
+				// foreach ($detail_notif as $value) {
+					$detail_notif['notif_url'] = $value['notif_url']."/".md5($value['id']);
+				// }
 				$_SESSION['data_socket'][$i] = array_merge($detail_notif, array('new_unread_notif_count'=>$new_unread_notif_count));
 			}
 			$i++;

@@ -82,8 +82,8 @@ class Pengadaan_barang extends CI_Controller {
 			if($add_pengadaan_barang != 0){
 				$notif_receiver = $this->notif_model->get_email_by_module('pengadaan_barang');
 				$notif_data = array(
-						'notif_type_id'	=> 9,
-						'notif_url'		=> base_url().'pengadaan_barang/view/'.md5($add_booking_ruangan)
+						'notif_type_id'	=> 1,
+						'notif_url'		=> base_url().'pengadaan_barang/approve/'.md5($add_pengadaan_barang)
 					);
 				saveNotif($notif_data, $notif_receiver);
 
@@ -104,6 +104,10 @@ class Pengadaan_barang extends CI_Controller {
 
 	public function edit($id)
 	{
+		if(check_privilege('pengadaan_barang', 'is_update') != TRUE){
+			redirect('gate/unauthorized');
+		}
+
 		$data['title'] = "Request Barang";
 		$data['menu_title'] = "Request Barang - Edit";
 
@@ -161,6 +165,10 @@ class Pengadaan_barang extends CI_Controller {
 
 	public function approve($id)
 	{
+		if(check_privilege('pengadaan_barang', 'is_approve') != TRUE){
+			redirect('gate/unauthorized');
+		}
+
 		$data['title'] = "Request Barang";
 		$data['menu_title'] = "Request Barang - Approve";
 		$data['id'] = $id;
@@ -194,6 +202,10 @@ class Pengadaan_barang extends CI_Controller {
 	}
 
 	public function update_terima($id){
+		if(check_privilege('pengadaan_barang', 'is_approve') != TRUE){
+			redirect('gate/unauthorized');
+		} 
+
 		$approve_penerimaan = $this->Jenis_barang_model->approve_penerimaan($id, 'A');
 		if($approve_penerimaan == TRUE){
 			$_SESSION['pengadaan_barang']['message_color'] = "green";

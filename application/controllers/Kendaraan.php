@@ -14,6 +14,9 @@ class Kendaraan extends CI_Controller {
 
 	public function index()
 	{
+		if(check_privilege('kendaraan', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$data['title'] = "Kendaraan";
 		$data['menu_title'] = "Kendaraan - List Data";
 
@@ -22,6 +25,9 @@ class Kendaraan extends CI_Controller {
 
 	public function data_search($page=0, $search='')
 	{
+		if(check_privilege('kendaraan', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$search = urldecode($search);
 
 		$offset = 10;
@@ -49,6 +55,9 @@ class Kendaraan extends CI_Controller {
 
 	public function add()
 	{
+		if(check_privilege('kendaraan', 'is_insert') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$data['title'] = "Kendaraan";
 		$data['menu_title'] = "Kendaraan - Add";
 
@@ -94,6 +103,9 @@ class Kendaraan extends CI_Controller {
 
 	public function edit($id)
 	{
+		if(check_privilege('kendaraan', 'is_update') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$data['title'] = "Kendaraan";
 		$data['menu_title'] = "Kendaraan - Edit";
 
@@ -138,6 +150,9 @@ class Kendaraan extends CI_Controller {
 
 	public function view($id)
 	{
+		if(check_privilege('kendaraan', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$data['title'] = "Data Kendaraan";
 		$data['menu_title'] = "Data Kendaraan";
 
@@ -151,6 +166,9 @@ class Kendaraan extends CI_Controller {
 
 	public function delete($id)
 	{
+		if(check_privilege('kendaraan', 'is_delete') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$delete_kendaraan = $this->Kendaraan_model->delete_kendaraan($id);
 
 		if($delete_kendaraan == TRUE){

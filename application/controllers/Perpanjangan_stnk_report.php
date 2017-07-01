@@ -10,10 +10,15 @@ class Perpanjangan_stnk_report extends CI_Controller {
 		}
 		$this->load->vars(load_default());
 		$this->load->model('Kendaraan_model');
+		$this->load->model('notif_model');
     }
 
 	public function index()
 	{	
+		if(check_privilege('perpanjangan_stnk_report', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
+
 		$data['title'] = "Laporan Perpanjangan STNK";
 		$data['menu_title'] = "Laporan Perpanjangan STNK - List Data";
 
@@ -25,6 +30,9 @@ class Perpanjangan_stnk_report extends CI_Controller {
 
 	public function data_search($page=0, $search='')
 	{
+		if(check_privilege('perpanjangan_stnk_report', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$search = urldecode($search);
 
 		$offset = 2;

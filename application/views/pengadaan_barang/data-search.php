@@ -41,7 +41,7 @@
                     for($numb=1; $numb<=$pages; $numb++){ 
                         $curr_page = 0 + ($currentPage / 2);
                 ?>
-                    <button type="button" onclick="load_page('<?php echo base_url().'jenis_barang/data_search/'.$numb.'/'; ?>')" class="btn btn-<?php echo ($numb-1 == (int)$curr_page ? 'reverse' : 'default'); ?> btn-page"><?php echo $numb; ?></button>
+                    <button type="button" onclick="load_page('<?php echo base_url().'pengadaan_barang/data_search/'.$numb.'/'; ?>')" class="btn btn-<?php echo ($numb-1 == (int)$curr_page ? 'reverse' : 'default'); ?> btn-page"><?php echo $numb; ?></button>
                 <?php } ?>
                 <button type="button" class="btn btn-default">>></button>
             </div>

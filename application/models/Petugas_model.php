@@ -62,7 +62,7 @@ class Petugas_model extends CI_Model {
 	function data_cleaning($limit, $offset, $search='')
 	{
 		if($search != ''){
-			$query = $this->db->query("SELECT * FROM jadwal_tugas WHERE( bulan_tugas LIKE '%".$search."%' OR tahun_tugas LIKE '%".$search."%' ) AND tipe = 'C' LIMIT ".$limit.",".$offset);
+			$query = $this->db->query("SELECT * FROM jadwal_tugas WHERE( kode_jadwal LIKE '%".$search."%' OR bulan_tugas LIKE '%".$search."%' OR tahun_tugas LIKE '%".$search."%' ) AND tipe = 'C' LIMIT ".$limit.",".$offset);
 		} else{
 			$query = $this->db->query("SELECT * FROM jadwal_tugas WHERE tipe = 'C' LIMIT ".$limit.",".$offset);
 		}
@@ -72,7 +72,7 @@ class Petugas_model extends CI_Model {
 	function count_all_cleaning($tipe_petugas, $search='')
 	{
 		if($search != ''){
-			$query = $this->db->query("SELECT count(*) AS jml FROM jadwal_tugas WHERE( bulan_tugas LIKE '%".$search."%' OR tahun_tugas LIKE '%".$search."%' ) AND tipe = 'C'")->row_array();
+			$query = $this->db->query("SELECT count(*) AS jml FROM jadwal_tugas WHERE( kode_jadwal LIKE '%".$search."%' OR bulan_tugas LIKE '%".$search."%' OR tahun_tugas LIKE '%".$search."%' ) AND tipe = 'C'")->row_array();
 		} else{
 			$query = $this->db->select("count(*) AS jml")->get_where("jadwal_tugas",array('tipe'=>'C'))->row_array();
 		}
@@ -136,7 +136,7 @@ class Petugas_model extends CI_Model {
 	function data_security($limit, $offset, $search='')
 	{
 		if($search != ''){
-			$query = $this->db->query("SELECT * FROM jadwal_tugas WHERE( bulan_tugas LIKE '%".$search."%' OR tahun_tugas LIKE '%".$search."%' ) AND tipe = 'S' LIMIT ".$limit.",".$offset);
+			$query = $this->db->query("SELECT * FROM jadwal_tugas WHERE( kode_jadwal LIKE '%".$search."%' OR bulan_tugas LIKE '%".$search."%' OR tahun_tugas LIKE '%".$search."%' ) AND tipe = 'S' LIMIT ".$limit.",".$offset);
 		} else{
 			$query = $this->db->query("SELECT * FROM jadwal_tugas WHERE tipe = 'S' LIMIT ".$limit.",".$offset);
 		}
@@ -146,7 +146,7 @@ class Petugas_model extends CI_Model {
 	function count_all_security($tipe_petugas, $search='')
 	{
 		if($search != ''){
-			$query = $this->db->query("SELECT count(*) AS jml FROM jadwal_tugas WHERE( bulan_tugas LIKE '%".$search."%' OR tahun_tugas LIKE '%".$search."%' ) AND tipe = 'S'")->row_array();
+			$query = $this->db->query("SELECT count(*) AS jml FROM jadwal_tugas WHERE( kode_jadwal LIKE '%".$search."%' OR bulan_tugas LIKE '%".$search."%' OR tahun_tugas LIKE '%".$search."%' ) AND tipe = 'S'")->row_array();
 		} else{
 			$query = $this->db->select("count(*) AS jml")->get_where("jadwal_tugas",array('tipe'=>'S'))->row_array();
 		}

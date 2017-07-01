@@ -7,10 +7,10 @@
         <h4><?php echo $menu_title; ?></h4>
         <?php 
         if($detail_request[0]['status'] == 'S'){ ?>
-            <div style="float:right;background-color:green;text-align:center;width:150px;height:30px;">Succed</div>
+            <div style="float:right;background-color:#00ff00;text-align:center;width:150px;height:30px;">Status Success</div>
         <?php
         }else{ ?>
-            <div style="float:right;background-color:red;text-align:center;width:150px;height:30px;">Rejected</div>
+            <div style="float:right;background-color:#ff1a1a;text-align:center;width:150px;height:30px;">Status Reject</div>
         <?php
         }
         ?>

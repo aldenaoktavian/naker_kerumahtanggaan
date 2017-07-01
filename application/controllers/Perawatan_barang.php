@@ -1,4 +1,4 @@
-<?php
+	<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Perawatan_barang extends CI_Controller {
@@ -136,17 +136,34 @@ class Perawatan_barang extends CI_Controller {
 	            $data_image = $this->upload->data();
 	         }
 
-			$data_request = array(
-					'tgl_perawatan'		=> $post['tgl_perawatan'],
-					'jenis_barang_id' 	=> $post['jenis_barang_id'],
-					'nama_barang'		=> $post['nama_barang'],
-					'direktorat'		=> $post['direktorat'],
-					'nama_pemesan'		=> $post['nama_pemesan'],
-					'alasan_perawatan'	=> $post['alasan_perawatan'],
-					'lokasi'			=> $post['lokasi'],
-					'modified'			=> date('Y-m-d H:i:s'),
-					'modi_by'			=> $_SESSION['login']['id_user']
+	         if(!isset($data_image['file_name'])){
+	         	$data_request = array(
+					'tgl_perawatan'			=> $post['tgl_perawatan'],
+					'jenis_barang_id' 		=> $post['jenis_barang_id'],
+					'nama_barang'			=> $post['nama_barang'],
+					'direktorat'			=> $post['direktorat'],
+					'nama_pemesan'			=> $post['nama_pemesan'],
+					'alasan_perawatan'		=> $post['alasan_perawatan'],
+					'lokasi'				=> $post['lokasi'],
+					'modified'				=> date('Y-m-d H:i:s'),
+					'modi_by'				=> $_SESSION['login']['id_user']
 				);
+	         }else{
+	         	$data_request = array(
+					'tgl_perawatan'			=> $post['tgl_perawatan'],
+					'jenis_barang_id' 		=> $post['jenis_barang_id'],
+					'nama_barang'			=> $post['nama_barang'],
+					'direktorat'			=> $post['direktorat'],
+					'nama_pemesan'			=> $post['nama_pemesan'],
+					'alasan_perawatan'		=> $post['alasan_perawatan'],
+					'lokasi'				=> $post['lokasi'],
+					'bukti_foto_sebelum'	=> $data_image['file_name'],
+					'modified'				=> date('Y-m-d H:i:s'),
+					'modi_by'				=> $_SESSION['login']['id_user']
+				);
+	         }
+
+			
 			$update_perawatan_brg = $this->Jenis_barang_model->update_perawatan_barang($id, $data_request);
 			if($update_perawatan_brg == TRUE){
 				$_SESSION['perawatan_barang']['message_color'] = "green";

@@ -9,7 +9,7 @@
                         Kode Kendaraan
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="kode_kendaraan" value="<?php echo $detail_kendaraan['kode_kendaraan']; ?>" readonly />
+                        <input type="text" class="form-control" name="kode_kendaraan" value="<?php echo $detail_kendaraan[0]['kode_kendaraan']; ?>" readonly />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -19,7 +19,7 @@
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         <select name="jns_kendaraan_id" class="form-control">
                         <?php foreach($data_jenis_kendaraan as $data_jns){ ?>
-                            <option value="<?php echo $data_jns['id']; ?>" <?php echo set_select('jns_kendaraan_id', $data_jns['id'], FALSE); ?> ><?php echo $data_jns['nama_jenis']; ?></option>
+                            <option value="<?php echo $data_jns['id']; ?>" <?php if($data_jns['id'] == $detail_kendaraan[0]['jns_kendaraan_id']){echo "selected";} ?> ><?php echo $data_jns['nama_jenis']; ?></option>
                         <?php } ?>
                         </select>
                     </div>
@@ -29,7 +29,7 @@
                         Merk / Type
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="merk" placeholder="Merk / Type" value="<?php echo $detail_kendaraan['merk']; ?>" />
+                        <input type="text" class="form-control" name="merk" placeholder="Merk / Type" value="<?php echo $detail_kendaraan[0]['merk']; ?>" />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -37,7 +37,7 @@
                         Tahun
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="tahun" placeholder="Tahun" value="<?php echo $detail_kendaraan['tahun']; ?>" />
+                        <input type="text" class="form-control" name="tahun" placeholder="Tahun" value="<?php echo $detail_kendaraan[0]['tahun']; ?>" />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -45,7 +45,7 @@
                         NUP
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="nup" placeholder="NUP" value="<?php echo $detail_kendaraan['nup']; ?>" />
+                        <input type="text" class="form-control" name="nup" placeholder="NUP" value="<?php echo $detail_kendaraan[0]['nup']; ?>" />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -53,7 +53,7 @@
                         No Polisi
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="no_pol" placeholder="No Polisi" value="<?php echo $detail_kendaraan['no_pol']; ?>" />
+                        <input type="text" class="form-control" name="no_pol" placeholder="No Polisi" value="<?php echo $detail_kendaraan[0]['no_pol']; ?>" />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -61,7 +61,7 @@
                         No Mesin
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="no_mesin" placeholder="No Mesin" value="<?php echo $detail_kendaraan['no_mesin']; ?>" />
+                        <input type="text" class="form-control" name="no_mesin" placeholder="No Mesin" value="<?php echo $detail_kendaraan[0]['no_mesin']; ?>" />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -69,14 +69,14 @@
                         No Chasis
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="no_chasis" placeholder="No Chasis" value="<?php echo $detail_kendaraan['no_chasis']; ?>" />
+                        <input type="text" class="form-control" name="no_chasis" placeholder="No Chasis" value="<?php echo $detail_kendaraan[0]['no_chasis']; ?>" />
                     </div>
                 </div><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         Kondisi
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="kondisi" placeholder="Kondisi" value="<?php echo $detail_kendaraan['kondisi']; ?>" />
+                        <input type="text" class="form-control" name="kondisi" placeholder="Kondisi" value="<?php echo $detail_kendaraan[0]['kondisi']; ?>" />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -84,7 +84,7 @@
                         Pemegang
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="pemegang" placeholder="Pemegang" value="<?php echo $detail_kendaraan['pemegang']; ?>" />
+                        <input type="text" class="form-control" name="pemegang" placeholder="Pemegang" value="<?php echo $detail_kendaraan[0]['pemegang']; ?>" />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -92,7 +92,7 @@
                         Direktorat
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="direktorat" placeholder="Direktorat" value="<?php echo $detail_kendaraan['direktorat']; ?>" />
+                        <input type="text" class="form-control" name="direktorat" placeholder="Direktorat" value="<?php echo $detail_kendaraan[0]['direktorat']; ?>" />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -100,7 +100,7 @@
                         Masa Berlaku STNK
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" id="masa_stnk" name="masa_stnk" placeholder="Masa Berlaku STNK" value="<?php echo $detail_kendaraan['masa_stnk']; ?>" readonly />
+                        <input type="text" class="form-control" id="masa_stnk" name="masa_stnk" placeholder="Masa Berlaku STNK" value="<?php echo $detail_kendaraan[0]['masa_stnk']; ?>" readonly />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">

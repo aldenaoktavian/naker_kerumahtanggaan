@@ -76,7 +76,7 @@ class Jenis_barang_model extends CI_Model {
 					a.tgl_pengadaan LIKE '%".$search."%' OR 
 					a.nama_barang LIKE '%".$search."%' OR 
 					a.direktorat LIKE '%".$search."%' OR
-					a.nma_pemesan LIKE '%".$search."%' 
+					a.nama_pemesan LIKE '%".$search."%' 
 				) AND status='E' LIMIT ".$limit.",".$offset);
 		} else{
 			$query = $this->db->query("SELECT a.*, b.kode_jenis, b.nama_jenis FROM pengadaan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE a.create_by = ".$id_user." AND status='E' LIMIT ".$limit.",".$offset);
@@ -94,7 +94,7 @@ class Jenis_barang_model extends CI_Model {
 					a.tgl_pengadaan LIKE '%".$search."%' OR 
 					a.nama_barang LIKE '%".$search."%' OR 
 					a.direktorat LIKE '%".$search."%' OR
-					a.nma_pemesan LIKE '%".$search."%' 
+					a.nama_pemesan LIKE '%".$search."%' 
 				) AND status='E' ")->row_array();
 		} else{
 			$query = $this->db->query("SELECT count(*) AS jml FROM pengadaan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE status='E' AND a.create_by = ".$id_user)->row_array();
@@ -145,7 +145,7 @@ class Jenis_barang_model extends CI_Model {
 					a.tgl_pengadaan LIKE '%".$search."%' OR 
 					a.nama_barang LIKE '%".$search."%' OR 
 					a.direktorat LIKE '%".$search."%' OR
-					a.nma_pemesan LIKE '%".$search."%' 
+					a.nama_pemesan LIKE '%".$search."%' 
 				) AND status='A' LIMIT ".$limit.",".$offset);
 		} else{
 			$query = $this->db->query("SELECT a.*, b.kode_jenis, b.nama_jenis FROM pengadaan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE a.create_by = ".$id_user." AND status='A' LIMIT ".$limit.",".$offset);
@@ -163,7 +163,7 @@ class Jenis_barang_model extends CI_Model {
 					a.tgl_pengadaan LIKE '%".$search."%' OR 
 					a.nama_barang LIKE '%".$search."%' OR 
 					a.direktorat LIKE '%".$search."%' OR
-					a.nma_pemesan LIKE '%".$search."%' 
+					a.nama_pemesan LIKE '%".$search."%' 
 				) AND status='A' ")->row_array();
 		} else{
 			$query = $this->db->query("SELECT count(*) AS jml FROM pengadaan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE status='A' AND a.create_by = ".$id_user)->row_array();

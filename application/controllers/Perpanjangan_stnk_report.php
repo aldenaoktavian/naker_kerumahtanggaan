@@ -36,11 +36,11 @@ class Perpanjangan_stnk_report extends CI_Controller {
 		}
 
 		if($search != ''){
-			$data['all_stnk'] = $this->Kendaraan_model->data_stnk($_SESSION['login']['id_user'], $limit, $offset, $search);
-			$all_pages = $this->Kendaraan_model->count_all_data_stnk($_SESSION['login']['id_user'], $search);
+			$data['all_stnk'] = $this->Kendaraan_model->data_stnk_report($_SESSION['login']['id_user'], $limit, $offset, $search);
+			$all_pages = $this->Kendaraan_model->count_all_data_stnk_report($_SESSION['login']['id_user'], $search);
 		} else{
-			$data['all_stnk'] = $this->Kendaraan_model->data_stnk($_SESSION['login']['id_user'], $limit, $offset);
-			$all_pages = $this->Kendaraan_model->count_all_data_stnk($_SESSION['login']['id_user']);
+			$data['all_stnk'] = $this->Kendaraan_model->data_stnk_report($_SESSION['login']['id_user'], $limit, $offset);
+			$all_pages = $this->Kendaraan_model->count_all_data_stnk_report($_SESSION['login']['id_user']);
 		}
 		
 		$pages = ($all_pages % $offset == 0 ? $all_pages / $offset : ($all_pages / $offset)+1 );

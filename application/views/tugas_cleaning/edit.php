@@ -33,7 +33,7 @@
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         <select name="tahun_tugas" class="form-control">
                         <?php foreach($tahun as $c=>$d){ ?>
-                            <option value="<?php echo $c; ?>" <?php if($b == $cleaning[0]['tahun_tugas']){echo "selected";} ?> ><?php echo $d; ?></option>
+                            <option value="<?php echo $c; ?>" <?php if($d == $cleaning[0]['tahun_tugas']){echo "selected";} ?> ><?php echo $d; ?></option>
                         <?php } ?>
                         </select>
                     </div>

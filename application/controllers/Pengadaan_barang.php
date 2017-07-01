@@ -10,10 +10,14 @@ class Pengadaan_barang extends CI_Controller {
 		}
 		$this->load->vars(load_default());
 		$this->load->model('Jenis_barang_model');
+		$this->load->model('notif_model');
     }
 
 	public function index()
 	{	
+		if(check_privilege('pengadaan_barang', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
 		$data['title'] = "Request Barang";
 		$data['menu_title'] = "Request Barang - List Data";
 
@@ -25,6 +29,10 @@ class Pengadaan_barang extends CI_Controller {
 
 	public function data_search($page=0, $search='')
 	{
+		if(check_privilege('pengadaan_barang', 'is_view') != TRUE){
+			redirect('gate/unauthorized');
+		}
+
 		$search = urldecode($search);
 
 		$offset = 2;
@@ -52,6 +60,10 @@ class Pengadaan_barang extends CI_Controller {
 
 	public function add()
 	{
+		if(check_privilege('pengadaan_barang', 'is_insert') != TRUE){
+			redirect('gate/unauthorized');
+		}
+
 		$data['title'] = "Request Barang";
 		$data['menu_title'] = "Request Barang - Add Request Barang";
 
@@ -68,6 +80,13 @@ class Pengadaan_barang extends CI_Controller {
 				);
 			$add_pengadaan_barang = $this->Jenis_barang_model->add_pengadaan_barang(array_merge($post, $data_pengadaan_barang));
 			if($add_pengadaan_barang != 0){
+				$notif_receiver = $this->notif_model->get_email_by_module('pengadaan_barang');
+				$notif_data = array(
+						'notif_type_id'	=> 9,
+						'notif_url'		=> base_url().'pengadaan_barang/view/'.md5($add_booking_ruangan)
+					);
+				saveNotif($notif_data, $notif_receiver);
+
 				$_SESSION['pengadaan_barang']['message_color'] = "green";
 				$_SESSION['pengadaan_barang']['message'] = "Berhasil menambahkan request barang";
 				redirect('pengadaan_barang');
@@ -142,6 +161,8 @@ class Pengadaan_barang extends CI_Controller {
 
 	public function approve($id)
 	{
+		$data['title'] = "Request Barang";
+		$data['menu_title'] = "Request Barang - Approve";
 		$data['id'] = $id;
 
 		$post = $this->input->post();

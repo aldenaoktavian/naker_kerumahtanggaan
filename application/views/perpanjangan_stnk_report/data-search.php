@@ -7,7 +7,7 @@
                         <td>Nomor Polisi</td>
                         <td>Jenis Kendaraan</td>
                         <td>Masa Berlaku STNK</td>
-                        <td>Action</td>
+                        <td>Tanggal Perpanjang</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -22,6 +22,7 @@
                         <td><?php echo $data_stnk['no_pol']; ?></td>
                         <td><?php echo $data_stnk['nama_jenis']; ?></td>
                         <td><?php echo date('d M Y',strtotime($data_stnk['masa_akhir_perpanjangan'])); ?></td>
+                        <td><?php echo date('d M Y',strtotime($data_stnk['tgl_perpanjangan'])); ?></td>
                     </tr>
                 <?php $nourut++; } ?>
                 </tbody>

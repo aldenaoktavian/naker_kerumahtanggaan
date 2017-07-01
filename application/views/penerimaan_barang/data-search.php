@@ -27,7 +27,7 @@
                         <td><?php echo $data_penerimaan['nama_pemesan']; ?></td>
                         <td><?php echo $data_penerimaan['status']; ?></td>
                         <td>
-                            <a href="<?php echo base_url().'penerimaan_barang/edit/'.md5($data_penerimaan['id']); ?>"><button type="button" class="btn btn-default">Edit</button></a>
+                            <a href="<?php echo base_url().'penerimaan_barang/edit/'.md5($data_penerimaan['id']); ?>"><button type="button" class="btn btn-default">Approve</button></a>
                         </td>
                     </tr>
                 <?php $nourut++; } ?>

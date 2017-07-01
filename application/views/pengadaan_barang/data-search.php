@@ -28,6 +28,7 @@
                         <td><?php echo $data_pengadaan['status']; ?></td>
                         <td>
                             <a href="<?php echo base_url().'pengadaan_barang/edit/'.md5($data_pengadaan['id']); ?>"><button type="button" class="btn btn-default">Edit</button></a>
+                            <a href="<?php echo base_url().'pengadaan_barang/approve/'.md5($data_pengadaan['id']); ?>"><button type="button" class="btn btn-default">Approve</button></a>
                             <a href="#" onclick="deleteData('<?php echo base_url().'pengadaan_barang/delete/'.md5($data_pengadaan['id']); ?>')"><button type="button" class="btn btn-danger">Delete</button></a>
                         </td>
                     </tr>

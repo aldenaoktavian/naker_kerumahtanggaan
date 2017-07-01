@@ -238,4 +238,10 @@ class Booking_ruangan extends CI_Controller {
 
 		echo $list_room;
 	}
+
+	public function print_data()
+	{
+		$data['tes'] = "aio";
+		$this->load->view('booking-ruangan/print-data', $data);
+	}
 }

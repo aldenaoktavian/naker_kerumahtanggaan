@@ -11,7 +11,7 @@
                     Kode Booking Ruangan
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <?php echo $detail_booking_ruangan['kode_booking']; ?>
+                    <input type="text" class="form-control" value="<?php echo $detail_booking_ruangan['kode_booking']; ?>" disabled>
                 </div>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -19,7 +19,7 @@
                     Tanggal Booking Ruangan
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <?php echo $detail_booking_ruangan['tgl_book']; ?>
+                    <input type="text" class="form-control" value="<?php echo $detail_booking_ruangan['tgl_book']; ?>" disabled>
                 </div>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -27,7 +27,7 @@
                     Jam Booking Ruangan
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <?php echo date("H:i", strtotime($detail_booking_ruangan['start_time'])); ?>
+                    <input type="text" class="form-control" value="<?php echo date("H:i", strtotime($detail_booking_ruangan['start_time'])); ?>" disabled>
                 </div>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -35,7 +35,7 @@
                     Durasi Meeting
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <?php echo $detail_booking_ruangan['durasi']; ?> Jam
+                    <input type="text" class="form-control" value="<?php echo $detail_booking_ruangan['durasi']; ?> Jam" disabled>
                 </div>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -43,7 +43,7 @@
                     Nama Ruangan
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <?php echo $detail_booking_ruangan['nama_ruangan']; ?>
+                    <input type="text" class="form-control" value="<?php echo $detail_booking_ruangan['nama_ruangan']; ?>" disabled>
                 </div>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -51,7 +51,7 @@
                     Direktorat
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <?php echo $detail_booking_ruangan['direktorat']; ?>
+                    <input type="text" class="form-control" value="<?php echo $detail_booking_ruangan['direktorat']; ?>" disabled>
                 </div>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -59,7 +59,7 @@
                     Nama Pemesan
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <?php echo $detail_booking_ruangan['nama_pemesan']; ?>
+                    <input type="text" class="form-control" value="<?php echo $detail_booking_ruangan['nama_pemesan']; ?>" disabled>
                 </div>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -67,7 +67,7 @@
                     Jumlah Peserta
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <?php echo $detail_booking_ruangan['jml_peserta']; ?>
+                    <input type="text" class="form-control" value="<?php echo $detail_booking_ruangan['jml_peserta']; ?>" disabled>
                 </div>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -75,7 +75,7 @@
                     Agenda Meeting
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <?php echo $detail_booking_ruangan['agenda_meeting']; ?>
+                    <input type="text" class="form-control" value="<?php echo $detail_booking_ruangan['agenda_meeting']; ?>" disabled>
                 </div>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space <?php echo $detail_booking_ruangan['is_canceled']; ?>">
@@ -83,7 +83,7 @@
                     Keterangan Dibatalkan
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <?php echo $detail_booking_ruangan['keterangan']; ?>
+                    <input type="text" class="form-control" value="<?php echo $detail_booking_ruangan['keterangan']; ?>" disabled>
                 </div>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">

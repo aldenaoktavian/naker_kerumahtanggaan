@@ -3,7 +3,6 @@
                     <tr>
                         <td>No</td>
                         <td>Pemegang</td>
-                        <td>Direktorat</td>
                         <td>Nomor Polisi</td>
                         <td>Jenis Kendaraan</td>
                         <td>Masa Berlaku STNK</td>
@@ -18,7 +17,6 @@
                     <tr>
                         <td><?php echo $nourut; ?></td>
                         <td><?php echo $data_stnk['pemegang']; ?></td>
-                        <td><?php echo $data_stnk['direktorat']; ?></td>
                         <td><?php echo $data_stnk['no_pol']; ?></td>
                         <td><?php echo $data_stnk['nama_jenis']; ?></td>
                         <td><?php echo date('d M Y',strtotime($data_stnk['masa_akhir_perpanjangan'])); ?></td>

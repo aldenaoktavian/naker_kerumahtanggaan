@@ -7,7 +7,7 @@
                         <td>Merk / Type</td>
                         <td>Nomor Polisi</td>
                         <td>Jenis Kendaraan</td>
-                        <td>Masa Berlaku STNK</td>
+                        <td>Masa Berlaku Pada Pajak</td>
                         <td>Action</td>
                     </tr>
                 </thead>

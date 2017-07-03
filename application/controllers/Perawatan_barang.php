@@ -168,6 +168,7 @@ class Perawatan_barang extends CI_Controller {
 					'nama_pemesan'			=> $post['nama_pemesan'],
 					'alasan_perawatan'		=> $post['alasan_perawatan'],
 					'lokasi'				=> $post['lokasi'],
+					'usulan'				=> $post['usulan'],
 					'modified'				=> date('Y-m-d H:i:s'),
 					'modi_by'				=> $_SESSION['login']['id_user']
 				);
@@ -180,6 +181,7 @@ class Perawatan_barang extends CI_Controller {
 					'nama_pemesan'			=> $post['nama_pemesan'],
 					'alasan_perawatan'		=> $post['alasan_perawatan'],
 					'lokasi'				=> $post['lokasi'],
+					'usulan'				=> $post['usulan'],
 					'bukti_foto_sebelum'	=> $data_image['file_name'],
 					'modified'				=> date('Y-m-d H:i:s'),
 					'modi_by'				=> $_SESSION['login']['id_user']

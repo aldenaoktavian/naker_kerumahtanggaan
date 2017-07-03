@@ -4,11 +4,9 @@
                         <td>No</td>
                         <td>Kode Kendaraan</td>
                         <td>Pemegang</td>
-                        <td>Direktorat</td>
                         <td>Merk / Type</td>
                         <td>Nomor Polisi</td>
-                        <td>Kondisi</td>
-                        <td>Masa Berlaku STNK</td>
+                        <td>Masa Berlaku Pada Pajak</td>
                         <td>Action</td>
                     </tr>
                 </thead>
@@ -21,10 +19,8 @@
                         <td><?php echo $nourut; ?></td>
                         <td><?php echo $data_kendaraan['kode_kendaraan']; ?></td>
                         <td><?php echo $data_kendaraan['pemegang']; ?></td>
-                        <td><?php echo $data_kendaraan['direktorat']; ?></td>
                         <td><?php echo $data_kendaraan['merk']; ?></td>
                         <td><?php echo $data_kendaraan['no_pol']; ?></td>
-                        <td><?php echo $data_kendaraan['kondisi']; ?></td>
                         <td><?php echo date('d M Y',strtotime($data_kendaraan['masa_stnk'])); ?></td>
                         <td>
                             <a href="<?php echo base_url().'kendaraan/view/'.md5($data_kendaraan['id']); ?>"><button type="button" class="btn btn-default">View</button></a>

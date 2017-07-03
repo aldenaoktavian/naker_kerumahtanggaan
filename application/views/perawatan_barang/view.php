@@ -60,7 +60,7 @@
                     Alasan Perawatan
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <input type="textarea" class="form-control" name="alasan_perawatan" placeholder="Alasan Perawatan" value="<?php echo $detail_request[0]['alasan_perawatan']; ?>" readonly />
+                    <textarea class="form-control" name="alasan_perawatan" placeholder="Alasan Perawatan" style="height: 100px; resize: none;" readonly /><?php echo $detail_request[0]['alasan_perawatan']; ?></textarea>
                 </div>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -68,7 +68,15 @@
                     Lokasi
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <input type="textarea" class="form-control" name="lokasi" placeholder="Lokasi" value="<?php echo $detail_request[0]['lokasi']; ?>" readonly />
+                    <textarea class="form-control" name="lokasi" placeholder="Lokasi" style="height: 100px; resize: none;" readonly /><?php echo $detail_request[0]['lokasi']; ?></textarea>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    Usulan / Tindakan
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <textarea class="form-control" name="usulan" placeholder="Usulan / Tindakan" style="height: 100px; resize: none;" readonly /><?php echo $detail_request[0]['usulan']; ?></textarea>
                 </div>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">

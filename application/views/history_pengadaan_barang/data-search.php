@@ -4,7 +4,6 @@
                         <td>No</td>
                         <td>Nama Pemesan</td>
                         <td>Direktorat</td>
-                        <td>Nama Barang</td>
                         <td>Tanggal</td>
                         <td>Status</td>
                         <td>Action</td>
@@ -19,7 +18,6 @@
                         <td><?php echo $nourut; ?></td>
                         <td><?php echo $data_history['nama_pemesan']; ?></td>
                         <td><?php echo $data_history['direktorat']; ?></td>
-                        <td><?php echo $data_history['nama_barang']; ?></td>
                         <td><?php echo date('d M Y',strtotime($data_history['tgl_pengadaan'])); ?></td>
                         <td><?php echo $data_history['status']; ?></td>
                         <td>

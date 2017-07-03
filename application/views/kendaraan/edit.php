@@ -42,41 +42,10 @@
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        NUP
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="nup" placeholder="NUP" value="<?php echo $detail_kendaraan[0]['nup']; ?>" />
-                    </div>
-                </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         No Polisi
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         <input type="text" class="form-control" name="no_pol" placeholder="No Polisi" value="<?php echo $detail_kendaraan[0]['no_pol']; ?>" />
-                    </div>
-                </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        No Mesin
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="no_mesin" placeholder="No Mesin" value="<?php echo $detail_kendaraan[0]['no_mesin']; ?>" />
-                    </div>
-                </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        No Chasis
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="no_chasis" placeholder="No Chasis" value="<?php echo $detail_kendaraan[0]['no_chasis']; ?>" />
-                    </div>
-                </div><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        Kondisi
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="kondisi" placeholder="Kondisi" value="<?php echo $detail_kendaraan[0]['kondisi']; ?>" />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -89,15 +58,7 @@
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        Direktorat
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="direktorat" placeholder="Direktorat" value="<?php echo $detail_kendaraan[0]['direktorat']; ?>" />
-                    </div>
-                </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        Masa Berlaku STNK
+                        Masa Berlaku Pada Pajak
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         <input type="text" class="form-control" id="masa_stnk" name="masa_stnk" placeholder="Masa Berlaku STNK" value="<?php echo $detail_kendaraan[0]['masa_stnk']; ?>" readonly />

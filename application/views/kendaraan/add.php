@@ -109,7 +109,7 @@
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        Masa Berlaku STNK
+                        Masa Berlaku Pada Pajak
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         <input type="text" class="form-control" id="masa_stnk" name="masa_stnk" placeholder="Masa Berlaku STNK" readonly />

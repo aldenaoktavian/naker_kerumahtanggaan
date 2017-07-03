@@ -4,7 +4,6 @@
                         <td>No</td>
                         <td>Kode Pengadaan</td>
                         <td>Jenis Barang</td>
-                        <td>Nama Barang</td>
                         <td>Merk</td>
                         <td>Direktorat</td>
                         <td>Nama Pemesan</td>
@@ -21,7 +20,6 @@
                         <td><?php echo $nourut; ?></td>
                         <td><?php echo $data_penerimaan['kode_pengadaan']; ?></td>
                         <td><?php echo $data_penerimaan['nama_jenis']; ?></td>
-                        <td><?php echo $data_penerimaan['nama_barang']; ?></td>
                         <td><?php echo $data_penerimaan['merk']; ?></td>
                         <td><?php echo $data_penerimaan['direktorat']; ?></td>
                         <td><?php echo $data_penerimaan['nama_pemesan']; ?></td>

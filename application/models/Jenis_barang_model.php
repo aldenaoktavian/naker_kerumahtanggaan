@@ -74,7 +74,6 @@ class Jenis_barang_model extends CI_Model {
 					b.nama_jenis LIKE '%".$search."%' OR
 					a.kode_pengadaan LIKE '%".$search."%' OR 
 					a.tgl_pengadaan LIKE '%".$search."%' OR 
-					a.nama_barang LIKE '%".$search."%' OR 
 					a.direktorat LIKE '%".$search."%' OR
 					a.nama_pemesan LIKE '%".$search."%' 
 				) AND status='E' LIMIT ".$limit.",".$offset);
@@ -92,7 +91,6 @@ class Jenis_barang_model extends CI_Model {
 					b.nama_jenis LIKE '%".$search."%' OR
 					a.kode_pengadaan LIKE '%".$search."%' OR 
 					a.tgl_pengadaan LIKE '%".$search."%' OR 
-					a.nama_barang LIKE '%".$search."%' OR 
 					a.direktorat LIKE '%".$search."%' OR
 					a.nama_pemesan LIKE '%".$search."%' 
 				) AND status='E' ")->row_array();
@@ -143,7 +141,6 @@ class Jenis_barang_model extends CI_Model {
 					b.nama_jenis LIKE '%".$search."%' OR
 					a.kode_pengadaan LIKE '%".$search."%' OR 
 					a.tgl_pengadaan LIKE '%".$search."%' OR 
-					a.nama_barang LIKE '%".$search."%' OR 
 					a.direktorat LIKE '%".$search."%' OR
 					a.nama_pemesan LIKE '%".$search."%' 
 				) AND status='A' LIMIT ".$limit.",".$offset);
@@ -161,7 +158,6 @@ class Jenis_barang_model extends CI_Model {
 					b.nama_jenis LIKE '%".$search."%' OR
 					a.kode_pengadaan LIKE '%".$search."%' OR 
 					a.tgl_pengadaan LIKE '%".$search."%' OR 
-					a.nama_barang LIKE '%".$search."%' OR 
 					a.direktorat LIKE '%".$search."%' OR
 					a.nama_pemesan LIKE '%".$search."%' 
 				) AND status='A' ")->row_array();
@@ -186,7 +182,6 @@ class Jenis_barang_model extends CI_Model {
 					b.nama_jenis LIKE '%".$search."%' OR
 					a.kode_pengadaan LIKE '%".$search."%' OR 
 					a.tgl_pengadaan LIKE '%".$search."%' OR 
-					a.nama_barang LIKE '%".$search."%' OR 
 					a.direktorat LIKE '%".$search."%' OR
 					a.nama_pemesan LIKE '%".$search."%' 
 				) AND status IN('S','R') LIMIT ".$limit.",".$offset);
@@ -204,7 +199,6 @@ class Jenis_barang_model extends CI_Model {
 					b.nama_jenis LIKE '%".$search."%' OR
 					a.kode_pengadaan LIKE '%".$search."%' OR 
 					a.tgl_pengadaan LIKE '%".$search."%' OR 
-					a.nama_barang LIKE '%".$search."%' OR 
 					a.direktorat LIKE '%".$search."%' OR
 					a.nama_pemesan LIKE '%".$search."%' 
 				) AND status IN('S','R') ")->row_array();
@@ -223,7 +217,6 @@ class Jenis_barang_model extends CI_Model {
 					b.nama_jenis LIKE '%".$search."%' OR
 					a.kode_perawatan LIKE '%".$search."%' OR 
 					a.tgl_perawatan LIKE '%".$search."%' OR 
-					a.nama_barang LIKE '%".$search."%' OR 
 					a.direktorat LIKE '%".$search."%' OR
 					a.nama_pemesan LIKE '%".$search."%' 
 				) AND status = 'E' LIMIT ".$limit.",".$offset);
@@ -240,8 +233,7 @@ class Jenis_barang_model extends CI_Model {
 			$query = $this->db->query("SELECT count(*) AS jml FROM perawatan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE (
 					b.nama_jenis LIKE '%".$search."%' OR
 					a.kode_perawatan LIKE '%".$search."%' OR 
-					a.tgl_perawatan LIKE '%".$search."%' OR 
-					a.nama_barang LIKE '%".$search."%' OR 
+					a.tgl_perawatan LIKE '%".$search."%' OR  
 					a.direktorat LIKE '%".$search."%' OR
 					a.nama_pemesan LIKE '%".$search."%' 
 				) AND status='E' ")->row_array();
@@ -293,7 +285,6 @@ class Jenis_barang_model extends CI_Model {
 					b.nama_jenis LIKE '%".$search."%' OR
 					a.kode_perawatan LIKE '%".$search."%' OR 
 					a.tgl_perawatan LIKE '%".$search."%' OR 
-					a.nama_barang LIKE '%".$search."%' OR 
 					a.direktorat LIKE '%".$search."%' OR
 					a.nama_pemesan LIKE '%".$search."%' 
 				) AND status = 'A' LIMIT ".$limit.",".$offset);
@@ -311,7 +302,6 @@ class Jenis_barang_model extends CI_Model {
 					b.nama_jenis LIKE '%".$search."%' OR
 					a.kode_perawatan LIKE '%".$search."%' OR 
 					a.tgl_perawatan LIKE '%".$search."%' OR 
-					a.nama_barang LIKE '%".$search."%' OR 
 					a.direktorat LIKE '%".$search."%' OR
 					a.nama_pemesan LIKE '%".$search."%' 
 				) AND status='A' ")->row_array();
@@ -338,7 +328,6 @@ class Jenis_barang_model extends CI_Model {
 					b.nama_jenis LIKE '%".$search."%' OR
 					a.kode_perawatan LIKE '%".$search."%' OR 
 					a.tgl_perawatan LIKE '%".$search."%' OR 
-					a.nama_barang LIKE '%".$search."%' OR 
 					a.direktorat LIKE '%".$search."%' OR
 					a.nama_pemesan LIKE '%".$search."%' 
 				) AND status IN('S','R') LIMIT ".$limit.",".$offset);
@@ -355,8 +344,7 @@ class Jenis_barang_model extends CI_Model {
 			$query = $this->db->query("SELECT count(*) AS jml FROM perawatan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE (
 					b.nama_jenis LIKE '%".$search."%' OR
 					a.kode_perawatan LIKE '%".$search."%' OR 
-					a.tgl_perawatan LIKE '%".$search."%' OR 
-					a.nama_barang LIKE '%".$search."%' OR 
+					a.tgl_perawatan LIKE '%".$search."%' OR  
 					a.direktorat LIKE '%".$search."%' OR
 					a.nama_pemesan LIKE '%".$search."%' 
 				) AND status IN('S','R') ")->row_array();

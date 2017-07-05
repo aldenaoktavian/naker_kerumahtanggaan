@@ -11,15 +11,28 @@
                 </thead>
                 <tbody>
                 <?php 
-                    $nourut = 1;
-                    foreach($all_history_barang as $data_history){ 
+                    $nourut = $limit + 1;
+                    foreach($all_history_barang as $data_history){
+                        switch ($data_history['status']) {
+                            case 'S':
+                                $status = "Sukses";
+                                break;
+
+                            case 'R':
+                                $status = "Ditolak";
+                                break;
+                            
+                            default:
+                                $status = "Requested";
+                                break;
+                        };
                 ?>
                     <tr>
                         <td><?php echo $nourut; ?></td>
                         <td><?php echo $data_history['nama_pemesan']; ?></td>
                         <td><?php echo $data_history['direktorat']; ?></td>
                         <td><?php echo date('d M Y',strtotime($data_history['tgl_pengadaan'])); ?></td>
-                        <td><?php echo $data_history['status']; ?></td>
+                        <td><?php echo $status; ?></td>
                         <td>
                             <a href="<?php echo base_url().'history_pengadaan_barang/view/'.md5($data_history['id']); ?>"><button type="button" class="btn btn-default">View</button></a>
                         </td>

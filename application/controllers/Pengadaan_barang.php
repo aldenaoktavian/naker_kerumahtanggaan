@@ -9,7 +9,7 @@ class Pengadaan_barang extends CI_Controller {
 			redirect('login'); 
 		}
 		$this->load->vars(load_default());
-		$this->load->model('Jenis_barang_model');
+		$this->load->model('jenis_barang_model');
 		$this->load->model('notif_model');
     }
 
@@ -20,10 +20,7 @@ class Pengadaan_barang extends CI_Controller {
 		}
 		$data['title'] = "Request Barang";
 		$data['menu_title'] = "Request Barang - List Data";
-
-		// $data['all_pengadaan_barang'] = $this->Jenis_barang_model->data_pengadaan_barang($_SESSION['login']['id_user'], 20, 5);
-		// print_r($data);exit;
-
+		
 		$this->load->view('pengadaan_barang/data', $data);
 	}
 
@@ -35,7 +32,7 @@ class Pengadaan_barang extends CI_Controller {
 
 		$search = urldecode($search);
 
-		$offset = 2;
+		$offset = 10;
 
 		if($page != 0){
 			$limit = 0 + (($page - 1) * $offset);
@@ -44,16 +41,21 @@ class Pengadaan_barang extends CI_Controller {
 		}
 
 		if($search != ''){
-			$data['all_pengadaan_barang'] = $this->Jenis_barang_model->data_pengadaan_barang($_SESSION['login']['id_user'], $limit, $offset, $search);
-			$all_pages = $this->Jenis_barang_model->count_all_pengadaan_barang($_SESSION['login']['id_user'], $search);
+			$data['all_pengadaan_barang'] = $this->jenis_barang_model->data_pengadaan_barang($_SESSION['login']['id_user'], $limit, $offset, $search);
+			$all_pages = $this->jenis_barang_model->count_all_pengadaan_barang($_SESSION['login']['id_user'], $search);
 		} else{
-			$data['all_pengadaan_barang'] = $this->Jenis_barang_model->data_pengadaan_barang($_SESSION['login']['id_user'], $limit, $offset);
-			$all_pages = $this->Jenis_barang_model->count_all_pengadaan_barang($_SESSION['login']['id_user']);
+			$data['all_pengadaan_barang'] = $this->jenis_barang_model->data_pengadaan_barang($_SESSION['login']['id_user'], $limit, $offset);
+			$all_pages = $this->jenis_barang_model->count_all_pengadaan_barang($_SESSION['login']['id_user']);
 		}
 		
 		$pages = ($all_pages % $offset == 0 ? $all_pages / $offset : ($all_pages / $offset)+1 );
 		$data['pages'] = (int)$pages;
 		$data['currentPage'] = $page;
+		$data['limit'] = $limit;
+
+		$data['is_update'] = (check_privilege('pengadaan_barang', 'is_update') != TRUE ? 'hidden' : '');
+		$data['is_delete'] = (check_privilege('pengadaan_barang', 'is_delete') != TRUE ? 'hidden' : '');
+		$data['is_approve'] = (check_privilege('pengadaan_barang', 'is_approve') != TRUE ? 'hidden' : '');
 
 		$this->load->view('pengadaan_barang/data-search', $data);
 	}
@@ -78,7 +80,7 @@ class Pengadaan_barang extends CI_Controller {
 					'modi_by'		=> $_SESSION['login']['id_user'],
 					'modified'		=> date('Y-m-d H:i:s')
 				);
-			$add_pengadaan_barang = $this->Jenis_barang_model->add_pengadaan_barang(array_merge($post, $data_pengadaan_barang));
+			$add_pengadaan_barang = $this->jenis_barang_model->add_pengadaan_barang(array_merge($post, $data_pengadaan_barang));
 			if($add_pengadaan_barang != 0){
 				$notif_receiver = $this->notif_model->get_email_by_module('pengadaan_barang');
 				$notif_data = array(
@@ -96,7 +98,7 @@ class Pengadaan_barang extends CI_Controller {
 				redirect('pengadaan_barang');
 			}
 		} else{
-			$data['data_pengadaan_barang'] = $this->Jenis_barang_model->all_barang();
+			$data['data_pengadaan_barang'] = $this->jenis_barang_model->all_barang();
 		}
 
 		$this->load->view('pengadaan_barang/add', $data);
@@ -128,7 +130,7 @@ class Pengadaan_barang extends CI_Controller {
 					'modified'			=> date('Y-m-d H:i:s'),
 					'modi_by'			=> $_SESSION['login']['id_user']
 				);
-			$update_req_barang = $this->Jenis_barang_model->update_pengadaan_barang($id, $data_request);
+			$update_req_barang = $this->jenis_barang_model->update_pengadaan_barang($id, $data_request);
 			if($update_req_barang == TRUE){
 				$_SESSION['pengadaan_barang']['message_color'] = "green";
 				$_SESSION['pengadaan_barang']['message'] = "Berhasil edit data request barang";
@@ -139,34 +141,39 @@ class Pengadaan_barang extends CI_Controller {
 				redirect('pengadaan_barang');
 			}
 		} else{
-			$data['data_pengadaan_barang'] = $this->Jenis_barang_model->all_barang();
-			$data['detail_request'] = $this->Jenis_barang_model->detail_pengadaan_barang($id,$_SESSION['login']['id_user']);
-			$data['jns_brg'] = $this->Jenis_barang_model->detail_barang2($data['detail_request'][0]['jenis_barang_id']);
+			$data['data_pengadaan_barang'] = $this->jenis_barang_model->all_barang();
+			$data['detail_request'] = $this->jenis_barang_model->detail_pengadaan_barang($id,$_SESSION['login']['id_user']);
+			$data['jns_brg'] = $this->jenis_barang_model->detail_barang2($data['detail_request'][0]['jenis_barang_id']);
 			// echo "<pre>";print_r($data['jns_brg']['nama_jenis']);echo "</pre>";exit;
 		}
 
 		$this->load->view('pengadaan_barang/edit', $data);
 	}
 
-	// public function delete($id)
-	// {
-	// 	$delete_req = $this->Jenis_barang_model->delete_ruangan($id);
+	public function delete($id)
+	{
+		$delete_pengadaan_baran = $this->jenis_barang_model->delete_pengadaan_baran($id);
 
-	// 	if($delete_ruangan == TRUE){
-	// 		$_SESSION['ruangan']['message_color'] = "green";
-	// 		$_SESSION['ruangan']['message'] = "Berhasil hapus data ruangan";
-	// 		redirect('ruangan');
-	// 	} else{
-	// 		$_SESSION['ruangan']['message_color'] = "red";
-	// 		$_SESSION['ruangan']['message'] = "Gagal hapus data ruangan. Silahkan coba kembali nanti.";
-	// 		redirect('ruangan');
-	// 	}
-	// }
+		if($delete_pengadaan_baran == TRUE){
+			$_SESSION['pengadaan_barang']['message_color'] = "green";
+			$_SESSION['pengadaan_barang']['message'] = "Berhasil hapus data request barang";
+			redirect('pengadaan_barang');
+		} else{
+			$_SESSION['pengadaan_barang']['message_color'] = "red";
+			$_SESSION['pengadaan_barang']['message'] = "Gagal hapus data request barang. Silahkan coba kembali nanti.";
+			redirect('pengadaan_barang');
+		}
+	}
 
-	public function approve($id)
+	public function approve($id, $notif_id='')
 	{
 		if(check_privilege('pengadaan_barang', 'is_approve') != TRUE){
 			redirect('gate/unauthorized');
+		}
+
+		if($notif_id != ''){
+			$this->notif_model->read_notif($notif_id);
+			$_SESSION['new_unread_notif_count'] = json_encode($this->notif_model->unread_notif_count($_SESSION['login']['id_user']));
 		}
 
 		$data['title'] = "Request Barang";
@@ -176,45 +183,28 @@ class Pengadaan_barang extends CI_Controller {
 		$post = $this->input->post();
 		if($post){
 			$data_request = array(
-					'status'			=> 'R',
-					'remark'			=> $post['alasan_reject'],
+					'status'			=> $post['status'],
+					'keterangan'		=> $post['alasan_reject'],
 					'modified'			=> date('Y-m-d H:i:s'),
 					'modi_by'			=> $_SESSION['login']['id_user']
 				);
-			$approve_penerimaan = $this->Jenis_barang_model->approve_penerimaan($id, 'R', $data_request);
-			if($approve_penerimaan == TRUE){
+			$update_pengadaan_barang = $this->jenis_barang_model->update_pengadaan_barang($id, $data_request);
+			if($update_pengadaan_barang == TRUE){
 				$_SESSION['pengadaan_barang']['message_color'] = "green";
-				$_SESSION['pengadaan_barang']['message'] = "Berhasil reject request barang";
+				$_SESSION['pengadaan_barang']['message'] = "Berhasil update status request barang";
 				redirect('pengadaan_barang');
 			} else{
 				$_SESSION['pengadaan_barang']['message_color'] = "red";
-				$_SESSION['pengadaan_barang']['message'] = "Gagal reject request barang. Silahkan coba kembali nanti.";
+				$_SESSION['pengadaan_barang']['message'] = "Gagal update status request barang. Silahkan coba kembali nanti.";
 				redirect('pengadaan_barang');
 			}
 		} else{
-			$data['data_pengadaan_barang'] = $this->Jenis_barang_model->all_barang();
-			$data['detail_request'] = $this->Jenis_barang_model->detail_pengadaan_barang($id,$_SESSION['login']['id_user']);
-			$data['jns_brg'] = $this->Jenis_barang_model->detail_barang2($data['detail_request'][0]['jenis_barang_id']);
+			$data['data_pengadaan_barang'] = $this->jenis_barang_model->all_barang();
+			$data['detail_request'] = $this->jenis_barang_model->detail_pengadaan_barang($id,$_SESSION['login']['id_user']);
+			$data['jns_brg'] = $this->jenis_barang_model->detail_barang2($data['detail_request'][0]['jenis_barang_id']);
 			// echo "<pre>";print_r($data['jns_brg']['nama_jenis']);echo "</pre>";exit;
 		}
 
 		$this->load->view('pengadaan_barang/approve', $data);
-	}
-
-	public function update_terima($id){
-		if(check_privilege('pengadaan_barang', 'is_approve') != TRUE){
-			redirect('gate/unauthorized');
-		} 
-
-		$approve_penerimaan = $this->Jenis_barang_model->approve_penerimaan($id, 'A');
-		if($approve_penerimaan == TRUE){
-			$_SESSION['pengadaan_barang']['message_color'] = "green";
-			$_SESSION['pengadaan_barang']['message'] = "Berhasil dilakukan Penerimaan Barang";
-			redirect('pengadaan_barang');
-		} else{
-			$_SESSION['pengadaan_barang']['message_color'] = "red";
-			$_SESSION['pengadaan_barang']['message'] = "Gagal Penerimaan Barang. Silahkan coba kembali nanti.";
-			redirect('pengadaan_barang');
-		}
 	}
 }

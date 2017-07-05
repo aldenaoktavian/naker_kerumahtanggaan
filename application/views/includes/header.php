@@ -76,14 +76,16 @@ base_url = '<?php echo base_url(); ?>';
 	                                </a>
 	                            </li>
 							<?php } ?>
-								<li><a href="<?php echo base_url().'notifikasi/all'; ?>" class="view">Lihat semua notifikasi</a></li>
+								<li><a href="<?php echo base_url().'gate/all_notification'; ?>" class="view">Lihat semua notifikasi</a></li>
 							</ul>
 		            </li>
 					<li class="dropdown">
 		              <a href="#" class="dropdown-toggle dropdown-at" data-toggle="dropdown"><span class=" name-caret"><?php echo $_SESSION['login']['nama_user']; ?><i class="caret"></i></span></a>
 		              <ul class="dropdown-menu " role="menu">
-		                <li><a href="profile.html"><i class="fa fa-user"></i>Edit Profile</a></li>
-		                <li><a href="<?php echo base_url().'login/logout'; ?>"><i class="fa fa-danger"></i>Logout</a></li>
+		                <li><a href="<?php echo base_url().'gate/all_notification'; ?>">Notifikasi</a></li>
+		                <li><a href="<?php echo base_url().'user/account'; ?>">Account</a></li>
+		                <li><a href="<?php echo base_url().'user/setting'; ?>">Setting</a></li>
+		                <li><a href="<?php echo base_url().'login/logout'; ?>">Logout</a></li>
 		              </ul>
 		            </li>
 		        </ul>

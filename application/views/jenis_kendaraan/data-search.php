@@ -9,7 +9,7 @@
                 </thead>
                 <tbody>
                 <?php 
-                    $nourut = 1;
+                    $nourut = $limit + 1;
                     foreach($all_jenis_kendaraan as $data_jenis_kendaraan){ 
                 ?>
                     <tr>
@@ -17,8 +17,8 @@
                         <td><?php echo $data_jenis_kendaraan['kode_jenis']; ?></td>
                         <td><?php echo $data_jenis_kendaraan['nama_jenis']; ?></td>
                         <td>
-                            <a href="<?php echo base_url().'jenis_kendaraan/edit/'.md5($data_jenis_kendaraan['id']); ?>"><button type="button" class="btn btn-default">Edit</button></a>
-                            <a href="#" onclick="deleteData('<?php echo base_url().'jenis_kendaraan/delete/'.md5($data_jenis_kendaraan['id']); ?>')"><button type="button" class="btn btn-danger">Delete</button></a>
+                            <a href="<?php echo base_url().'jenis_kendaraan/edit/'.md5($data_jenis_kendaraan['id']); ?>"><button type="button" class="btn btn-default <?php echo $is_update; ?>">Edit</button></a>
+                            <a href="#" onclick="deleteData('<?php echo base_url().'jenis_kendaraan/delete/'.md5($data_jenis_kendaraan['id']); ?>')"><button type="button" class="btn btn-danger <?php echo $is_delete; ?>">Delete</button></a>
                         </td>
                     </tr>
                 <?php $nourut++; } ?>

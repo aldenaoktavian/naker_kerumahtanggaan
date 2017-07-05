@@ -131,6 +131,16 @@ class Petugas_model extends CI_Model {
 		$result = $this->db->delete('jadwal_tugas_details');
 		return $result;
 	}
+
+	function delete_jadwal($id)
+	{
+		$this->db->where('md5(jadwal_tugas_id)', $id);
+		$this->db->delete('jadwal_tugas_details');
+
+		$this->db->where('md5(id)', $id);
+		$result = $this->db->delete('jadwal_tugas');
+		return $result;
+	}
 	/* end */
 	/* Tugas Security */
 	function data_security($limit, $offset, $search='')

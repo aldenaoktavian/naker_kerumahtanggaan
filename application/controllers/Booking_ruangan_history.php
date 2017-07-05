@@ -22,7 +22,7 @@ class Booking_ruangan_history extends CI_Controller {
 		$data['title'] = "Histori Booking Ruangan";
 		$data['menu_title'] = "List Data - Histori Booking Ruangan";
 
-		$this->load->view('booking-ruangan-history/data', $data);
+		$this->load->view('booking_ruangan_history/data', $data);
 	}
 
 	public function data_search($page=0, $search='')
@@ -58,8 +58,9 @@ class Booking_ruangan_history extends CI_Controller {
 		$pages = ($all_pages % $offset == 0 ? $all_pages / $offset : ($all_pages / $offset)+1 );
 		$data['pages'] = (int)$pages;
 		$data['currentPage'] = $page;
+		$data['limit'] = $limit;
 
-		$this->load->view('booking-ruangan-history/data-search', $data);
+		$this->load->view('booking_ruangan_history/data-search', $data);
 	}
 
 	public function view($id)
@@ -92,6 +93,6 @@ class Booking_ruangan_history extends CI_Controller {
         $detail_booking_ruangan['is_canceled'] = ($detail_booking_ruangan['status'] != 'C' ? 'hidden' : '');
 		$data['detail_booking_ruangan'] = $detail_booking_ruangan;
 
-		$this->load->view('booking-ruangan-history/view', $data);
+		$this->load->view('booking_ruangan_history/view', $data);
 	}
 }

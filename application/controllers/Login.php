@@ -27,11 +27,11 @@ class Login extends CI_Controller {
 			);
 			
 			if ( $result != FALSE) {
-				$data_user = $this->user_model->data_user($result);
+				$detail_user = $this->user_model->detail_user_nomd5($result);
 
-				$_SESSION['login']['id_user'] = $data_user['id'];
-				$_SESSION['login']['user_category'] = $data_user['user_category_id'];
-				$_SESSION['login']['nama_user'] = $data_user['fullname'];
+				$_SESSION['login']['id_user'] = $detail_user['id'];
+				$_SESSION['login']['user_category'] = $detail_user['user_category_id'];
+				$_SESSION['login']['nama_user'] = $detail_user['fullname'];
 
 				redirect('dashboard');
 			} else{

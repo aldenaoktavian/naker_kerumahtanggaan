@@ -34,7 +34,7 @@ class Perawatan_barang extends CI_Controller {
 		}
 		$search = urldecode($search);
 
-		$offset = 2;
+		$offset = 10;
 
 		if($page != 0){
 			$limit = 0 + (($page - 1) * $offset);
@@ -53,6 +53,11 @@ class Perawatan_barang extends CI_Controller {
 		$pages = ($all_pages % $offset == 0 ? $all_pages / $offset : ($all_pages / $offset)+1 );
 		$data['pages'] = (int)$pages;
 		$data['currentPage'] = $page;
+		$data['limit'] = $limit;
+
+		$data['is_update'] = (check_privilege('perawatan_barang', 'is_update') != TRUE ? 'hidden' : '');
+		$data['is_delete'] = (check_privilege('perawatan_barang', 'is_delete') != TRUE ? 'hidden' : '');
+		$data['is_approve'] = (check_privilege('perawatan_barang', 'is_approve') != TRUE ? 'hidden' : '');
 
 		$this->load->view('perawatan_barang/data-search', $data);
 	}
@@ -81,7 +86,6 @@ class Perawatan_barang extends CI_Controller {
              else
              {
                 $data_image = $this->upload->data();
-                // echo "<pre>";print_r($data_image);echo "</pre>";exit;
              }
 
 			$data_perawatan_barang = array(
@@ -220,20 +224,20 @@ class Perawatan_barang extends CI_Controller {
 
 		$post = $this->input->post();
 		if($post){
-			$data_request = array(
-					'status'			=> 'R',
+			$data_status = array(
+					'status'			=> $post['status'],
 					'alasan_reject'		=> $post['alasan_reject'],
 					'modified'			=> date('Y-m-d H:i:s'),
 					'modi_by'			=> $_SESSION['login']['id_user']
 				);
-			$approve_perawatan = $this->Jenis_barang_model->approve_perawatan($id, 'R', $data_request);
-			if($approve_perawatan == TRUE){
+			$update_perawatan_barang = $this->Jenis_barang_model->update_perawatan_barang($id, $data_status);
+			if($update_perawatan_barang == TRUE){
 				$_SESSION['perawatan_barang']['message_color'] = "green";
-				$_SESSION['perawatan_barang']['message'] = "Berhasil reject perawatan barang";
+				$_SESSION['perawatan_barang']['message'] = "Berhasil update status perawatan barang";
 				redirect('perawatan_barang');
 			} else{
 				$_SESSION['perawatan_barang']['message_color'] = "red";
-				$_SESSION['perawatan_barang']['message'] = "Gagal reject perawatan barang. Silahkan coba kembali nanti.";
+				$_SESSION['perawatan_barang']['message'] = "Gagal update status perawatan barang. Silahkan coba kembali nanti.";
 				redirect('perawatan_barang');
 			}
 		}else{
@@ -243,6 +247,7 @@ class Perawatan_barang extends CI_Controller {
 		}
 		$this->load->view('perawatan_barang/approve', $data);
 	}
+
 	// public function delete($id)
 	// {
 	// 	$delete_req = $this->Jenis_barang_model->delete_ruangan($id);

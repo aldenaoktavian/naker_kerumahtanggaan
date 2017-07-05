@@ -23,9 +23,9 @@
                         <td><?php echo $data_kendaraan['no_pol']; ?></td>
                         <td><?php echo date('d M Y',strtotime($data_kendaraan['masa_stnk'])); ?></td>
                         <td>
-                            <a href="<?php echo base_url().'kendaraan/view/'.md5($data_kendaraan['id']); ?>"><button type="button" class="btn btn-default">View</button></a>
-                            <a href="<?php echo base_url().'kendaraan/edit/'.md5($data_kendaraan['id']); ?>"><button type="button" class="btn btn-default">Edit</button></a>
-                            <a href="#" onclick="deleteData('<?php echo base_url().'kendaraan/delete/'.md5($data_kendaraan['id']); ?>')"><button type="button" class="btn btn-danger">Delete</button></a>
+                            <a href="<?php echo base_url().'kendaraan/view/'.md5($data_kendaraan['id']); ?>"><button type="button" class="btn btn-default <?php echo $is_view; ?>">View</button></a>
+                            <a href="<?php echo base_url().'kendaraan/edit/'.md5($data_kendaraan['id']); ?>"><button type="button" class="btn btn-default <?php echo $is_update; ?>">Edit</button></a>
+                            <a href="#" onclick="deleteData('<?php echo base_url().'kendaraan/delete/'.md5($data_kendaraan['id']); ?>')"><button type="button" class="btn btn-danger <?php echo $is_delete; ?>">Delete</button></a>
                         </td>
                     </tr>
                 <?php $nourut++; } ?>

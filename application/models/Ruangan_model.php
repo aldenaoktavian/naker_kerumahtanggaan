@@ -197,6 +197,29 @@ class Ruangan_model extends CI_Model {
 		return $query['jml'];
 	}
 
+	function ongoing_booking_ruangan($priv)
+	{
+		if($priv == TRUE){
+			$where_user = " 1=1 ";
+		} else{
+			$where_user = " id_user = ".$_SESSION['login']['id_user'];
+		}
+
+		$count_all = $this->db->query("SELECT count(*) AS jml FROM booking_ruangans WHERE ".$where_user)->row_array();
+		$count_ongoing = $this->db->query("SELECT count(*) AS jml FROM booking_ruangans WHERE ".$where_user." AND status = 'B'")->row_array();
+
+		if($count_all['jml'] != 0){
+			$persentase = ((int)$count_ongoing['jml'] * 100) / (int)$count_all['jml'];
+		} else{
+			$persentase = 0;
+		}
+		$result = array(
+				'count_ongoing'	=> $count_ongoing['jml'],
+				'persentase'	=> $persentase
+			);
+		return $result;
+	}
+
 	/* end about histori booking ruangan */
 }
 ?>

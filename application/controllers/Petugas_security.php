@@ -21,7 +21,7 @@ class Petugas_security extends CI_Controller {
 		$data['title'] = "Petugas Security";
 		$data['menu_title'] = "Petugas Security - List Data";
 
-		$this->load->view('petugas-security/data', $data);
+		$this->load->view('petugas_security/data', $data);
 	}
 
 	public function data_search($page=0, $search='')
@@ -32,7 +32,7 @@ class Petugas_security extends CI_Controller {
 		$tipe_petugas = 2;
 		$search = urldecode($search);
 
-		$offset = 2;
+		$offset = 10;
 
 		if($page != 0){
 			$limit = 0 + (($page - 1) * $offset);
@@ -51,8 +51,12 @@ class Petugas_security extends CI_Controller {
 		$pages = ($all_pages % $offset == 0 ? $all_pages / $offset : ($all_pages / $offset)+1 );
 		$data['pages'] = (int)$pages;
 		$data['currentPage'] = $page;
+		$data['limit'] = $limit;
 
-		$this->load->view('petugas-security/data-search', $data);
+		$data['is_update'] = (check_privilege('petugas_security', 'is_update') != TRUE ? 'hidden' : '');
+		$data['is_delete'] = (check_privilege('petugas_security', 'is_delete') != TRUE ? 'hidden' : '');
+
+		$this->load->view('petugas_security/data-search', $data);
 	}
 
 	public function add()
@@ -89,7 +93,7 @@ class Petugas_security extends CI_Controller {
 			}
 		}
 
-		$this->load->view('petugas-security/add', $data);
+		$this->load->view('petugas_security/add', $data);
 	}
 
 	public function edit($id)
@@ -126,7 +130,7 @@ class Petugas_security extends CI_Controller {
 			$data['detail_petugas'] = $this->petugas_model->detail_petugas($id);
 		}
 
-		$this->load->view('petugas-security/edit', $data);
+		$this->load->view('petugas_security/edit', $data);
 	}
 
 	public function delete($id)

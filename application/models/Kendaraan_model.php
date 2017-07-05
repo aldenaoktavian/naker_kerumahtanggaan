@@ -118,12 +118,12 @@ class Kendaraan_model extends CI_Model {
 
 	function konfirmasi_stnk($id){
 		$data = $this->db->select('*')->get_where('kendaraans',array('md5(id)'=>$id))->row_array();
-		$data['masa_akhir'] = $this->db->query("SELECT DATE_ADD(DATE_FORMAT(masa_stnk,'%Y-%m-%d'), INTERVAL 12 MONTH) masa_akhir FROM kendaraans WHERE md5(id) = '".$id."'");
+		$data['masa_akhir'] = $this->db->query("SELECT DATE_ADD(DATE_FORMAT(masa_stnk,'%Y-%m-%d'), INTERVAL 12 MONTH) masa_akhir FROM kendaraans WHERE md5(id) = '".$id."'")->result_array();
 		// echo "<pre>";print_r($data['masa_akhir']->result_array()[0]['masa_akhir']);echo "</pre>";exit;
 		$data['insert'] = array(
 				'kendaraan_id'				=> $data['id'],
 				'masa_awal_perpanjangan'	=> $data['masa_stnk'],
-				'masa_akhir_perpanjangan'	=> $data['masa_akhir']->result_array()[0]['masa_akhir'],
+				'masa_akhir_perpanjangan'	=> $data['masa_akhir'][0]['masa_akhir'],
 				'tgl_perpanjangan'			=> date('Y-m-d H:i:s'),
 				'status'					=> 'C',
 				'created'					=> date('Y-m-d H:i:s'),
@@ -134,7 +134,7 @@ class Kendaraan_model extends CI_Model {
 		$this->db->insert('perpanjangan_stnks', $data['insert']);
 		$data['insert_perpanjang'] = $this->db->insert_id();
 		$this->db->where('md5(id)', $id);
-		$data['update_kendaraan'] = $this->db->update('kendaraans', array('masa_stnk'=>$data['masa_akhir']->result_array()[0]['masa_akhir'],'modified'=>date('Y-m-d H:i:s'),'modi_by'=>$_SESSION['login']['id_user']));
+		$data['update_kendaraan'] = $this->db->update('kendaraans', array('masa_stnk'=>$data['masa_akhir'][0]['masa_akhir'],'modified'=>date('Y-m-d H:i:s'),'modi_by'=>$_SESSION['login']['id_user']));
 		return $data;
 	}
 
@@ -177,6 +177,22 @@ class Kendaraan_model extends CI_Model {
 		return $query['jml'];
 	}
 
-	
+
+	function ongoing_perpanjangan_stnk()
+	{
+		$count_all = $this->db->query("SELECT count(*) AS jml FROM kendaraans a INNER JOIN jenis_kendaraans b ON a.jns_kendaraan_id = b.id")->row_array();
+		$count_ongoing = $this->db->query("SELECT count(*) AS jml FROM kendaraans a INNER JOIN jenis_kendaraans b ON a.jns_kendaraan_id = b.id WHERE (DATE_FORMAT(NOW(),'%Y-%m-%d') = DATE_SUB(DATE_FORMAT(masa_stnk,'%Y-%m-%d'),INTERVAL 5 MONTH) OR DATE_FORMAT(NOW(),'%Y-%m-%d') = DATE_ADD(masa_stnk,INTERVAL 1 MONTH) )")->row_array();
+
+		if($count_all['jml'] != 0){
+			$persentase = ((int)$count_ongoing['jml'] * 100) / (int)$count_all['jml'];
+		} else{
+			$persentase = 0;
+		}
+		$result = array(
+				'count_ongoing'	=> $count_ongoing['jml'],
+				'persentase'	=> $persentase
+			);
+		return $result;
+	}
 }
 ?>

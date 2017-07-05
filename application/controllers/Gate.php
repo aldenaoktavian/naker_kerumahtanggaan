@@ -9,6 +9,7 @@ class Gate extends CI_Controller {
 			redirect('login'); 
 		}
 		$this->load->vars(load_default());
+		$this->load->model('notif_model');
     }
 
 	public function index()
@@ -21,5 +22,16 @@ class Gate extends CI_Controller {
 	{
 		$data['title'] = "This Page is Unauthorized";
 		$this->load->view('no-auth-page', $data);
+	}
+
+	public function all_notification()
+	{
+		$data['title'] = "Notifikasi";
+		$data['menu_title'] = "Notifikasi";
+
+		$notif_list = notif_list(0, 0, 10);
+		$data['notif_list'] = $notif_list['notif_updates'];
+
+		$this->load->view('all_notif', $data);
 	}
 }

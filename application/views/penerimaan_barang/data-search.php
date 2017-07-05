@@ -13,7 +13,7 @@
                 </thead>
                 <tbody>
                 <?php 
-                    $nourut = 1;
+                    $nourut = $limit + 1;
                     foreach($all_penerimaan_barang as $data_penerimaan){ 
                 ?>
                     <tr>
@@ -23,9 +23,9 @@
                         <td><?php echo $data_penerimaan['merk']; ?></td>
                         <td><?php echo $data_penerimaan['direktorat']; ?></td>
                         <td><?php echo $data_penerimaan['nama_pemesan']; ?></td>
-                        <td><?php echo $data_penerimaan['status']; ?></td>
+                        <td>Approved</td>
                         <td>
-                            <a href="<?php echo base_url().'penerimaan_barang/edit/'.md5($data_penerimaan['id']); ?>"><button type="button" class="btn btn-default">Approve</button></a>
+                            <a href="<?php echo base_url().'penerimaan_barang/edit/'.md5($data_penerimaan['id']); ?>"><button type="button" class="btn btn-default <?php echo $is_update; ?>">Edit</button></a>
                         </td>
                     </tr>
                 <?php $nourut++; } ?>

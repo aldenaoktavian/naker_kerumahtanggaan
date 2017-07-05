@@ -49,6 +49,10 @@ class Jenis_barang extends CI_Controller {
 		$pages = ($all_pages % $offset == 0 ? $all_pages / $offset : ($all_pages / $offset)+1 );
 		$data['pages'] = (int)$pages;
 		$data['currentPage'] = $page;
+		$data['limit'] = $limit;
+
+		$data['is_update'] = (check_privilege('jenis_barang', 'is_update') != TRUE ? 'hidden' : '');
+		$data['is_delete'] = (check_privilege('jenis_barang', 'is_delete') != TRUE ? 'hidden' : '');
 
 		$this->load->view('jenis_barang/data-search', $data);
 	}
@@ -59,7 +63,7 @@ class Jenis_barang extends CI_Controller {
 			redirect('gate/unauthorized');
 		}
 		$data['title'] = "Jenis Barang";
-		$data['menu_title'] = "Nama Jenis Barang - Add Jenis Barang";
+		$data['menu_title'] = "Jenis Barang - Add Jenis Barang";
 
 		$data['getKodeBarang'] = getKodeBarang();
 
@@ -94,7 +98,7 @@ class Jenis_barang extends CI_Controller {
 			redirect('gate/unauthorized');
 		}
 		$data['title'] = "Jenis Barang";
-		$data['menu_title'] = "Nama Jenis Barang - Edit Jenis Barang";
+		$data['menu_title'] = "Jenis Barang - Edit Jenis Barang";
 
 		$data['id'] = $id;
 

@@ -50,6 +50,10 @@ class Jenis_kendaraan extends CI_Controller {
 		$pages = ($all_pages % $offset == 0 ? $all_pages / $offset : ($all_pages / $offset)+1 );
 		$data['pages'] = (int)$pages;
 		$data['currentPage'] = $page;
+		$data['limit'] = $limit;
+
+		$data['is_update'] = (check_privilege('jenis_kendaraan', 'is_update') != TRUE ? 'hidden' : '');
+		$data['is_delete'] = (check_privilege('jenis_kendaraan', 'is_delete') != TRUE ? 'hidden' : '');
 
 		$this->load->view('jenis_kendaraan/data-search', $data);
 	}

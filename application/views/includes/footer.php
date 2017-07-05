@@ -12,7 +12,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	var socket = io.connect( 'http://'+window.location.hostname+':3000' );
-	
+	console.log(socket);
 	var data = <?php echo (isset($_SESSION['data_socket']) ? $_SESSION['data_socket'] : 0); ?>;
 	if(data != 0){
         for (var i = 0, len = data.length; i < len; i++) {

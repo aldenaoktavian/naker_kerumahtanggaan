@@ -11,7 +11,7 @@
                 </thead>
                 <tbody>
                 <?php 
-                    $nourut = 1;
+                    $nourut = $limit + 1;
                     foreach($all_stnk as $data_stnk){ 
                 ?>
                     <tr>

@@ -50,6 +50,10 @@ class Kendaraan extends CI_Controller {
 		$data['pages'] = (int)$pages;
 		$data['currentPage'] = $page;
 
+		$data['is_view'] = (check_privilege('kendaraan', 'is_view') != TRUE ? 'hidden' : '');
+		$data['is_update'] = (check_privilege('kendaraan', 'is_update') != TRUE ? 'hidden' : '');
+		$data['is_delete'] = (check_privilege('kendaraan', 'is_delete') != TRUE ? 'hidden' : '');
+
 		$this->load->view('kendaraan/data-search', $data);
 	}
 

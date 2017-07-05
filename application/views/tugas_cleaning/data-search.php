@@ -10,7 +10,7 @@
                 </thead>
                 <tbody>
                 <?php 
-                    $nourut = 1;
+                    $nourut = $limit + 1;
                     foreach($all_tugas_cleaning as $data_cleaning){ 
                 ?>
                     <tr>
@@ -20,8 +20,8 @@
                         <td><?php echo $data_cleaning['tahun_tugas']; ?></td>
                         <td>
                             <a href="<?php echo base_url().'tugas_cleaning/view/'.md5($data_cleaning['id']); ?>"><button type="button" class="btn btn-default">View</button></a>
-                            <a href="<?php echo base_url().'tugas_cleaning/edit/'.md5($data_cleaning['id']); ?>"><button type="button" class="btn btn-default">Edit</button></a>
-                            <a href="#" onclick="deleteData('<?php echo base_url().'tugas_cleaning/delete/'.md5($data_cleaning['id']); ?>')"><button type="button" class="btn btn-danger">Delete</button></a>
+                            <a href="<?php echo base_url().'tugas_cleaning/edit/'.md5($data_cleaning['id']); ?>"><button type="button" class="btn btn-default <?php echo $is_update; ?>">Edit</button></a>
+                            <a href="#" onclick="deleteData('<?php echo base_url().'tugas_cleaning/delete/'.md5($data_cleaning['id']); ?>')"><button type="button" class="btn btn-danger <?php echo $is_delete; ?>">Delete</button></a>
                         </td>
                     </tr>
                 <?php $nourut++; } ?>

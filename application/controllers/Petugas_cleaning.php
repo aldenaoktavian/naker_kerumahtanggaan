@@ -22,7 +22,7 @@ class Petugas_cleaning extends CI_Controller {
 		$data['title'] = "Petugas Cleaning";
 		$data['menu_title'] = "Petugas Cleaning - List Data";
 
-		$this->load->view('petugas-cleaning/data', $data);
+		$this->load->view('petugas_cleaning/data', $data);
 	}
 
 	public function data_search($page=0, $search='')
@@ -33,7 +33,7 @@ class Petugas_cleaning extends CI_Controller {
 		$tipe_petugas = 1;
 		$search = urldecode($search);
 
-		$offset = 2;
+		$offset = 10;
 
 		if($page != 0){
 			$limit = 0 + (($page - 1) * $offset);
@@ -52,8 +52,12 @@ class Petugas_cleaning extends CI_Controller {
 		$pages = ($all_pages % $offset == 0 ? $all_pages / $offset : ($all_pages / $offset)+1 );
 		$data['pages'] = (int)$pages;
 		$data['currentPage'] = $page;
+		$data['limit'] = $limit;
 
-		$this->load->view('petugas-cleaning/data-search', $data);
+		$data['is_update'] = (check_privilege('petugas_cleaning', 'is_update') != TRUE ? 'hidden' : '');
+		$data['is_delete'] = (check_privilege('petugas_cleaning', 'is_delete') != TRUE ? 'hidden' : '');
+
+		$this->load->view('petugas_cleaning/data-search', $data);
 	}
 
 	public function add()
@@ -90,7 +94,7 @@ class Petugas_cleaning extends CI_Controller {
 			}
 		}
 
-		$this->load->view('petugas-cleaning/add', $data);
+		$this->load->view('petugas_cleaning/add', $data);
 	}
 
 	public function edit($id)
@@ -127,7 +131,7 @@ class Petugas_cleaning extends CI_Controller {
 			$data['detail_petugas'] = $this->petugas_model->detail_petugas($id);
 		}
 
-		$this->load->view('petugas-cleaning/edit', $data);
+		$this->load->view('petugas_cleaning/edit', $data);
 	}
 
 	public function delete($id)

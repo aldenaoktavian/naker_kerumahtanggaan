@@ -120,19 +120,37 @@ class Jenis_barang_model extends CI_Model {
 		return $query->result_array();
 	}
 
-	function approve_penerimaan($id,$type,$data=null){
-		if($type == 'A'){
-			$this->db->where('id', $id);
-			$update = $this->db->update('pengadaan_barangs', array('status'=>'A','modified'=>date('Y-m-d H:i:s'),'modi_by'=>$_SESSION['login']['id_user']));
-			return $update;
-		}else{
-			$this->db->where('md5(id)', $id);
-			$update = $this->db->update('pengadaan_barangs', $data);
-			return $update;
+	function delete_pengadaan_baran($id)
+	{
+		$this->db->where('md5(id)', $id);
+		$result = $this->db->delete('pengadaan_barangs');
+		return $result;
+	}
+
+	function ongoing_pengadaan_barang($priv)
+	{
+		if($priv == TRUE){
+			$where_user = " 1=1 ";
+		} else{
+			$where_user = " create_by = ".$_SESSION['login']['id_user'];
 		}
-		
+
+		$count_all = $this->db->query("SELECT count(*) AS jml FROM pengadaan_barangs WHERE ".$where_user)->row_array();
+		$count_ongoing = $this->db->query("SELECT count(*) AS jml FROM pengadaan_barangs WHERE ".$where_user." AND status = 'E'")->row_array();
+
+		if($count_all['jml'] != 0){
+			$persentase = ((int)$count_ongoing['jml'] * 100) / (int)$count_all['jml'];
+		} else{
+			$persentase = 0;
+		}
+		$result = array(
+				'count_ongoing'	=> $count_ongoing['jml'],
+				'persentase'	=> $persentase
+			);
+		return $result;
 	}
 	/* end about pengadaan barang */
+
 	/* start penerimaan barang */
 	function data_penerimaan_barang($id_user, $limit, $offset, $search='')
 	{
@@ -172,6 +190,29 @@ class Jenis_barang_model extends CI_Model {
 		$update = $this->db->update('pengadaan_barangs', $data);
 		return $update;
 	}
+
+	function ongoing_penerimaan_barang($priv)
+	{
+		if($priv == TRUE){
+			$where_user = " 1=1 ";
+		} else{
+			$where_user = " create_by = ".$_SESSION['login']['id_user'];
+		}
+
+		$count_all = $this->db->query("SELECT count(*) AS jml FROM pengadaan_barangs WHERE ".$where_user)->row_array();
+		$count_ongoing = $this->db->query("SELECT count(*) AS jml FROM pengadaan_barangs WHERE ".$where_user." AND status = 'A'")->row_array();
+
+		if($count_all['jml'] != 0){
+			$persentase = ((int)$count_ongoing['jml'] * 100) / (int)$count_all['jml'];
+		} else{
+			$persentase = 0;
+		}
+		$result = array(
+				'count_ongoing'	=> $count_ongoing['jml'],
+				'persentase'	=> $persentase
+			);
+		return $result;
+	}
 	/* end penerimaan barang */
 	/* history pengadaan barang */
 	function data_history_barang($id_user, $limit, $offset, $search='')
@@ -208,6 +249,7 @@ class Jenis_barang_model extends CI_Model {
 		return $query['jml'];
 	}
 	/* end history pengadaan barang */
+
 	/* start perawatan brang*/
 	function data_perawatan_barang($id_user, $limit, $offset, $search='')
 	{
@@ -263,19 +305,30 @@ class Jenis_barang_model extends CI_Model {
 		return $update;
 	}
 
-	function approve_perawatan($id,$type,$data=null){
-		if($type == 'A'){
-			$this->db->where('id', $id);
-			$update = $this->db->update('perawatan_barangs', array('status'=>'A','modified'=>date('Y-m-d H:i:s'),'modi_by'=>$_SESSION['login']['id_user']));
-			return $update;
-		}else{
-			$this->db->where('md5(id)', $id);
-			$update = $this->db->update('perawatan_barangs', $data);
-			return $update;
+	function ongoing_perawatan_barang($priv)
+	{
+		if($priv == TRUE){
+			$where_user = " 1=1 ";
+		} else{
+			$where_user = " create_by = ".$_SESSION['login']['id_user'];
 		}
-		
+
+		$count_all = $this->db->query("SELECT count(*) AS jml FROM perawatan_barangs WHERE ".$where_user)->row_array();
+		$count_ongoing = $this->db->query("SELECT count(*) AS jml FROM perawatan_barangs WHERE ".$where_user." AND status = 'E'")->row_array();
+
+		if($count_all['jml'] != 0){
+			$persentase = ((int)$count_ongoing['jml'] * 100) / (int)$count_all['jml'];
+		} else{
+			$persentase = 0;
+		}
+		$result = array(
+				'count_ongoing'	=> $count_ongoing['jml'],
+				'persentase'	=> $persentase
+			);
+		return $result;
 	}
 	/* end perawatan barang */
+
 	/* perawatan selesai */
 	function data_perawatan_selesai($id_user, $limit, $offset, $search='')
 	{
@@ -318,7 +371,31 @@ class Jenis_barang_model extends CI_Model {
 		return $query->result_array();
 	}
 
+	function ongoing_perawatan_selesai($priv)
+	{
+		if($priv == TRUE){
+			$where_user = " 1=1 ";
+		} else{
+			$where_user = " create_by = ".$_SESSION['login']['id_user'];
+		}
+
+		$count_all = $this->db->query("SELECT count(*) AS jml FROM perawatan_barangs WHERE ".$where_user)->row_array();
+		$count_ongoing = $this->db->query("SELECT count(*) AS jml FROM perawatan_barangs WHERE ".$where_user." AND status = 'A'")->row_array();
+
+		if($count_all['jml'] != 0){
+			$persentase = ((int)$count_ongoing['jml'] * 100) / (int)$count_all['jml'];
+		} else{
+			$persentase = 0;
+		}
+		$result = array(
+				'count_ongoing'	=> $count_ongoing['jml'],
+				'persentase'	=> $persentase
+			);
+		return $result;
+	}
+
 	/* end perawatan selsai */
+
 	/* history perawatan brg */
 	function data_history_perawatan($id_user, $limit, $offset, $search='')
 	{

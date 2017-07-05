@@ -33,7 +33,7 @@ class Perawatan_barang_history extends CI_Controller {
 		}
 		$search = urldecode($search);
 
-		$offset = 2;
+		$offset = 10;
 
 		if($page != 0){
 			$limit = 0 + (($page - 1) * $offset);
@@ -52,6 +52,7 @@ class Perawatan_barang_history extends CI_Controller {
 		$pages = ($all_pages % $offset == 0 ? $all_pages / $offset : ($all_pages / $offset)+1 );
 		$data['pages'] = (int)$pages;
 		$data['currentPage'] = $page;
+		$data['limit'] = $limit;
 
 		$this->load->view('perawatan_barang_history/data-search', $data);
 	}

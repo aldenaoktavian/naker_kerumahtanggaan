@@ -15,7 +15,7 @@ function db_get_one_data($field, $table, $where)
 	return $data[$field];
 }
 
-function notif_list($id_user=0)
+function notif_list($id_user=0, $limit=0, $offset=5)
 {
 	$CI = get_instance();
 
@@ -25,7 +25,7 @@ function notif_list($id_user=0)
 		$id_user = $_SESSION['login']['id_user'];
 	}
 
-	$notif_updates = $CI->notif_model->all_notif($id_user, 0, 5);
+	$notif_updates = $CI->notif_model->all_notif($id_user, $limit, $offset);
 	$date_now = new DateTime();
 	foreach ($notif_updates as $key => $value) {
 		$date_created = new DateTime($value['created']);
@@ -44,6 +44,7 @@ function notif_list($id_user=0)
 			$notif_updates[$key]['notif_time'] = $diff_notif->s." detik yang lalu.";
 		}
 		$notif_updates[$key]['notif_desc'] = substr($value['notif_desc'], 0, 25);
+		$notif_updates[$key]['notif_desc_full'] = $value['notif_desc'];
 		$notif_updates[$key]['notif_icon'] = ($value['notif_status'] == 0 ? '<i class="fa fa-circle"></i>' : '');
 	}
 	$data['notif_updates'] = $notif_updates;

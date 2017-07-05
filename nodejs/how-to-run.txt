@@ -1,3 +1,0 @@
-cara jalanin server node js nya:
-- buka cmd, arahin ke folder project ( folder yg ada file server.js )
-- ketik: node server.js

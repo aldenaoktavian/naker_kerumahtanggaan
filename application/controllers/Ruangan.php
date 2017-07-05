@@ -50,6 +50,10 @@ class Ruangan extends CI_Controller {
 		$pages = ($all_pages % $offset == 0 ? $all_pages / $offset : ($all_pages / $offset)+1 );
 		$data['pages'] = (int)$pages;
 		$data['currentPage'] = $page;
+		$data['limit'] = $limit;
+
+		$data['is_update'] = (check_privilege('ruangan', 'is_update') != TRUE ? 'hidden' : '');
+		$data['is_delete'] = (check_privilege('ruangan', 'is_delete') != TRUE ? 'hidden' : '');
 
 		$this->load->view('ruangan/data-search', $data);
 	}

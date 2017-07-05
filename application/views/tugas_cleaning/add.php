@@ -79,7 +79,7 @@
                 </div> 
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
                     <button type="submit" class="btn btn-primary">Save</button>
-                    <a href="<?php echo base_url().'pengadaan_barang'; ?>"><button type="button" class="btn btn-default">Cancel</button></a>
+                    <a href="<?php echo base_url().'tugas_cleaning'; ?>"><button type="button" class="btn btn-default">Cancel</button></a>
                 </div>
                 <div class="clearfix"></div>
             </form>

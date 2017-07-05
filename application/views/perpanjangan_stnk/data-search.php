@@ -13,7 +13,7 @@
                 </thead>
                 <tbody>
                 <?php 
-                    $nourut = 1;
+                    $nourut = $limit + 1;
                     foreach($all_stnk as $data_stnk){ 
                 ?>
                     <tr>
@@ -25,7 +25,7 @@
                         <td><?php echo $data_stnk['nama_jenis']; ?></td>
                         <td><?php echo date('d M Y',strtotime($data_stnk['masa_stnk'])); ?></td>
                         <td>
-                            <a href="<?php echo base_url().'perpanjangan_stnk/update_konf/'.md5($data_stnk['id']); ?>"><button type="button" class="btn btn-default">Konfirmasi</button></a>
+                            <a href="<?php echo base_url().'perpanjangan_stnk/update_konf/'.md5($data_stnk['id']); ?>"><button type="button" class="btn btn-default <?php echo $is_update; ?>">Konfirmasi</button></a>
                         </td>
                     </tr>
                 <?php $nourut++; } ?>

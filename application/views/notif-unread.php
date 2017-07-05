@@ -12,4 +12,4 @@
 	                                </a>
 	                            </li>
 							<?php } ?>
-								<li><a href="<?php echo base_url().'notifikasi/all'; ?>" class="view">Lihat semua notifikasi</a></li>
+								<li><a href="<?php echo base_url().'gate/all_notification'; ?>" class="view">Lihat semua notifikasi</a></li>

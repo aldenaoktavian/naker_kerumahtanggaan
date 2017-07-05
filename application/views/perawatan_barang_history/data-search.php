@@ -12,8 +12,21 @@
                 </thead>
                 <tbody>
                 <?php 
-                    $nourut = 1;
+                    $nourut = $limit + 1;
                     foreach($all_history_perawatan as $data_perawatan){ 
+                        switch ($data_perawatan['status']) {
+                            case 'S':
+                                $status = "Sukses";
+                                break;
+
+                            case 'R':
+                                $status = "Ditolak";
+                                break;
+                            
+                            default:
+                                $status = "Requested";
+                                break;
+                        };
                 ?>
                     <tr>
                         <td><?php echo $nourut; ?></td>
@@ -21,7 +34,7 @@
                         <td><?php echo $data_perawatan['direktorat']; ?></td>
                         <td><?php echo $data_perawatan['nama_barang']; ?></td>
                         <td><?php echo date('d M Y',strtotime($data_perawatan['tgl_perawatan'])); ?></td>
-                        <td><?php echo $data_perawatan['status']; ?></td>
+                        <td><?php echo $status; ?></td>
                         <td>
                             <a href="<?php echo base_url().'perawatan_barang_history/view/'.md5($data_perawatan['id']); ?>"><button type="button" class="btn btn-default">View</button></a>
                         </td>

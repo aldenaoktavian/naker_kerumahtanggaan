@@ -13,7 +13,7 @@
                 </thead>
                 <tbody>
                 <?php 
-                    $nourut = 1;
+                    $nourut = $limit + 1;
                     foreach($all_perawatan_barang as $data_perawatan){ 
                 ?>
                     <tr>
@@ -23,12 +23,11 @@
                         <td><?php echo $data_perawatan['direktorat']; ?></td>
                         <td><?php echo $data_perawatan['nama_barang']; ?></td>
                         <td><?php echo date('d M Y',strtotime($data_perawatan['tgl_perawatan'])); ?></td>
-                        <td><?php echo $data_perawatan['status']; ?></td>
+                        <td>Requested</td>
                         <td>
-                            <a href="<?php echo base_url().'perawatan_barang/view/'.md5($data_perawatan['id']); ?>"><button type="button" class="btn btn-default">View</button></a>
-                            <a href="<?php echo base_url().'perawatan_barang/edit/'.md5($data_perawatan['id']); ?>"><button type="button" class="btn btn-default">Edit</button></a>
-                             <a href="<?php echo base_url().'perawatan_barang/approve/'.md5($data_perawatan['id']); ?>"><button type="button" class="btn btn-default">Approve</button></a>
-                            <a href="#" onclick="deleteData('<?php echo base_url().'perawatan_barang/delete/'.md5($data_perawatan['id']); ?>')"><button type="button" class="btn btn-danger">Delete</button></a>
+                            <a href="<?php echo base_url().'perawatan_barang/edit/'.md5($data_perawatan['id']); ?>"><button type="button" class="btn btn-default <?php echo $is_update; ?>">Edit</button></a>
+                             <a href="<?php echo base_url().'perawatan_barang/approve/'.md5($data_perawatan['id']); ?>"><button type="button" class="btn btn-default <?php echo $is_approve; ?>">Approve</button></a>
+                            <a href="#" onclick="deleteData('<?php echo base_url().'perawatan_barang/delete/'.md5($data_perawatan['id']); ?>')"><button type="button" class="btn btn-danger <?php echo $is_delete; ?>">Delete</button></a>
                         </td>
                     </tr>
                 <?php $nourut++; } ?>

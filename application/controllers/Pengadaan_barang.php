@@ -190,6 +190,12 @@ class Pengadaan_barang extends CI_Controller {
 				);
 			$update_pengadaan_barang = $this->jenis_barang_model->update_pengadaan_barang($id, $data_request);
 			if($update_pengadaan_barang == TRUE){
+				$notif_receiver = $this->notif_model->get_email_by_module('pengadaan_barang');
+				$notif_data = array(
+						'notif_type_id'	=> 2,
+						'notif_url'		=> base_url().'history_pengadaan_barang/index/'.md5($update_pengadaan_barang)
+					);
+				saveNotif($notif_data, $notif_receiver);
 				$_SESSION['pengadaan_barang']['message_color'] = "green";
 				$_SESSION['pengadaan_barang']['message'] = "Berhasil update status request barang";
 				redirect('pengadaan_barang');

@@ -232,6 +232,12 @@ class Perawatan_barang extends CI_Controller {
 				);
 			$update_perawatan_barang = $this->Jenis_barang_model->update_perawatan_barang($id, $data_status);
 			if($update_perawatan_barang == TRUE){
+				$notif_receiver = $this->notif_model->get_email_by_module('perawatan_barang');
+				$notif_data = array(
+						'notif_type_id'	=> 6,
+						'notif_url'		=> base_url().'perawatan_barang_history/indesx/'.md5($update_perawatan_barang)
+					);
+				saveNotif($notif_data, $notif_receiver);
 				$_SESSION['perawatan_barang']['message_color'] = "green";
 				$_SESSION['perawatan_barang']['message'] = "Berhasil update status perawatan barang";
 				redirect('perawatan_barang');

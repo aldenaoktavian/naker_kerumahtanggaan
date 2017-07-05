@@ -70,6 +70,7 @@ class Penerimaan_barang extends CI_Controller {
 		$data['menu_title'] = "Peneriman Barang - Edit Peneriman Barang";
 
 		$data['id'] = $id;
+		$error = 0;
 
 		$post = $this->input->post();
 		if($post){
@@ -88,6 +89,12 @@ class Penerimaan_barang extends CI_Controller {
                 // echo "<pre>";print_r($data_image);echo "</pre>";exit;
              }
 
+             if(!isset($data_image['file_name'])){
+             	$error = 1;
+             	$_SESSION['penerimaan_barang']['message_color'] = "red";
+				$_SESSION['penerimaan_barang']['message'] = "Silahkan isi data diri secara lengkap.";
+				redirect('penerimaan_barang');
+             }
 			$data_request = array(
 					'status'			=> 'S',
 					'tgl_terima'		=> date('Y-m-d H:i:s'),

@@ -77,7 +77,7 @@
                         Keterangan
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="textarea" class="form-control" name="keterangan" placeholder="Keterangan" />
+                        <input type="textarea" class="form-control" name="keterangan" placeholder="Keterangan" required />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -85,7 +85,7 @@
                         Bukti Foto Barang
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="file" name="bukti_foto" placeholder="Bukti Foto Barang" />
+                        <input type="file" name="bukti_foto" placeholder="Bukti Foto Barang" required />
                     </div>
                 </div>
                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">

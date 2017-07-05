@@ -3,7 +3,6 @@
                     <tr>
                         <td>No</td>
                         <td>Pemegang</td>
-                        <td>Direktorat</td>
                         <td>Merk / Type</td>
                         <td>Nomor Polisi</td>
                         <td>Jenis Kendaraan</td>
@@ -19,7 +18,6 @@
                     <tr>
                         <td><?php echo $nourut; ?></td>
                         <td><?php echo $data_stnk['pemegang']; ?></td>
-                        <td><?php echo $data_stnk['direktorat']; ?></td>
                         <td><?php echo $data_stnk['merk']; ?></td>
                         <td><?php echo $data_stnk['no_pol']; ?></td>
                         <td><?php echo $data_stnk['nama_jenis']; ?></td>

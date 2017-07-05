@@ -85,7 +85,8 @@ class Kendaraan_model extends CI_Model {
 	function data_stnk($id_user, $limit, $offset, $search='')
 	{	
 		if($search != ''){
-			$query = $this->db->query("SELECT a.id, a.pemegang, a.no_pol, a.merk, a.masa_stnk, b.nama_jenis FROM kendaraans a INNER JOIN jenis_kendaraans b ON a.jns_kendaraan_id = b.id WHERE (DATE_FORMAT(NOW(),'%Y-%m-%d') = DATE_SUB(DATE_FORMAT(masa_stnk,'%Y-%m-%d'),INTERVAL 5 MONTH) OR DATE_FORMAT(NOW(),'%Y-%m-%d') = DATE_ADD(masa_stnk,INTERVAL 1 MONTH) ) AND (
+			$query = $this->db->query(" SELECT a.id, a.pemegang, a.no_pol, a.merk, a.masa_stnk, b.nama_jenis FROM kendaraans a INNER JOIN jenis_kendaraans b ON a.		jns_kendaraan_id = b.id WHERE (
+					(DATE_FORMAT(NOW(),'%Y-%m-%d') >= DATE_SUB(DATE_FORMAT(masa_stnk,'%Y-%m-%d'),INTERVAL 5 MONTH) AND DATE_FORMAT(NOW(),'%Y-%m-%d') <= DATE_FORMAT(masa_stnk,'%Y-%m-%d')) OR (DATE_FORMAT(NOW(),'%Y-%m-%d') >= DATE_FORMAT(masa_stnk,'%Y-%m-%d') AND DATE_FORMAT(NOW(),'%Y-%m-%d') <= DATE_ADD(masa_stnk,INTERVAL 1 MONTH))) AND (
 					a.merk LIKE '%".$search."%' OR
 					b.nama_jenis LIKE '%".$search."%' OR
 					a.no_pol LIKE '%".$search."%' OR
@@ -93,7 +94,8 @@ class Kendaraan_model extends CI_Model {
 					a.masa_stnk LIKE '%".$search."%' 
 				) LIMIT ".$limit.",".$offset);
 		} else{
-			$query = $this->db->query("SELECT a.id, a.pemegang, a.no_pol, a.merk, a.masa_stnk, b.nama_jenis FROM kendaraans a INNER JOIN jenis_kendaraans b ON a.jns_kendaraan_id = b.id WHERE (DATE_FORMAT(NOW(),'%Y-%m-%d') = DATE_SUB(DATE_FORMAT(masa_stnk,'%Y-%m-%d'),INTERVAL 5 MONTH) OR DATE_FORMAT(NOW(),'%Y-%m-%d') = DATE_ADD(masa_stnk,INTERVAL 1 MONTH) ) LIMIT ".$limit.",".$offset);
+			$query = $this->db->query("SELECT a.id, a.pemegang, a.no_pol, a.merk, a.masa_stnk, b.nama_jenis FROM kendaraans a INNER JOIN jenis_kendaraans b ON a.jns_kendaraan_id = b.id WHERE (
+				(DATE_FORMAT(NOW(),'%Y-%m-%d') >= DATE_SUB(DATE_FORMAT(masa_stnk,'%Y-%m-%d'),INTERVAL 5 MONTH) AND DATE_FORMAT(NOW(),'%Y-%m-%d') <= DATE_FORMAT(masa_stnk,'%Y-%m-%d')) OR (DATE_FORMAT(NOW(),'%Y-%m-%d') >= DATE_FORMAT(masa_stnk,'%Y-%m-%d') AND DATE_FORMAT(NOW(),'%Y-%m-%d') <= DATE_ADD(masa_stnk,INTERVAL 1 MONTH))) LIMIT ".$limit.",".$offset);
 			// echo "<pre>";print_r($query->result_array());echo "</pre>";exit;
 		}
 		return $query->result_array();
@@ -103,7 +105,8 @@ class Kendaraan_model extends CI_Model {
 	{
 
 		if($search != ''){
-			$query = $this->db->query("SELECT count(*) AS jml FROM kendaraans a INNER JOIN jenis_kendaraans b ON a.jns_kendaraan_id = b.id WHERE (DATE_FORMAT(NOW(),'%Y-%m-%d') = DATE_SUB(DATE_FORMAT(masa_stnk,'%Y-%m-%d'),INTERVAL 5 MONTH) OR DATE_FORMAT(NOW(),'%Y-%m-%d') = DATE_ADD(masa_stnk,INTERVAL 1 MONTH) ) AND (
+			$query = $this->db->query("SELECT count(*) as jml FROM kendaraans a INNER JOIN jenis_kendaraans b ON a.jns_kendaraan_id = b.id WHERE (
+				(DATE_FORMAT(NOW(),'%Y-%m-%d') >= DATE_SUB(DATE_FORMAT(masa_stnk,'%Y-%m-%d'),INTERVAL 5 MONTH) AND DATE_FORMAT(NOW(),'%Y-%m-%d') <= DATE_FORMAT(masa_stnk,'%Y-%m-%d')) OR (DATE_FORMAT(NOW(),'%Y-%m-%d') >= DATE_FORMAT(masa_stnk,'%Y-%m-%d') AND DATE_FORMAT(NOW(),'%Y-%m-%d') <= DATE_ADD(masa_stnk,INTERVAL 1 MONTH))) AND (
 					a.merk LIKE '%".$search."%' OR
 					b.nama_jenis LIKE '%".$search."%' OR
 					a.no_pol LIKE '%".$search."%' OR
@@ -111,7 +114,8 @@ class Kendaraan_model extends CI_Model {
 					a.masa_stnk LIKE '%".$search."%' 
 				)")->row_array();
 		} else{
-			$query = $this->db->query("SELECT count(*) AS jml FROM kendaraans a INNER JOIN jenis_kendaraans b ON a.jns_kendaraan_id = b.id WHERE (DATE_FORMAT(NOW(),'%Y-%m-%d') = DATE_SUB(DATE_FORMAT(masa_stnk,'%Y-%m-%d'),INTERVAL 5 MONTH) OR DATE_FORMAT(NOW(),'%Y-%m-%d') = DATE_ADD(masa_stnk,INTERVAL 1 MONTH) )")->row_array();
+			$query = $this->db->query("SELECT count(*) as jml FROM kendaraans a INNER JOIN jenis_kendaraans b ON a.jns_kendaraan_id = b.id WHERE (
+				(DATE_FORMAT(NOW(),'%Y-%m-%d') >= DATE_SUB(DATE_FORMAT(masa_stnk,'%Y-%m-%d'),INTERVAL 5 MONTH) AND DATE_FORMAT(NOW(),'%Y-%m-%d') <= DATE_FORMAT(masa_stnk,'%Y-%m-%d')) OR (DATE_FORMAT(NOW(),'%Y-%m-%d') >= DATE_FORMAT(masa_stnk,'%Y-%m-%d') AND DATE_FORMAT(NOW(),'%Y-%m-%d') <= DATE_ADD(masa_stnk,INTERVAL 1 MONTH)))")->row_array();
 		}
 		return $query['jml'];
 	}
@@ -181,7 +185,8 @@ class Kendaraan_model extends CI_Model {
 	function ongoing_perpanjangan_stnk()
 	{
 		$count_all = $this->db->query("SELECT count(*) AS jml FROM kendaraans a INNER JOIN jenis_kendaraans b ON a.jns_kendaraan_id = b.id")->row_array();
-		$count_ongoing = $this->db->query("SELECT count(*) AS jml FROM kendaraans a INNER JOIN jenis_kendaraans b ON a.jns_kendaraan_id = b.id WHERE (DATE_FORMAT(NOW(),'%Y-%m-%d') = DATE_SUB(DATE_FORMAT(masa_stnk,'%Y-%m-%d'),INTERVAL 5 MONTH) OR DATE_FORMAT(NOW(),'%Y-%m-%d') = DATE_ADD(masa_stnk,INTERVAL 1 MONTH) )")->row_array();
+		$count_ongoing = $this->db->query("SELECT a.id, a.pemegang, a.no_pol, a.merk, a.masa_stnk, b.nama_jenis FROM kendaraans a INNER JOIN jenis_kendaraans b ON a.jns_kendaraan_id = b.id WHERE (
+			(DATE_FORMAT(NOW(),'%Y-%m-%d') >= DATE_SUB(DATE_FORMAT(masa_stnk,'%Y-%m-%d'),INTERVAL 5 MONTH) AND DATE_FORMAT(NOW(),'%Y-%m-%d') <= DATE_FORMAT(masa_stnk,'%Y-%m-%d')) OR (DATE_FORMAT(NOW(),'%Y-%m-%d') >= DATE_FORMAT(masa_stnk,'%Y-%m-%d') AND DATE_FORMAT(NOW(),'%Y-%m-%d') <= DATE_ADD(masa_stnk,INTERVAL 1 MONTH)))")->row_array();
 
 		if($count_all['jml'] != 0){
 			$persentase = ((int)$count_ongoing['jml'] * 100) / (int)$count_all['jml'];

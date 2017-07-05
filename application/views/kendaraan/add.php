@@ -54,14 +54,6 @@
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        NUP
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="nup" placeholder="NUP" />
-                    </div>
-                </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         No Polisi
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -70,41 +62,10 @@
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        No Mesin
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="no_mesin" placeholder="No Mesin" />
-                    </div>
-                </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        No Chasis
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="no_chasis" placeholder="No Chasis" />
-                    </div>
-                </div><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        Kondisi
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="kondisi" placeholder="Kondisi" />
-                    </div>
-                </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         Pemegang
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         <input type="text" class="form-control" name="pemegang" placeholder="Pemegang" />
-                    </div>
-                </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        Direktorat
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="direktorat" placeholder="Direktorat" />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">

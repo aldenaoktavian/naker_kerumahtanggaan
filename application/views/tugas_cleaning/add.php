@@ -114,6 +114,24 @@
     $('#trHiddenCounterDetail').before(html);
     }
 
+    function cekDuplikasi(){
+        // alert(1);
+        var error = 0;
+        var tanda = [];
+        for(var i = 0; i <= Number($('#tr_d_counterDetail').val()); i++){
+            if(($('#Detail'+i+'PetugasId').val() != 0) && (tanda.indexOf($('#Detail'+i+'PetugasId').val()) != -1)){
+                error = 1;
+                $('#tr'+i).detach();
+            }else{
+                tanda.push($('#Detail'+i+'PetugasId').val());
+            }
+        }
+
+        if(error == 1){
+            alert('Data detail tidak boleh sama !!');
+        }
+    }
+
     function changePetugas(id,val){
         $.ajax({
              type: "POST",
@@ -125,6 +143,8 @@
                  $('#Detail'+id+'NoTelp').val(obj);
             }
         });
+
+        cekDuplikasi();
     }
 </script>
 

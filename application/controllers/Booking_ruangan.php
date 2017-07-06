@@ -250,7 +250,15 @@ class Booking_ruangan extends CI_Controller {
 
 	public function print_data()
 	{
-		$data['tes'] = "aio";
+		$data['title'] = "Print Booking Ruangan";
+
+		if(check_privilege('booking_ruangan', 'is_approve') == TRUE){
+			$id_user = 0;
+		} else{
+			$id_user = $_SESSION['login']['id_user'];
+		}
+		$data['all_booking_ruangan'] = $this->ruangan_model->data_booking_ruangan($id_user);
+		
 		$this->load->view('booking_ruangan/print-data', $data);
 	}
 }

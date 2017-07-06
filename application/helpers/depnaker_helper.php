@@ -192,6 +192,8 @@ function saveNotif($data_notif, $notif_receiver)
 	$type_desc = db_get_one_data('type_desc', 'notif_types', array('id'=>$data_notif['notif_type_id']));
 	$notif_desc = str_replace("[nama_user]", $_SESSION['login']['nama_user'], $type_desc);
 
+	require_once APPPATH.'libraries/phpmailer/PHPMailerAutoload.php';
+
 	$i = 0;
 	foreach($notif_receiver as $data_user){
 		$data_add_notif = array(
@@ -204,7 +206,6 @@ function saveNotif($data_notif, $notif_receiver)
 
 		$add_notif = $CI->notif_model->add_notif($data_add_notif);
 		if($add_notif != 0){
-			require_once APPPATH.'libraries/phpmailer/PHPMailerAutoload.php';
 			$mail = new PHPMailer();
 			$mail->isSMTP();
 			$mail->Host = SMTP_HOST; 
@@ -227,10 +228,7 @@ function saveNotif($data_notif, $notif_receiver)
 				$result['message'] = "sukses";
 				$new_unread_notif_count = $CI->notif_model->unread_notif_count($data_user['user_id']);
 				$detail_notif = $CI->notif_model->detail_notif($add_notif);
-				// echo "<pre>"; print_r($detail_notif);echo "</pre>";
-				// foreach ($detail_notif as $value) {
-					$detail_notif['notif_url'] = $value['notif_url']."/".md5($value['id']);
-				// }
+				$detail_notif['notif_url'] = $value['notif_url']."/".md5($value['id']);
 				$_SESSION['data_socket'][$i] = array_merge($detail_notif, array('new_unread_notif_count'=>$new_unread_notif_count));
 			}
 			$i++;

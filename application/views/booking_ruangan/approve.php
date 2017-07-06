@@ -75,7 +75,7 @@
                     <input type="text" class="form-control" value="<?php echo $detail_booking_ruangan['agenda_meeting']; ?>" disabled>
                 </div>
             </div>
-            <form action="<?php echo base_url().'booking_ruangan/view/'.$this->uri->segment(3); ?>" method="POST" class="<?php echo $is_approve; ?>">
+            <form action="<?php echo base_url().'booking_ruangan/approve/'.$this->uri->segment(3); ?>" method="POST" class="<?php echo $is_approve; ?>">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         Status

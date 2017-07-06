@@ -61,7 +61,7 @@ class Ruangan_model extends CI_Model {
 
 	/* start about booking ruangan */
 
-	function data_booking_ruangan($id_user, $limit, $offset, $search='')
+	function data_booking_ruangan($id_user, $limit=0, $offset=0, $search='')
 	{
 		if($id_user != 0){
 			$sort_user = "id_user = ".$id_user;
@@ -69,15 +69,19 @@ class Ruangan_model extends CI_Model {
 			$sort_user = "1=1";
 		}
 
-		if($search != ''){
-			$query = $this->db->query("SELECT a.id AS id, nama_ruangan, tgl_book, start_time, direktorat, status FROM booking_ruangans a INNER JOIN ruangans b ON a.ruangan_id = b.id WHERE ".$sort_user." AND status = 'B' AND (
-					b.nama_ruangan LIKE '%".$search."%' OR 
-					a.tgl_book LIKE '%".$search."%' OR 
-					a.start_time LIKE '%".$search."%' OR 
-					a.direktorat LIKE '%".$search."%' 
-				) LIMIT ".$limit.",".$offset);
+		if($offset != 0){
+			if($search != ''){
+				$query = $this->db->query("SELECT a.id AS id, nama_ruangan, tgl_book, start_time, direktorat, status FROM booking_ruangans a INNER JOIN ruangans b ON a.ruangan_id = b.id WHERE ".$sort_user." AND status = 'B' AND (
+						b.nama_ruangan LIKE '%".$search."%' OR 
+						a.tgl_book LIKE '%".$search."%' OR 
+						a.start_time LIKE '%".$search."%' OR 
+						a.direktorat LIKE '%".$search."%' 
+					) LIMIT ".$limit.",".$offset);
+			} else{
+				$query = $this->db->query("SELECT a.id AS id, nama_ruangan, tgl_book, start_time, direktorat, status FROM booking_ruangans a INNER JOIN ruangans b ON a.ruangan_id = b.id WHERE ".$sort_user." AND status = 'B' LIMIT ".$limit.",".$offset);
+			}
 		} else{
-			$query = $this->db->query("SELECT a.id AS id, nama_ruangan, tgl_book, start_time, direktorat, status FROM booking_ruangans a INNER JOIN ruangans b ON a.ruangan_id = b.id WHERE ".$sort_user." AND status = 'B' LIMIT ".$limit.",".$offset);
+			$query = $this->db->query("SELECT a.*, nama_ruangan FROM booking_ruangans a INNER JOIN ruangans b ON a.ruangan_id = b.id WHERE ".$sort_user." AND status = 'B'");
 		}
 
 		return $query->result_array();
@@ -154,7 +158,7 @@ class Ruangan_model extends CI_Model {
 
 	/* start about histori booking ruangan */
 
-	function data_booking_ruangan_history($id_user, $limit, $offset, $search='')
+	function data_booking_ruangan_history($id_user, $limit=0, $offset=0, $search='')
 	{
 		if($id_user != 0){
 			$sort_user = "id_user = ".$id_user;
@@ -162,15 +166,19 @@ class Ruangan_model extends CI_Model {
 			$sort_user = "1=1";
 		}
 
-		if($search != ''){
-			$query = $this->db->query("SELECT a.id AS id, nama_ruangan, tgl_book, start_time, direktorat, status FROM booking_ruangans a INNER JOIN ruangans b ON a.ruangan_id = b.id WHERE ".$sort_user." AND status != 'B' AND (
-					b.nama_ruangan LIKE '%".$search."%' OR 
-					a.tgl_book LIKE '%".$search."%' OR 
-					a.start_time LIKE '%".$search."%' OR 
-					a.direktorat LIKE '%".$search."%' 
-				) LIMIT ".$limit.",".$offset);
+		if($offset != 0){
+			if($search != ''){
+				$query = $this->db->query("SELECT a.id AS id, nama_ruangan, tgl_book, start_time, direktorat, status FROM booking_ruangans a INNER JOIN ruangans b ON a.ruangan_id = b.id WHERE ".$sort_user." AND status != 'B' AND (
+						b.nama_ruangan LIKE '%".$search."%' OR 
+						a.tgl_book LIKE '%".$search."%' OR 
+						a.start_time LIKE '%".$search."%' OR 
+						a.direktorat LIKE '%".$search."%' 
+					) LIMIT ".$limit.",".$offset);
+			} else{
+				$query = $this->db->query("SELECT a.id AS id, nama_ruangan, tgl_book, start_time, direktorat, status FROM booking_ruangans a INNER JOIN ruangans b ON a.ruangan_id = b.id WHERE ".$sort_user." AND status != 'B' LIMIT ".$limit.",".$offset);
+			}
 		} else{
-			$query = $this->db->query("SELECT a.id AS id, nama_ruangan, tgl_book, start_time, direktorat, status FROM booking_ruangans a INNER JOIN ruangans b ON a.ruangan_id = b.id WHERE ".$sort_user." AND status != 'B' LIMIT ".$limit.",".$offset);
+			$query = $this->db->query("SELECT a.*, nama_ruangan FROM booking_ruangans a INNER JOIN ruangans b ON a.ruangan_id = b.id WHERE ".$sort_user." AND status != 'B'");
 		}
 
 		return $query->result_array();

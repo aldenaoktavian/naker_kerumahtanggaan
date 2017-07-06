@@ -95,4 +95,18 @@ class Booking_ruangan_history extends CI_Controller {
 
 		$this->load->view('booking_ruangan_history/view', $data);
 	}
+
+	public function print_data()
+	{
+		$data['title'] = "Print Booking Ruangan";
+
+		if(check_privilege('booking_ruangan', 'is_approve') == TRUE){
+			$id_user = 0;
+		} else{
+			$id_user = $_SESSION['login']['id_user'];
+		}
+		$data['all_booking_ruangan'] = $this->ruangan_model->data_booking_ruangan_history($id_user);
+		
+		$this->load->view('booking_ruangan_history/print-data', $data);
+	}
 }

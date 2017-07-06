@@ -48,7 +48,7 @@
                         <span style="width: 10%;float: left;text-align: center;">:</span>
                         <select name="start_menit" id="start_menit" class="form-control" style="width: 45%;" onchange="checkAvailability()" required>
                             <?php 
-                                for($i=1; $i<60; $i++){ 
+                                for($i=0; $i<60; $i++){ 
                                     $numb = ($i < 10 ? "0".$i : $i);
                             ?>
                             <option value="<?php echo $numb; ?>"><?php echo $numb; ?></option>
@@ -72,7 +72,7 @@
                         <span style="width: 10%;float: left;text-align: center;">:</span>
                         <select name="end_menit" id="end_menit" class="form-control" style="width: 45%;" onchange="checkAvailability()" required>
                             <?php 
-                                for($i=1; $i<60; $i++){ 
+                                for($i=0; $i<60; $i++){ 
                                     $numb = ($i < 10 ? "0".$i : $i);
                             ?>
                             <option value="<?php echo $numb; ?>"><?php echo $numb; ?></option>

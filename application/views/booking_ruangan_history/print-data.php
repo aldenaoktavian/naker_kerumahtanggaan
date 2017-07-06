@@ -42,6 +42,10 @@
     	padding: 5px;
     	text-align: center;
     }
+
+    h3 {
+    	text-align: center;
+    }
     </style>
 </head>
 <body onload="window.print()">
@@ -62,7 +66,22 @@
 			</tr>
 		</thead>
 		<tbody>
-		<?php foreach($all_booking_ruangan as $data){ ?>
+		<?php 
+			foreach($all_booking_ruangan as $data){ 
+				switch ($data['status']) {
+                    case 'F':
+                        $status_booking = "Selesai";
+                        break;
+
+                    case 'C':
+                        $status_booking = "Dibatalkan";
+                        break;
+                    
+                    default:
+                        $status_booking = "Terbooking";
+                        break;
+                };
+		?>
 			<tr>
 				<td><?php echo $data['kode_booking']; ?></td>
 				<td><?php echo date('d F Y', strtotime($data['tgl_book'])); ?></td>
@@ -73,7 +92,7 @@
 				<td><?php echo $data['nama_pemesan']; ?></td>
 				<td><?php echo $data['jml_peserta']; ?></td>
 				<td><?php echo $data['agenda_meeting']; ?></td>
-				<td>Booked</td>
+				<td><?php echo $status_booking; ?></td>
 			</tr>
 		<?php } ?>
 		</tbody>

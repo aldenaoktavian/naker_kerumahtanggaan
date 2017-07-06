@@ -141,6 +141,11 @@ class Petugas_model extends CI_Model {
 		$result = $this->db->delete('jadwal_tugas');
 		return $result;
 	}
+
+	function cek_jadwal($tipe = null, $bulan = null, $tahun = null){
+		$query = $this->db->query("SELECT count(*) AS jml FROM jadwal_tugas WHERE tipe = '".$tipe."' AND bulan_tugas = '".$bulan."' AND tahun_tugas = '".$tahun."'")->row_array();
+		return $query['jml'];
+	}
 	/* end */
 	/* Tugas Security */
 	function data_security($limit, $offset, $search='')

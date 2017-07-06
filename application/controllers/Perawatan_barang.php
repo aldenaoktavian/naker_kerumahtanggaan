@@ -42,6 +42,12 @@ class Perawatan_barang extends CI_Controller {
 			$limit = 0;
 		}
 
+		if(check_privilege('perawatan_barang', 'is_approve') == TRUE){
+			$id_user = 0;
+		} else{
+			$id_user = $_SESSION['login']['id_user'];
+		}
+
 		if($search != ''){
 			$data['all_perawatan_barang'] = $this->Jenis_barang_model->data_perawatan_barang($_SESSION['login']['id_user'], $limit, $offset, $search);
 			$all_pages = $this->Jenis_barang_model->count_all_perawatan_barang($_SESSION['login']['id_user'], $search);
@@ -98,12 +104,24 @@ class Perawatan_barang extends CI_Controller {
 				);
 			$add_perawatan_barang = $this->Jenis_barang_model->add_perawatan_barang(array_merge($post, $data_perawatan_barang));
 			if($add_perawatan_barang != 0){
-				$notif_receiver = $this->notif_model->get_email_by_module('perawatan_barang');
-				$notif_data = array(
-						'notif_type_id'	=> 5,
-						'notif_url'		=> base_url().'perawatan_barang/approve/'.md5($add_perawatan_barang)
-					);
-				saveNotif($notif_data, $notif_receiver);
+
+				if(check_privilege('pengadaan_barang', 'is_approve') == TRUE){
+					$notif_receiver = $this->notif_model->get_email_by_module('perawatan_barang');
+					$notif_data = array(
+							'notif_type_id'	=> 5,
+							'notif_url'		=> base_url().'perawatan_barang/approve/'.md5($add_perawatan_barang)
+						);
+					saveNotif($notif_data, $notif_receiver);
+				} else{
+					$notif_receiver = $this->notif_model->get_email_by_module('perawatan_barang');
+					$notif_data = array(
+							'notif_type_id'	=> 5,
+							'notif_url'		=> base_url().'perawatan_barang/index/'.md5($add_perawatan_barang)
+						);
+					saveNotif($notif_data, $notif_receiver);
+				}
+				
+				
 
 				$_SESSION['perawatan_barang']['message_color'] = "green";
 				$_SESSION['perawatan_barang']['message'] = "Berhasil menambahkan permintaan perawatan barang";

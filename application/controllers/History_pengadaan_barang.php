@@ -40,6 +40,13 @@ class History_pengadaan_barang extends CI_Controller {
 		} else{
 			$limit = 0;
 		}
+
+		if(check_privilege('history_pengadaan_barang', 'is_approve') == TRUE){
+			$id_user = 0;
+		} else{
+			$id_user = $_SESSION['login']['id_user'];
+		}
+
 		// print_r($search);exit;
 		if($search != ''){
 			$data['all_history_barang'] = $this->Jenis_barang_model->data_history_barang($_SESSION['login']['id_user'], $limit, $offset, $search);

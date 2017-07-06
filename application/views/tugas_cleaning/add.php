@@ -29,7 +29,7 @@
                         Bulan Tugas
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <select name="bulan_tugas" class="form-control">
+                        <select name="bulan_tugas" class="form-control" required>
                         <?php foreach($bulan as $a=>$b){ ?>
                             <option value="<?php echo $a; ?>"><?php echo $b; ?></option>
                         <?php } ?>
@@ -41,9 +41,9 @@
                         Tahun Tugas
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <select name="tahun_tugas" class="form-control">
+                        <select name="tahun_tugas" class="form-control" required>
                         <?php foreach($tahun as $c=>$d){ ?>
-                            <option value="<?php echo $c; ?>"><?php echo $d; ?></option>
+                            <option value="<?php echo $c; ?>" <?php if($d == $current_tahun){echo "selected";} ?> ><?php echo $d; ?></option>
                         <?php } ?>
                         </select>
                     </div>
@@ -59,15 +59,15 @@
                         </tr>
                         <tr id="tr0">
                             <td>
-                                <select id="Detail0PetugasId" name="data[detail][0][petugas_id]" onchange="changePetugas(0,this.value);" class="form-control">
+                                <select id="Detail0PetugasId" name="data[detail][0][petugas_id]" onchange="changePetugas(0,this.value);" class="form-control" required>
                                     <option value="0">--Pilih Petugas--</option>
                                     <?php foreach($data_petugas_cleaning as $ptgs){ ?>
                                         <option value="<?php echo $ptgs['id']; ?>"><?php echo $ptgs['nama_petugas']; ?></option>
                                     <?php } ?>
                                 </select>
                             </td>
-                            <td><input type="text" class="form-control" id="Detail0NoTelp" name="data[detail][0][no_telp]" placeholder="No Telp" readonly /></td>
-                            <td><input type="text" class="form-control" id="Detail0Lokasi" name="data[detail][0][lokasi]" placeholder="Lokasi" /></td>
+                            <td><input type="text" class="form-control" id="Detail0NoTelp" name="data[detail][0][no_telp]" placeholder="No Telp" readonly required/></td>
+                            <td><input type="text" class="form-control" id="Detail0Lokasi" name="data[detail][0][lokasi]" placeholder="Lokasi" required/></td>
                             <td><a style="cursor:pointer;" onclick="$('#tr0').detach();"><span style="background:#aaa;padding:1px 8px;">-</span></a></td>
                         </tr>
                          
@@ -90,7 +90,7 @@
 <div style="display:none;" id="htmlDetail">
 <xzztr id="trzzz">
 <xzztd>
-    <select id="DetailzzzPetugasId" name="data[detail][zzz][petugas_id]" onchange="changePetugas(zzz,this.value);" class="form-control">
+    <select id="DetailzzzPetugasId" name="data[detail][zzz][petugas_id]" onchange="changePetugas(zzz,this.value);" class="form-control" required>
         <option value="0">--Pilih Petugas--</option>
         <?php foreach($data_petugas_cleaning as $ptgs){ ?>
             <option value="<?php echo $ptgs['id']; ?>"><?php echo $ptgs['nama_petugas']; ?></option>
@@ -98,8 +98,8 @@
     </select>
 </xzztd>
 
-<xzztd><input type="text" id="DetailzzzNoTelp" class="form-control" name="data[detail][zzz][no_telp]" placeholder="No Telp" readonly /></xzztd>
-<xzztd><input type="text" id="DetailzzzLokasi" class="form-control" name="data[detail][zzz][lokasi]" placeholder="Lokasi" /></xzztd>
+<xzztd><input type="text" id="DetailzzzNoTelp" class="form-control" name="data[detail][zzz][no_telp]" placeholder="No Telp" readonly required/></xzztd>
+<xzztd><input type="text" id="DetailzzzLokasi" class="form-control" name="data[detail][zzz][lokasi]" placeholder="Lokasi" required/></xzztd>
 <xzztd><a style="cursor:pointer;" onclick="$('#trzzz').detach();"><span style="background:#aaa;padding:1px 8px;">-</span></a></xzztd>
 </xzztr>
 </div>
@@ -138,9 +138,8 @@
              url: "<?php echo base_url().'tugas_cleaning/notelp_petugas/'; ?>"+val,
              dataType:"json",
              success: function (response) {
-                var obj = $.parseJSON(response);
-                 
-                 $('#Detail'+id+'NoTelp').val(obj);
+                var obj = JSON.parse(response);
+                 $('#Detail'+id+'NoTelp').val(JSON.stringify(obj));
             }
         });
 

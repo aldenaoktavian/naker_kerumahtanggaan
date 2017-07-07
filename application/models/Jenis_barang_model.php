@@ -251,20 +251,30 @@ class Jenis_barang_model extends CI_Model {
 	/* end history pengadaan barang */
 
 	/* start perawatan brang*/
-	function data_perawatan_barang($id_user, $limit, $offset, $search='')
+	function data_perawatan_barang($id_user, $limit=0, $offset=0, $search='')
 	{
-		if($search != ''){
-			// print_r($search);exit;
-			$query = $this->db->query("SELECT a.*, b.kode_jenis, b.nama_jenis FROM perawatan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE a.create_by = ".$id_user." AND (
-					b.nama_jenis LIKE '%".$search."%' OR
-					a.kode_perawatan LIKE '%".$search."%' OR 
-					a.tgl_perawatan LIKE '%".$search."%' OR 
-					a.direktorat LIKE '%".$search."%' OR
-					a.nama_pemesan LIKE '%".$search."%' 
-				) AND status = 'E' LIMIT ".$limit.",".$offset);
-
+		if($id_user != 0){
+			$sort_user = "a.create_by = ".$id_user;
 		} else{
-			$query = $this->db->query("SELECT a.*, b.kode_jenis, b.nama_jenis FROM perawatan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE a.create_by = ".$id_user." AND status = 'E' LIMIT ".$limit.",".$offset);
+			$sort_user = "1=1";
+		}
+
+		if($offset != 0){
+			if($search != ''){
+				// print_r($search);exit;
+				$query = $this->db->query("SELECT a.*, b.kode_jenis, b.nama_jenis FROM perawatan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE a.create_by = ".$id_user." AND (
+						b.nama_jenis LIKE '%".$search."%' OR
+						a.kode_perawatan LIKE '%".$search."%' OR 
+						a.tgl_perawatan LIKE '%".$search."%' OR 
+						a.direktorat LIKE '%".$search."%' OR
+						a.nama_pemesan LIKE '%".$search."%' 
+					) AND status = 'E' LIMIT ".$limit.",".$offset);
+
+			} else{
+				$query = $this->db->query("SELECT a.*, b.kode_jenis, b.nama_jenis FROM perawatan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE a.create_by = ".$id_user." AND status = 'E' LIMIT ".$limit.",".$offset);
+			}
+		} else{
+			$query = $this->db->query("SELECT a.*, b.kode_jenis, b.nama_jenis FROM perawatan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE ".$sort_user." AND status = 'E'");
 		}
 		return $query->result_array();
 	}
@@ -330,21 +340,32 @@ class Jenis_barang_model extends CI_Model {
 	/* end perawatan barang */
 
 	/* perawatan selesai */
-	function data_perawatan_selesai($id_user, $limit, $offset, $search='')
+	function data_perawatan_selesai($id_user, $limit=0, $offset=0, $search='')
 	{
-		if($search != ''){
-			// print_r($search);exit;
-			$query = $this->db->query("SELECT a.*, b.kode_jenis, b.nama_jenis FROM perawatan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE a.create_by = ".$id_user." AND (
-					b.nama_jenis LIKE '%".$search."%' OR
-					a.kode_perawatan LIKE '%".$search."%' OR 
-					a.tgl_perawatan LIKE '%".$search."%' OR 
-					a.direktorat LIKE '%".$search."%' OR
-					a.nama_pemesan LIKE '%".$search."%' 
-				) AND status = 'A' LIMIT ".$limit.",".$offset);
-
+		if($id_user != 0){
+			$sort_user = "id_user = ".$id_user;
 		} else{
-			$query = $this->db->query("SELECT a.*, b.kode_jenis, b.nama_jenis FROM perawatan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE a.create_by = ".$id_user." AND status = 'A' LIMIT ".$limit.",".$offset);
+			$sort_user = "1=1";
 		}
+
+		if($offset != 0){
+			if($search != ''){
+				// print_r($search);exit;
+				$query = $this->db->query("SELECT a.*, b.kode_jenis, b.nama_jenis FROM perawatan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE a.create_by = ".$id_user." AND (
+						b.nama_jenis LIKE '%".$search."%' OR
+						a.kode_perawatan LIKE '%".$search."%' OR 
+						a.tgl_perawatan LIKE '%".$search."%' OR 
+						a.direktorat LIKE '%".$search."%' OR
+						a.nama_pemesan LIKE '%".$search."%' 
+					) AND status = 'A' LIMIT ".$limit.",".$offset);
+
+			} else{
+				$query = $this->db->query("SELECT a.*, b.kode_jenis, b.nama_jenis FROM perawatan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE a.create_by = ".$id_user." AND status = 'A' LIMIT ".$limit.",".$offset);
+			}
+		} else{
+			$query = $this->db->query("SELECT a.*, b.kode_jenis, b.nama_jenis FROM perawatan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE ".$sort_user." AND status = 'A'");
+		}
+
 		return $query->result_array();
 	}
 
@@ -397,20 +418,30 @@ class Jenis_barang_model extends CI_Model {
 	/* end perawatan selsai */
 
 	/* history perawatan brg */
-	function data_history_perawatan($id_user, $limit, $offset, $search='')
+	function data_history_perawatan($id_user, $limit=0, $offset=0, $search='')
 	{
-		if($search != ''){
-			// print_r($search);exit;
-			$query = $this->db->query("SELECT a.*, b.kode_jenis, b.nama_jenis FROM perawatan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE a.create_by = ".$id_user." AND (
-					b.nama_jenis LIKE '%".$search."%' OR
-					a.kode_perawatan LIKE '%".$search."%' OR 
-					a.tgl_perawatan LIKE '%".$search."%' OR 
-					a.direktorat LIKE '%".$search."%' OR
-					a.nama_pemesan LIKE '%".$search."%' 
-				) AND status IN('S','R') LIMIT ".$limit.",".$offset);
-
+		if($id_user != 0){
+			$sort_user = "id_user = ".$id_user;
 		} else{
-			$query = $this->db->query("SELECT a.*, b.kode_jenis, b.nama_jenis FROM perawatan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE a.create_by = ".$id_user." AND status IN('S','R') LIMIT ".$limit.",".$offset);
+			$sort_user = "1=1";
+		}
+
+		if($offset != 0){
+			if($search != ''){
+				// print_r($search);exit;
+				$query = $this->db->query("SELECT a.*, b.kode_jenis, b.nama_jenis FROM perawatan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE a.create_by = ".$id_user." AND (
+						b.nama_jenis LIKE '%".$search."%' OR
+						a.kode_perawatan LIKE '%".$search."%' OR 
+						a.tgl_perawatan LIKE '%".$search."%' OR 
+						a.direktorat LIKE '%".$search."%' OR
+						a.nama_pemesan LIKE '%".$search."%' 
+					) AND status IN('S','R') LIMIT ".$limit.",".$offset);
+
+			} else{
+				$query = $this->db->query("SELECT a.*, b.kode_jenis, b.nama_jenis FROM perawatan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE a.create_by = ".$id_user." AND status IN('S','R') LIMIT ".$limit.",".$offset);
+			}
+		} else{
+			$query = $this->db->query("SELECT a.*, b.kode_jenis, b.nama_jenis FROM perawatan_barangs a INNER JOIN jenis_barangs b ON a.jenis_barang_id = b.id WHERE ".$sort_user." AND status IN('S','R')");
 		}
 		return $query->result_array();
 	}

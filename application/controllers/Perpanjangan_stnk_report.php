@@ -9,7 +9,7 @@ class Perpanjangan_stnk_report extends CI_Controller {
 			redirect('login'); 
 		}
 		$this->load->vars(load_default());
-		$this->load->model('Kendaraan_model');
+		$this->load->model('kendaraan_model');
 		$this->load->model('notif_model');
     }
 
@@ -44,11 +44,11 @@ class Perpanjangan_stnk_report extends CI_Controller {
 		}
 
 		if($search != ''){
-			$data['all_stnk'] = $this->Kendaraan_model->data_stnk_report($_SESSION['login']['id_user'], $limit, $offset, $search);
-			$all_pages = $this->Kendaraan_model->count_all_data_stnk_report($_SESSION['login']['id_user'], $search);
+			$data['all_stnk'] = $this->kendaraan_model->data_stnk_report($_SESSION['login']['id_user'], $limit, $offset, $search);
+			$all_pages = $this->kendaraan_model->count_all_data_stnk_report($_SESSION['login']['id_user'], $search);
 		} else{
-			$data['all_stnk'] = $this->Kendaraan_model->data_stnk_report($_SESSION['login']['id_user'], $limit, $offset);
-			$all_pages = $this->Kendaraan_model->count_all_data_stnk_report($_SESSION['login']['id_user']);
+			$data['all_stnk'] = $this->kendaraan_model->data_stnk_report($_SESSION['login']['id_user'], $limit, $offset);
+			$all_pages = $this->kendaraan_model->count_all_data_stnk_report($_SESSION['login']['id_user']);
 		}
 		
 		$pages = ($all_pages % $offset == 0 ? $all_pages / $offset : ($all_pages / $offset)+1 );
@@ -57,5 +57,19 @@ class Perpanjangan_stnk_report extends CI_Controller {
 		$data['limit'] = $limit;
 
 		$this->load->view('perpanjangan_stnk_report/data-search', $data);
+	}
+
+	public function print_data()
+	{
+		$data['title'] = "Print Data Perpanjangan STNK";
+
+		if(check_privilege('perpanjangan_stnk', 'is_approve') == TRUE){
+			$id_user = 0;
+		} else{
+			$id_user = $_SESSION['login']['id_user'];
+		}
+		$data['all_stnk'] = $this->kendaraan_model->data_stnk_report($id_user);
+		
+		$this->load->view('perpanjangan_stnk_report/print-data', $data);
 	}
 }

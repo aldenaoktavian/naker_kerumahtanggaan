@@ -53,31 +53,25 @@
 	<table width="100%">
 		<thead>
 			<tr>
-				<td>Kode Booking</td>
-				<td>Tanggal Booking</td>
-				<td>Jam Mulai Rapat</td>
-				<td>Jam Selesai Rapat</td>
-				<td>Nama Ruangan</td>
-				<td>Direktorat</td>
-				<td>Nama Pemesan</td>
-				<td>Jumlah Peserta</td>
-				<td>Agenda Meeting</td>
-				<td>Status</td>
+				<td>Kode Kendaraan</td>
+				<td>Jenis Kendaraan</td>
+				<td>Merk / Type</td>
+				<td>Tahun</td>
+				<td>No Polisi</td>
+				<td>Pemegang</td>
+				<td>Masa Berlaku Pada Pajak</td>
 			</tr>
 		</thead>
 		<tbody>
-		<?php foreach($all_booking_ruangan as $data){ ?>
+		<?php foreach($all_stnk as $data){ ?>
 			<tr>
-				<td><?php echo $data['kode_booking']; ?></td>
-				<td><?php echo date('d F Y', strtotime($data['tgl_book'])); ?></td>
-				<td><?php echo $data['start_time']; ?></td>
-				<td><?php echo $data['end_time']; ?></td>
-				<td><?php echo $data['nama_ruangan']; ?></td>
-				<td><?php echo $data['direktorat']; ?></td>
-				<td><?php echo $data['nama_pemesan']; ?></td>
-				<td><?php echo $data['jml_peserta']; ?></td>
-				<td><?php echo $data['agenda_meeting']; ?></td>
-				<td>Booked</td>
+				<td><?php echo $data['kode_kendaraan']; ?></td>
+				<td><?php echo $data['nama_jenis']; ?></td>
+				<td><?php echo $data['merk']; ?></td>
+				<td><?php echo $data['tahun']; ?></td>
+				<td><?php echo $data['no_pol']; ?></td>
+				<td><?php echo $data['pemegang']; ?></td>
+				<td><?php echo date('d F Y', strtotime($data['masa_stnk'])); ?></td>
 			</tr>
 		<?php } ?>
 		</tbody>

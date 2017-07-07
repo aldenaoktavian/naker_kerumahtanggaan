@@ -53,46 +53,46 @@
 	<table width="100%">
 		<thead>
 			<tr>
-				<td>Kode Booking</td>
-				<td>Tanggal Booking</td>
-				<td>Jam Mulai Rapat</td>
-				<td>Jam Selesai Rapat</td>
-				<td>Nama Ruangan</td>
-				<td>Direktorat</td>
+				<td>Kode Perawatan Barang</td>
+				<td>Jenis Barang</td>
+				<td>Tanggal Perawatan</td>
+				<td>Nama Barang</td>
 				<td>Nama Pemesan</td>
-				<td>Jumlah Peserta</td>
-				<td>Agenda Meeting</td>
+				<td>Direktorat</td>
+				<td>Alasan Perawatan</td>
+				<td>Lokasi</td>
+				<td>Usulan / Tindakan</td>
 				<td>Status</td>
 			</tr>
 		</thead>
 		<tbody>
 		<?php 
-			foreach($all_booking_ruangan as $data){ 
+			foreach($all_history_perawatan as $data){ 
 				switch ($data['status']) {
-                    case 'F':
-                        $status_booking = "Selesai";
+                    case 'S':
+                        $status = "Sukses";
                         break;
 
-                    case 'C':
-                        $status_booking = "Dibatalkan";
+                    case 'R':
+                        $status = "Ditolak";
                         break;
                     
                     default:
-                        $status_booking = "Terbooking";
+                        $status = "Requested";
                         break;
                 };
 		?>
 			<tr>
-				<td><?php echo $data['kode_booking']; ?></td>
-				<td><?php echo date('d F Y', strtotime($data['tgl_book'])); ?></td>
-				<td><?php echo $data['start_time']; ?></td>
-				<td><?php echo $data['end_time']; ?></td>
-				<td><?php echo $data['nama_ruangan']; ?></td>
-				<td><?php echo $data['direktorat']; ?></td>
+				<td><?php echo $data['kode_perawatan']; ?></td>
+				<td><?php echo $data['nama_jenis']; ?></td>
+				<td><?php echo date('d F Y', strtotime($data['tgl_perawatan'])); ?></td>
+				<td><?php echo $data['nama_barang']; ?></td>
 				<td><?php echo $data['nama_pemesan']; ?></td>
-				<td><?php echo $data['jml_peserta']; ?></td>
-				<td><?php echo $data['agenda_meeting']; ?></td>
-				<td><?php echo $status_booking; ?></td>
+				<td><?php echo $data['direktorat']; ?></td>
+				<td><?php echo $data['alasan_perawatan']; ?></td>
+				<td><?php echo $data['lokasi']; ?></td>
+				<td><?php echo $data['usulan']; ?></td>
+				<td><?php echo $status; ?></td>
 			</tr>
 		<?php } ?>
 		</tbody>

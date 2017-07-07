@@ -9,7 +9,7 @@ class Perawatan_barang extends CI_Controller {
 			redirect('login'); 
 		}
 		$this->load->vars(load_default());
-		$this->load->model('jenis_barang_model');
+		$this->load->model('Jenis_barang_model');
 		$this->load->model('notif_model');
     }
 
@@ -21,7 +21,7 @@ class Perawatan_barang extends CI_Controller {
 		$data['title'] = "Perawatan Barang";
 		$data['menu_title'] = "Perawatan Barang - List Data";
 
-		// $data['all_pengadaan_barang'] = $this->jenis_barang_model->data_pengadaan_barang($_SESSION['login']['id_user'], 20, 5);
+		// $data['all_pengadaan_barang'] = $this->Jenis_barang_model->data_pengadaan_barang($_SESSION['login']['id_user'], 20, 5);
 		// print_r($data);exit;
 
 		$this->load->view('perawatan_barang/data', $data);
@@ -49,11 +49,11 @@ class Perawatan_barang extends CI_Controller {
 		}
 
 		if($search != ''){
-			$data['all_perawatan_barang'] = $this->jenis_barang_model->data_perawatan_barang($_SESSION['login']['id_user'], $limit, $offset, $search);
-			$all_pages = $this->jenis_barang_model->count_all_perawatan_barang($_SESSION['login']['id_user'], $search);
+			$data['all_perawatan_barang'] = $this->Jenis_barang_model->data_perawatan_barang($_SESSION['login']['id_user'], $limit, $offset, $search);
+			$all_pages = $this->Jenis_barang_model->count_all_perawatan_barang($_SESSION['login']['id_user'], $search);
 		} else{
-			$data['all_perawatan_barang'] = $this->jenis_barang_model->data_perawatan_barang($_SESSION['login']['id_user'], $limit, $offset);
-			$all_pages = $this->jenis_barang_model->count_all_perawatan_barang($_SESSION['login']['id_user']);
+			$data['all_perawatan_barang'] = $this->Jenis_barang_model->data_perawatan_barang($_SESSION['login']['id_user'], $limit, $offset);
+			$all_pages = $this->Jenis_barang_model->count_all_perawatan_barang($_SESSION['login']['id_user']);
 		}
 		
 		$pages = ($all_pages % $offset == 0 ? $all_pages / $offset : ($all_pages / $offset)+1 );
@@ -102,7 +102,7 @@ class Perawatan_barang extends CI_Controller {
 					'modi_by'				=> $_SESSION['login']['id_user'],
 					'modified'				=> date('Y-m-d H:i:s')
 				);
-			$add_perawatan_barang = $this->jenis_barang_model->add_perawatan_barang(array_merge($post, $data_perawatan_barang));
+			$add_perawatan_barang = $this->Jenis_barang_model->add_perawatan_barang(array_merge($post, $data_perawatan_barang));
 			if($add_perawatan_barang != 0){
 
 				if(check_privilege('pengadaan_barang', 'is_approve') == TRUE){
@@ -132,7 +132,7 @@ class Perawatan_barang extends CI_Controller {
 				redirect('perawatan_barang');
 			}
 		} else{
-			$data['data_jenis_barang'] = $this->jenis_barang_model->all_barang();
+			$data['data_jenis_barang'] = $this->Jenis_barang_model->all_barang();
 		}
 
 		$this->load->view('perawatan_barang/add', $data);
@@ -148,8 +148,8 @@ class Perawatan_barang extends CI_Controller {
 
 		$data['id'] = $id;
 
-		$data['detail_request'] = $this->jenis_barang_model->detail_perawatan_barang($id,$_SESSION['login']['id_user']);
-		$data['jns_brg'] = $this->jenis_barang_model->detail_barang2($data['detail_request'][0]['jenis_barang_id']);
+		$data['detail_request'] = $this->Jenis_barang_model->detail_perawatan_barang($id,$_SESSION['login']['id_user']);
+		$data['jns_brg'] = $this->Jenis_barang_model->detail_barang2($data['detail_request'][0]['jenis_barang_id']);
 		// echo "<pre>";print_r($data['jns_brg']['nama_jenis']);echo "</pre>";exit;
 
 		$this->load->view('perawatan_barang/view', $data);
@@ -211,7 +211,7 @@ class Perawatan_barang extends CI_Controller {
 	         }
 
 			
-			$update_perawatan_brg = $this->jenis_barang_model->update_perawatan_barang($id, $data_request);
+			$update_perawatan_brg = $this->Jenis_barang_model->update_perawatan_barang($id, $data_request);
 			if($update_perawatan_brg == TRUE){
 				$_SESSION['perawatan_barang']['message_color'] = "green";
 				$_SESSION['perawatan_barang']['message'] = "Berhasil edit data perawatan barang";
@@ -222,9 +222,9 @@ class Perawatan_barang extends CI_Controller {
 				redirect('perawatan_barang');
 			}
 		} else{
-			$data['data_jenis_barang'] = $this->jenis_barang_model->all_barang();
-			$data['detail_request'] = $this->jenis_barang_model->detail_perawatan_barang($id,$_SESSION['login']['id_user']);
-			$data['jns_brg'] = $this->jenis_barang_model->detail_barang2($data['detail_request'][0]['jenis_barang_id']);
+			$data['data_jenis_barang'] = $this->Jenis_barang_model->all_barang();
+			$data['detail_request'] = $this->Jenis_barang_model->detail_perawatan_barang($id,$_SESSION['login']['id_user']);
+			$data['jns_brg'] = $this->Jenis_barang_model->detail_barang2($data['detail_request'][0]['jenis_barang_id']);
 			// echo "<pre>";print_r($data['jns_brg']['nama_jenis']);echo "</pre>";exit;
 		}
 
@@ -248,7 +248,7 @@ class Perawatan_barang extends CI_Controller {
 					'modified'			=> date('Y-m-d H:i:s'),
 					'modi_by'			=> $_SESSION['login']['id_user']
 				);
-			$update_perawatan_barang = $this->jenis_barang_model->update_perawatan_barang($id, $data_status);
+			$update_perawatan_barang = $this->Jenis_barang_model->update_perawatan_barang($id, $data_status);
 			if($update_perawatan_barang == TRUE){
 				$notif_receiver = $this->notif_model->get_email_by_module('perawatan_barang');
 				$notif_data = array(
@@ -265,16 +265,16 @@ class Perawatan_barang extends CI_Controller {
 				redirect('perawatan_barang');
 			}
 		}else{
-			$data['data_jenis_barang'] = $this->jenis_barang_model->all_barang();
-			$data['detail_request'] = $this->jenis_barang_model->detail_perawatan_barang($id,$_SESSION['login']['id_user']);
-			$data['jns_brg'] = $this->jenis_barang_model->detail_barang2($data['detail_request'][0]['jenis_barang_id']);
+			$data['data_jenis_barang'] = $this->Jenis_barang_model->all_barang();
+			$data['detail_request'] = $this->Jenis_barang_model->detail_perawatan_barang($id,$_SESSION['login']['id_user']);
+			$data['jns_brg'] = $this->Jenis_barang_model->detail_barang2($data['detail_request'][0]['jenis_barang_id']);
 		}
 		$this->load->view('perawatan_barang/approve', $data);
 	}
 
 	// public function delete($id)
 	// {
-	// 	$delete_req = $this->jenis_barang_model->delete_ruangan($id);
+	// 	$delete_req = $this->Jenis_barang_model->delete_ruangan($id);
 
 	// 	if($delete_ruangan == TRUE){
 	// 		$_SESSION['ruangan']['message_color'] = "green";
@@ -292,7 +292,7 @@ class Perawatan_barang extends CI_Controller {
 			redirect('gate/unauthorized');
 		}
 
-		$approve_perawatan = $this->jenis_barang_model->approve_perawatan($id, 'A');
+		$approve_perawatan = $this->Jenis_barang_model->approve_perawatan($id, 'A');
 		if($approve_perawatan == TRUE){
 			$_SESSION['approve_perawatan']['message_color'] = "green";
 			$_SESSION['approve_perawatan']['message'] = "Berhasil dilakukan Perawatan Barang";
@@ -302,19 +302,5 @@ class Perawatan_barang extends CI_Controller {
 			$_SESSION['approve_perawatan']['message'] = "Gagal Perawatan Barang. Silahkan coba kembali nanti.";
 			redirect('perawatan_barang');
 		}
-	}
-
-	public function print_data()
-	{
-		$data['title'] = "Print Data Perawatan Barang";
-
-		if(check_privilege('perawatan_barang', 'is_approve') == TRUE){
-			$id_user = 0;
-		} else{
-			$id_user = $_SESSION['login']['id_user'];
-		}
-		$data['all_perawatan_barang'] = $this->jenis_barang_model->data_perawatan_barang($id_user);
-		
-		$this->load->view('perawatan_barang/print-data', $data);
 	}
 }

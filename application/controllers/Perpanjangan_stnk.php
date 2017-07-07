@@ -9,7 +9,7 @@ class Perpanjangan_stnk extends CI_Controller {
 			redirect('login'); 
 		}
 		$this->load->vars(load_default());
-		$this->load->model('kendaraan_model');
+		$this->load->model('Kendaraan_model');
     }
 
 	public function index()
@@ -42,11 +42,11 @@ class Perpanjangan_stnk extends CI_Controller {
 		}
 
 		if($search != ''){
-			$data['all_stnk'] = $this->kendaraan_model->data_stnk($_SESSION['login']['id_user'], $limit, $offset, $search);
-			$all_pages = $this->kendaraan_model->count_all_data_stnk($_SESSION['login']['id_user'], $search);
+			$data['all_stnk'] = $this->Kendaraan_model->data_stnk($_SESSION['login']['id_user'], $limit, $offset, $search);
+			$all_pages = $this->Kendaraan_model->count_all_data_stnk($_SESSION['login']['id_user'], $search);
 		} else{
-			$data['all_stnk'] = $this->kendaraan_model->data_stnk($_SESSION['login']['id_user'], $limit, $offset);
-			$all_pages = $this->kendaraan_model->count_all_data_stnk($_SESSION['login']['id_user']);
+			$data['all_stnk'] = $this->Kendaraan_model->data_stnk($_SESSION['login']['id_user'], $limit, $offset);
+			$all_pages = $this->Kendaraan_model->count_all_data_stnk($_SESSION['login']['id_user']);
 		}
 		
 		$pages = ($all_pages % $offset == 0 ? $all_pages / $offset : ($all_pages / $offset)+1 );
@@ -54,7 +54,7 @@ class Perpanjangan_stnk extends CI_Controller {
 		$data['currentPage'] = $page;
 		$data['limit'] = $limit;
 
-		$data['is_update'] = (check_privilege('perpanjangan_stnk', 'is_update') != TRUE ? 'hidden' : '');
+		$data['is_update'] = (check_privilege('booking_ruangan', 'is_update') != TRUE ? 'hidden' : '');
 
 		$this->load->view('perpanjangan_stnk/data-search', $data);
 	}
@@ -63,7 +63,7 @@ class Perpanjangan_stnk extends CI_Controller {
 		if(check_privilege('perpanjangan_stnk', 'is_approve') != TRUE){
 			redirect('gate/unauthorized');
 		}
-		$konfirmasi_stnk = $this->kendaraan_model->konfirmasi_stnk($id);
+		$konfirmasi_stnk = $this->Kendaraan_model->konfirmasi_stnk($id);
 		if(($konfirmasi_stnk['insert_perpanjang'] == TRUE) && ($konfirmasi_stnk['update_kendaraan'] == TRUE)){
 			$_SESSION['perpanjangan_stnk']['message_color'] = "green";
 			$_SESSION['perpanjangan_stnk']['message'] = "Berhasil dilakukan Perpanjangan STNK";
@@ -73,19 +73,5 @@ class Perpanjangan_stnk extends CI_Controller {
 			$_SESSION['perpanjangan_stnk']['message'] = "Gagal dilakukan perpanjangan STNK. Silahkan coba kembali nanti.";
 			redirect('perpanjangan_stnk');
 		}
-	}
-
-	public function print_data()
-	{
-		$data['title'] = "Print Data Perpanjangan STNK";
-
-		if(check_privilege('perpanjangan_stnk', 'is_approve') == TRUE){
-			$id_user = 0;
-		} else{
-			$id_user = $_SESSION['login']['id_user'];
-		}
-		$data['all_stnk'] = $this->kendaraan_model->data_stnk($id_user);
-		
-		$this->load->view('perpanjangan_stnk/print-data', $data);
 	}
 }

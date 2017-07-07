@@ -82,26 +82,21 @@ class Kendaraan_model extends CI_Model {
 
 	// /* start about perpanjangan stnk */
 
-	function data_stnk($id_user, $limit=0, $offset=0, $search='')
+	function data_stnk($id_user, $limit, $offset, $search='')
 	{	
-		if($offset != 0){
-			if($search != ''){
-				$query = $this->db->query(" SELECT a.id, a.pemegang, a.no_pol, a.merk, a.masa_stnk, b.nama_jenis FROM kendaraans a INNER JOIN jenis_kendaraans b ON a.		jns_kendaraan_id = b.id WHERE (
-						(DATE_FORMAT(NOW(),'%Y-%m-%d') >= DATE_SUB(DATE_FORMAT(masa_stnk,'%Y-%m-%d'),INTERVAL 5 MONTH) AND DATE_FORMAT(NOW(),'%Y-%m-%d') <= DATE_FORMAT(masa_stnk,'%Y-%m-%d')) OR (DATE_FORMAT(NOW(),'%Y-%m-%d') >= DATE_FORMAT(masa_stnk,'%Y-%m-%d') AND DATE_FORMAT(NOW(),'%Y-%m-%d') <= DATE_ADD(masa_stnk,INTERVAL 1 MONTH))) AND (
-						a.merk LIKE '%".$search."%' OR
-						b.nama_jenis LIKE '%".$search."%' OR
-						a.no_pol LIKE '%".$search."%' OR
-						a.pemegang LIKE '%".$search."%' OR
-						a.masa_stnk LIKE '%".$search."%' 
-					) LIMIT ".$limit.",".$offset);
-			} else{
-				$query = $this->db->query("SELECT a.id, a.pemegang, a.no_pol, a.merk, a.masa_stnk, b.nama_jenis FROM kendaraans a INNER JOIN jenis_kendaraans b ON a.jns_kendaraan_id = b.id WHERE (
-					(DATE_FORMAT(NOW(),'%Y-%m-%d') >= DATE_SUB(DATE_FORMAT(masa_stnk,'%Y-%m-%d'),INTERVAL 5 MONTH) AND DATE_FORMAT(NOW(),'%Y-%m-%d') <= DATE_FORMAT(masa_stnk,'%Y-%m-%d')) OR (DATE_FORMAT(NOW(),'%Y-%m-%d') >= DATE_FORMAT(masa_stnk,'%Y-%m-%d') AND DATE_FORMAT(NOW(),'%Y-%m-%d') <= DATE_ADD(masa_stnk,INTERVAL 1 MONTH))) LIMIT ".$limit.",".$offset);
-				// echo "<pre>";print_r($query->result_array());echo "</pre>";exit;
-			}
+		if($search != ''){
+			$query = $this->db->query(" SELECT a.id, a.pemegang, a.no_pol, a.merk, a.masa_stnk, b.nama_jenis FROM kendaraans a INNER JOIN jenis_kendaraans b ON a.		jns_kendaraan_id = b.id WHERE (
+					(DATE_FORMAT(NOW(),'%Y-%m-%d') >= DATE_SUB(DATE_FORMAT(masa_stnk,'%Y-%m-%d'),INTERVAL 5 MONTH) AND DATE_FORMAT(NOW(),'%Y-%m-%d') <= DATE_FORMAT(masa_stnk,'%Y-%m-%d')) OR (DATE_FORMAT(NOW(),'%Y-%m-%d') >= DATE_FORMAT(masa_stnk,'%Y-%m-%d') AND DATE_FORMAT(NOW(),'%Y-%m-%d') <= DATE_ADD(masa_stnk,INTERVAL 1 MONTH))) AND (
+					a.merk LIKE '%".$search."%' OR
+					b.nama_jenis LIKE '%".$search."%' OR
+					a.no_pol LIKE '%".$search."%' OR
+					a.pemegang LIKE '%".$search."%' OR
+					a.masa_stnk LIKE '%".$search."%' 
+				) LIMIT ".$limit.",".$offset);
 		} else{
-			$query = $this->db->query("SELECT a.id, a.pemegang, a.no_pol, a.merk, a.masa_stnk, b.nama_jenis, a.tahun, a.kode_kendaraan FROM kendaraans a INNER JOIN jenis_kendaraans b ON a.jns_kendaraan_id = b.id WHERE (
-					(DATE_FORMAT(NOW(),'%Y-%m-%d') >= DATE_SUB(DATE_FORMAT(masa_stnk,'%Y-%m-%d'),INTERVAL 5 MONTH) AND DATE_FORMAT(NOW(),'%Y-%m-%d') <= DATE_FORMAT(masa_stnk,'%Y-%m-%d')) OR (DATE_FORMAT(NOW(),'%Y-%m-%d') >= DATE_FORMAT(masa_stnk,'%Y-%m-%d') AND DATE_FORMAT(NOW(),'%Y-%m-%d') <= DATE_ADD(masa_stnk,INTERVAL 1 MONTH)))");
+			$query = $this->db->query("SELECT a.id, a.pemegang, a.no_pol, a.merk, a.masa_stnk, b.nama_jenis FROM kendaraans a INNER JOIN jenis_kendaraans b ON a.jns_kendaraan_id = b.id WHERE (
+				(DATE_FORMAT(NOW(),'%Y-%m-%d') >= DATE_SUB(DATE_FORMAT(masa_stnk,'%Y-%m-%d'),INTERVAL 5 MONTH) AND DATE_FORMAT(NOW(),'%Y-%m-%d') <= DATE_FORMAT(masa_stnk,'%Y-%m-%d')) OR (DATE_FORMAT(NOW(),'%Y-%m-%d') >= DATE_FORMAT(masa_stnk,'%Y-%m-%d') AND DATE_FORMAT(NOW(),'%Y-%m-%d') <= DATE_ADD(masa_stnk,INTERVAL 1 MONTH))) LIMIT ".$limit.",".$offset);
+			// echo "<pre>";print_r($query->result_array());echo "</pre>";exit;
 		}
 		return $query->result_array();
 	}
@@ -150,24 +145,20 @@ class Kendaraan_model extends CI_Model {
 	/* end */
 	/* laporan perpanjangan stnk */
 
-	function data_stnk_report($id_user, $limit=0, $offset=0, $search='')
+	function data_stnk_report($id_user, $limit, $offset, $search='')
 	{	
-		if($offset != 0){
-			if($search != ''){
-				$query = $this->db->query("SELECT c.id, a.pemegang, a.no_pol, b.nama_jenis, c.masa_awal_perpanjangan, c.masa_akhir_perpanjangan, c.tgl_perpanjangan FROM kendaraans a INNER JOIN jenis_kendaraans b ON a.jns_kendaraan_id = b.id INNER JOIN perpanjangan_stnks c ON a.id = c.kendaraan_id WHERE (
-						b.nama_jenis LIKE '%".$search."%' OR
-						a.no_pol LIKE '%".$search."%' OR
-						a.pemegang LIKE '%".$search."%' OR
-						c.masa_akhir_perpanjangan LIKE '%".$search."%' OR
-						c.masa_awal_perpanjangan LIKE '%".$search."%' OR
-						c.tgl_perpanjangan LIKE '%".$search."%'
-					) LIMIT ".$limit.",".$offset);
-			} else{
-				$query = $this->db->query("SELECT c.id, a.pemegang, a.no_pol, b.nama_jenis, c.masa_awal_perpanjangan, c.masa_akhir_perpanjangan, c.tgl_perpanjangan FROM kendaraans a INNER JOIN jenis_kendaraans b ON a.jns_kendaraan_id = b.id INNER JOIN perpanjangan_stnks c ON a.id = c.kendaraan_id LIMIT ".$limit.",".$offset);
-				// echo "<pre>";print_r($query->result_array());echo "</pre>";exit;
-			}
+		if($search != ''){
+			$query = $this->db->query("SELECT c.id, a.pemegang, a.no_pol, b.nama_jenis, c.masa_awal_perpanjangan, c.masa_akhir_perpanjangan, c.tgl_perpanjangan FROM kendaraans a INNER JOIN jenis_kendaraans b ON a.jns_kendaraan_id = b.id INNER JOIN perpanjangan_stnks c ON a.id = c.kendaraan_id WHERE (
+					b.nama_jenis LIKE '%".$search."%' OR
+					a.no_pol LIKE '%".$search."%' OR
+					a.pemegang LIKE '%".$search."%' OR
+					c.masa_akhir_perpanjangan LIKE '%".$search."%' OR
+					c.masa_awal_perpanjangan LIKE '%".$search."%' OR
+					c.tgl_perpanjangan LIKE '%".$search."%'
+				) LIMIT ".$limit.",".$offset);
 		} else{
-			$query = $this->db->query("SELECT c.id, a.pemegang, a.no_pol, a.merk, a.masa_stnk, b.nama_jenis, c.masa_awal_perpanjangan, c.masa_akhir_perpanjangan, c.tgl_perpanjangan, a.tahun, a.kode_kendaraan FROM kendaraans a INNER JOIN jenis_kendaraans b ON a.jns_kendaraan_id = b.id INNER JOIN perpanjangan_stnks c ON a.id = c.kendaraan_id");
+			$query = $this->db->query("SELECT c.id, a.pemegang, a.no_pol, b.nama_jenis, c.masa_awal_perpanjangan, c.masa_akhir_perpanjangan, c.tgl_perpanjangan FROM kendaraans a INNER JOIN jenis_kendaraans b ON a.jns_kendaraan_id = b.id INNER JOIN perpanjangan_stnks c ON a.id = c.kendaraan_id LIMIT ".$limit.",".$offset);
+			// echo "<pre>";print_r($query->result_array());echo "</pre>";exit;
 		}
 		return $query->result_array();
 	}
@@ -189,6 +180,7 @@ class Kendaraan_model extends CI_Model {
 		}
 		return $query['jml'];
 	}
+
 
 	function ongoing_perpanjangan_stnk()
 	{

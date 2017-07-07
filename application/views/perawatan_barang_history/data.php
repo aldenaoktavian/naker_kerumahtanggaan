@@ -4,7 +4,6 @@
         <h4><?php echo $menu_title; ?></h4>
         <div style="margin-top:50px;">
             <div style="margin-bottom: 10px;">
-                <a href="<?php echo base_url().'perawatan_barang_history/print_data' ?>" target="_blank"><button class="btn btn-primary">Print All Data</button></a>
                 <input type="text" id="search" data-url="<?php echo base_url().'perawatan_barang_history/data_search/0/'; ?>" class="form-control" placeholder="Search" style="max-width: 250px;float: right;" />
             </div>
             <?php if(isset($_SESSION['perawatan_barang_history']['message'])){ ?>

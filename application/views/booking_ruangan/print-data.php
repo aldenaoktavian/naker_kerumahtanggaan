@@ -42,15 +42,11 @@
     	padding: 5px;
     	text-align: center;
     }
-
-    h3 {
-    	text-align: center;
-    }
     </style>
 </head>
 <body onload="window.print()">
 	<h3><?php echo $title; ?></h3><br/>
-	<table width="100%">
+	<table>
 		<thead>
 			<tr>
 				<td>Kode Booking</td>

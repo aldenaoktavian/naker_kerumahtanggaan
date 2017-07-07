@@ -3,7 +3,6 @@
 	<div class="blank-page">
     	<h4><?php echo $menu_title; ?></h4>
         <div style="margin-top:50px;">
-            <a href="<?php echo base_url().'perawatan_barang_selesai/print_data' ?>" target="_blank"><button class="btn btn-primary">Print All Data</button></a>
             <?php if(isset($_SESSION['perawatan_selesai']['message'])){ ?>
                 <div style="color:<?php echo $_SESSION['perawatan_selesai']['message_color']; ?>;"><?php echo $_SESSION['perawatan_selesai']['message']; ?></div>
             <?php } ?>

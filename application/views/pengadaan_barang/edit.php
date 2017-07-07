@@ -31,7 +31,7 @@
                         Jenis Barang
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <select name="jenis_barang_id" class="form-control">
+                        <select name="jenis_barang_id" class="form-control" required>
                         <?php foreach($data_pengadaan_barang as $data_barang){ ?>
                             <option value="<?php echo $data_barang['id']; ?>" <?php if($data_barang['id'] == $detail_request[0]['jenis_barang_id']){echo "selected";} ?> ><?php echo $data_barang['nama_jenis']; ?></option>
                         <?php } ?>
@@ -43,7 +43,7 @@
                         Tanggal Request
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" id="tgl_pengadaan" name="tgl_pengadaan" placeholder="Tanggal Request" value="<?php echo $detail_request[0]['tgl_pengadaan']; ?>" />
+                        <input type="text" class="form-control" id="tgl_pengadaan" name="tgl_pengadaan" placeholder="Tanggal Request" value="<?php echo $detail_request[0]['tgl_pengadaan']; ?>" required />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -51,7 +51,7 @@
                         Merk
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="merk" placeholder="Merk" value="<?php echo $detail_request[0]['merk']; ?>" />
+                        <input type="text" class="form-control" name="merk" placeholder="Merk" value="<?php echo $detail_request[0]['merk']; ?>" required />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -59,7 +59,7 @@
                         Qty
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="qty" placeholder="Qty" value="<?php echo $detail_request[0]['qty']; ?>" />
+                        <input type="text" class="form-control" name="qty" placeholder="Qty" value="<?php echo $detail_request[0]['qty']; ?>" required />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -67,7 +67,7 @@
                         Direktorat
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="direktorat" placeholder="Direktorat" value="<?php echo $detail_request[0]['direktorat']; ?>" />
+                        <input type="text" class="form-control" name="direktorat" placeholder="Direktorat" value="<?php echo $detail_request[0]['direktorat']; ?>" required />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -75,7 +75,7 @@
                         Nama Pemesan
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="nama_pemesan" placeholder="Nama Pemesan" value="<?php echo $detail_request[0]['nama_pemesan']; ?>" />
+                        <input type="text" class="form-control" name="nama_pemesan" placeholder="Nama Pemesan" value="<?php echo $detail_request[0]['nama_pemesan']; ?>" required/>
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">

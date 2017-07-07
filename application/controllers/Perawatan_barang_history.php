@@ -40,6 +40,13 @@ class Perawatan_barang_history extends CI_Controller {
 		} else{
 			$limit = 0;
 		}
+
+		if(check_privilege('perawatan_barang_history', 'is_approve') == TRUE){
+			$id_user = 0;
+		} else{
+			$id_user = $_SESSION['login']['id_user'];
+		}
+
 		// print_r($search);exit;
 		if($search != ''){
 			$data['all_history_perawatan'] = $this->jenis_barang_model->data_history_perawatan($_SESSION['login']['id_user'], $limit, $offset, $search);

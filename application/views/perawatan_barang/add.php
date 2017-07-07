@@ -29,7 +29,7 @@
                         Jenis Barang
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <select name="jenis_barang_id" class="form-control">
+                        <select name="jenis_barang_id" class="form-control" required>
                         <?php foreach($data_jenis_barang as $data_barang){ ?>
                             <option value="<?php echo $data_barang['id']; ?>"><?php echo $data_barang['nama_jenis']; ?></option>
                         <?php } ?>
@@ -41,7 +41,7 @@
                         Tanggal Perawatan
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" id="tgl_perawatan" name="tgl_perawatan" placeholder="Tanggal Request" />
+                        <input type="text" class="form-control" id="tgl_perawatan" name="tgl_perawatan" placeholder="Tanggal Request" required />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -49,7 +49,7 @@
                         Nama Barang
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="nama_barang" placeholder="Nama Barang" />
+                        <input type="text" class="form-control" name="nama_barang" placeholder="Nama Barang" required />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -57,7 +57,7 @@
                         Nama Pemesan
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="nama_pemesan" placeholder="Nama Pemesan" />
+                        <input type="text" class="form-control" name="nama_pemesan" placeholder="Nama Pemesan" required />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -65,7 +65,7 @@
                         Direktorat
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="direktorat" placeholder="Direktorat" />
+                        <input type="text" class="form-control" name="direktorat" placeholder="Direktorat" required />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -73,7 +73,7 @@
                         Alasan Perawatan
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <textarea class="form-control" name="alasan_perawatan" placeholder="Alasan Perawatan" style="height: 100px; resize: none;" /></textarea>
+                        <textarea class="form-control" name="alasan_perawatan" placeholder="Alasan Perawatan" style="height: 100px; resize: none;" required /></textarea>
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -81,7 +81,7 @@
                         Lokasi
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <textarea class="form-control" name="lokasi" placeholder="Lokasi" style="height: 100px; resize: none;" /></textarea>
+                        <textarea class="form-control" name="lokasi" placeholder="Lokasi" style="height: 100px; resize: none;" required /></textarea>
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -97,7 +97,7 @@
                         Bukti Foto Barang
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="file" name="bukti_foto_sebelum" placeholder="Bukti Foto Barang" />
+                        <input type="file" name="bukti_foto_sebelum" placeholder="Bukti Foto Barang" required />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">

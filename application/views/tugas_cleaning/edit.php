@@ -19,7 +19,7 @@
                         Bulan Tugas
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <select name="bulan_tugas" class="form-control">
+                        <select name="bulan_tugas" class="form-control" required>
                         <?php foreach($bulan as $a=>$b){ ?>
                             <option value="<?php echo $a; ?>" <?php if($b == $cleaning[0]['bulan_tugas']){echo "selected";} ?> ><?php echo $b; ?></option>
                         <?php } ?>
@@ -31,7 +31,7 @@
                         Tahun Tugas
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <select name="tahun_tugas" class="form-control">
+                        <select name="tahun_tugas" class="form-control" required>
                         <?php foreach($tahun as $c=>$d){ ?>
                             <option value="<?php echo $c; ?>" <?php if($d == $cleaning[0]['tahun_tugas']){echo "selected";} ?> ><?php echo $d; ?></option>
                         <?php } ?>

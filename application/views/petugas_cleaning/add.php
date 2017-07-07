@@ -17,7 +17,7 @@
                         Nama Petugas
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="nama_petugas" placeholder="Nama Petugas" />
+                        <input type="text" class="form-control" name="nama_petugas" placeholder="Nama Petugas" required />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -25,7 +25,7 @@
                         Jenis Kelamin
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <select class="form-control" name="jns_kelamin">
+                        <select class="form-control" name="jns_kelamin" required>
                             <option value="L">Laki - Laki</option>
                             <option value="P">Perempuan</option>
                         </select>
@@ -36,7 +36,7 @@
                         No Telepon
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <input type="text" class="form-control" name="no_telp" placeholder="No Telepon" />
+                        <input type="text" class="form-control" name="no_telp" placeholder="No Telepon" required />
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -44,7 +44,7 @@
                         Alamat
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <textarea class="form-control" name="alamat" placeholder="Alamat" style="height: 100px; resize: none;" /></textarea>
+                        <textarea class="form-control" name="alamat" placeholder="Alamat" style="height: 100px; resize: none;" required /></textarea>
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">

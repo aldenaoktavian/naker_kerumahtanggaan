@@ -50,7 +50,11 @@ class Tugas_security extends CI_Controller {
 		}
 		
 		$data['bulan'] = array(1=>'Januari',2=>'Februari',3=>'Maret',4=>'April',5=>'Mei',6=>'Juni',7=>'Juli',8=>'Agustus',9=>'September',10=>'Oktober',11=>'November',12=>'Desember');
-		$data['tahun'] = array('2015'=>'2015','2016'=>'2016','2017'=>'2017','2018'=>'2018');
+		for($i=date("Y")-3;$i<=date("Y")+3;$i++) {
+			$tahun[$i] = $i;
+			
+		}
+		$data['tahun'] = $tahun;
 		// print_r($data['all_tugas_cleaning']);exit;
 		$pages = ($all_pages % $offset == 0 ? $all_pages / $offset : ($all_pages / $offset)+1 );
 		$data['pages'] = (int)$pages;
@@ -85,6 +89,12 @@ class Tugas_security extends CI_Controller {
 					'modi_by'		=> $_SESSION['login']['id_user'],
 					'modified'		=> date('Y-m-d H:i:s')
 				);
+			$cek_jadwal = $this->petugas_model->cek_jadwal('S',$data_cleaning['bulan_tugas'],$data_cleaning['tahun_tugas']);
+			if($cek_jadwal > 0){
+				$_SESSION['tugas_cleaning']['message_color'] = "red";
+				$_SESSION['tugas_cleaning']['message'] = "Gagal menambahkan jadwal tugas cleaning. Data periode tsb sudah ada";
+				redirect('tugas_cleaning');
+			}
 			$add_jadwal = $this->petugas_model->add_jadwal($data_security);
 			foreach ($post['data']['detail'] as $a => $b) {
 				$detail_security = array(
@@ -110,7 +120,12 @@ class Tugas_security extends CI_Controller {
 		} 
 		else{
 			$data['bulan'] = array(1=>'Januari',2=>'Februari',3=>'Maret',4=>'April',5=>'Mei',6=>'Juni',7=>'Juli',8=>'Agustus',9=>'September',10=>'Oktober',11=>'November',12=>'Desember');
-			$data['tahun'] = array('2015'=>'2015','2016'=>'2016','2017'=>'2017','2018'=>'2018');
+			for($i=date("Y")-3;$i<=date("Y")+3;$i++) {
+				$tahun[$i] = $i;
+				
+			}
+			$data['tahun'] = $tahun;
+			$data['current_tahun'] = date("Y");
 			$data['data_petugas_security'] = $this->petugas_model->all_petugas_security();
 			// echo "<pre>";print_r($data['data_petugas_cleaning']);echo "</pre>";exit;
 
@@ -172,7 +187,11 @@ class Tugas_security extends CI_Controller {
 			}
 		} else{
 			$data['bulan'] = array(1=>'Januari',2=>'Februari',3=>'Maret',4=>'April',5=>'Mei',6=>'Juni',7=>'Juli',8=>'Agustus',9=>'September',10=>'Oktober',11=>'November',12=>'Desember');
-			$data['tahun'] = array('2015'=>'2015','2016'=>'2016','2017'=>'2017','2018'=>'2018');
+			for($i=date("Y")-3;$i<=date("Y")+3;$i++) {
+				$tahun[$i] = $i;
+				
+			}
+			$data['tahun'] = $tahun;
 			$data['data_petugas_security'] = $this->petugas_model->all_petugas_security();
 			$data['security'] = $this->petugas_model->detail_jadwal($id);
 			$data['detail_security'] = $this->petugas_model->detail_jadwal_detail($id);
@@ -202,7 +221,11 @@ class Tugas_security extends CI_Controller {
 		}
 
 		$data['bulan'] = array(1=>'Januari',2=>'Februari',3=>'Maret',4=>'April',5=>'Mei',6=>'Juni',7=>'Juli',8=>'Agustus',9=>'September',10=>'Oktober',11=>'November',12=>'Desember');
-		$data['tahun'] = array('2015'=>'2015','2016'=>'2016','2017'=>'2017','2018'=>'2018');
+		for($i=date("Y")-3;$i<=date("Y")+3;$i++) {
+			$tahun[$i] = $i;
+			
+		}
+		$data['tahun'] = $tahun;
 		// $data['jns_brg'] = $this->Jenis_barang_model->detail_barang2($data['detail_request'][0]['jenis_barang_id']);
 		// echo "<pre>";print_r($data['detail_cleaning_detail']);echo "</pre>";exit;
 

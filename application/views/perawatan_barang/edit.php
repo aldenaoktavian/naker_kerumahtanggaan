@@ -31,7 +31,7 @@
                             Jenis Barang
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                            <select name="jenis_barang_id" class="form-control">
+                            <select name="jenis_barang_id" class="form-control" required>
                             <?php foreach($data_jenis_barang as $data_barang){ ?>
                                 <option value="<?php echo $data_barang['id']; ?>" <?php if($data_barang['id'] == $detail_request[0]['jenis_barang_id']){echo "selected";} ?> ><?php echo $data_barang['nama_jenis']; ?></option>
                             <?php } ?>
@@ -43,7 +43,7 @@
                             Tanggal Perawatan
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control" id="tgl_perawatan" name="tgl_perawatan" placeholder="Tanggal Perawatan" value="<?php echo $detail_request[0]['tgl_perawatan']; ?>" />
+                            <input type="text" class="form-control" id="tgl_perawatan" name="tgl_perawatan" placeholder="Tanggal Perawatan" value="<?php echo $detail_request[0]['tgl_perawatan']; ?>" required />
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -51,7 +51,7 @@
                             Nama Barang
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control" name="nama_barang" placeholder="Nama Barang" value="<?php echo $detail_request[0]['nama_barang']; ?>" />
+                            <input type="text" class="form-control" name="nama_barang" placeholder="Nama Barang" value="<?php echo $detail_request[0]['nama_barang']; ?>" required />
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -59,7 +59,7 @@
                             Nama Pemesan
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control" name="nama_pemesan" placeholder="Nama Pemesan" value="<?php echo $detail_request[0]['nama_pemesan']; ?>" />
+                            <input type="text" class="form-control" name="nama_pemesan" placeholder="Nama Pemesan" value="<?php echo $detail_request[0]['nama_pemesan']; ?>" required />
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -67,7 +67,7 @@
                             Direktorat
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control" name="direktorat" placeholder="Direktorat" value="<?php echo $detail_request[0]['direktorat']; ?>" />
+                            <input type="text" class="form-control" name="direktorat" placeholder="Direktorat" value="<?php echo $detail_request[0]['direktorat']; ?>" required />
                         </div>
                     </div>
                     
@@ -76,7 +76,7 @@
                             Alasan Perawatan
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                            <textarea class="form-control" name="alasan_perawatan" placeholder="Alasan Perawatan" style="height: 100px; resize: none;" /><?php echo $detail_request[0]['alasan_perawatan']; ?></textarea>
+                            <textarea class="form-control" name="alasan_perawatan" placeholder="Alasan Perawatan" style="height: 100px; resize: none;" required /><?php echo $detail_request[0]['alasan_perawatan']; ?></textarea>
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
@@ -84,7 +84,7 @@
                             Lokasi
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                            <textarea class="form-control" name="lokasi" placeholder="Lokasi" style="height: 100px; resize: none;" /><?php echo $detail_request[0]['lokasi']; ?></textarea>
+                            <textarea class="form-control" name="lokasi" placeholder="Lokasi" style="height: 100px; resize: none;" required /><?php echo $detail_request[0]['lokasi']; ?></textarea>
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space">
